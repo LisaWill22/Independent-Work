@@ -23,4 +23,10 @@ app.config(function($stateProvider, $urlRouterProvider){
             'container': { templateUrl: '/templates/account/login.html' }
         }
     })
+    .state('signup', {
+        url: '/signup',
+        views: {
+            'container': { templateUrl: '/templates/account/signup.html' }
+        }
+    })
 });
