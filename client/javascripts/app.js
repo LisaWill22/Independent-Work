@@ -1,4 +1,4 @@
-var app = angular.module('independent-work-app', ['ui.router']);
+var app = angular.module('independent-work-app', ['ngAnimate','ui.router']);
 
 app.config(function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise('/');
@@ -15,6 +15,12 @@ app.config(function($stateProvider, $urlRouterProvider){
             'new_way@home': { templateUrl: '/templates/home/new_way.html' },
             'join@home': { templateUrl: '/templates/home/join.html' },
             'contact@home': { templateUrl: '/templates/home/contact.html' }
+        }
+    })
+    .state('login', {
+        url: '/login',
+        views: {
+            'container': { templateUrl: '/templates/account/login.html' }
         }
     })
 });
