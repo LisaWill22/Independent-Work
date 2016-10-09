@@ -15,5 +15,5 @@ angular.module('auth', [
                 views: {
                     'container': { templateUrl: '/modules/auth/views/logout.html' }
                 }
-            })
+            });
     });

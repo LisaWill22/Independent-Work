@@ -3,7 +3,7 @@
 angular.module('signup', [
         'ui.router',
         'ngAnimate'
-    ]).config(function($stateProvider, $urlRouterProvider){
+    ]).config(function($stateProvider){
 
         $stateProvider
             .state('app.signup', {

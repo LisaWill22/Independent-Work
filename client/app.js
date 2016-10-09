@@ -3,7 +3,8 @@ var app = angular.module('independent-work-app', [
     'ui.router',
     'home',
     'auth',
-    'signup'
+    'signup',
+    'dashboard'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider){
