@@ -3,9 +3,8 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var mongoskin = require('mongoskin');
-var config = require('../config/db');
 
-var db = mongoskin.db(config.MONGO_URI, {safe: true});
+var db = mongoskin.db(process.env.MONGODB_URI, {safe: true});
 /*
  |--------------------------------------------------------------------------
  | Generic collections

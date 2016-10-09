@@ -1,14 +1,13 @@
 var mongoose = require('mongoose');
-var config = require('../config/db');
 
-mongoose.connect(config.MONGO_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function (callback) {
-  console.log('db connected to', config.MONGO_URI);
+  console.log('db connected to', process.env.MONGODB_URI);
 })
 
 exports.db = db;

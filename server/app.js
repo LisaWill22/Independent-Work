@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// Setups up the dot env Stuff
+require('dotenv').config();
+
+// Route stuff
 var routes = require('./routes');
 var apiRoutes = require('./routes/api');
 
