@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var passport = require('passport');
 
 // Setups up the dot env Stuff
 require('dotenv').config();
@@ -11,6 +13,7 @@ require('dotenv').config();
 // Route stuff
 var routes = require('./routes');
 var apiRoutes = require('./routes/api');
+var authRoutes = require('./routes/auth');
 
 // DB Stuff
 var db = require('./db');
@@ -22,14 +25,31 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+// Set up basic express app stuffs
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Required for passport
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Serve up the client folder
 app.use(express.static(path.join(__dirname, '../client')));
+
+// Bring in routes
 app.use(routes);
 app.use('/api', apiRoutes);
+// app.use('/api/auth', authRoutes);
+require('./routes/auth')(app, passport);         // Load our routes and pass in our app and fully configured passport
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

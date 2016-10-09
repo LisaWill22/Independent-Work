@@ -10,17 +10,24 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "~1.15.1",
     "bower": "^1.7.9",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "dotenv": "^2.0.0",
     "express": "~4.13.4",
+    "express-session": "^1.14.1",
     "jade": "~1.11.0",
+    "lodash": "^4.16.4",
+    "moment": "^2.15.1",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.3",
     "mongoskin": "^2.1.0",
     "morgan": "~1.7.0",
+    "passport": "^0.3.2",
+    "passport-google": "^0.3.0",
+    "passport-local": "^1.0.0",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
