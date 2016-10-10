@@ -4,16 +4,21 @@ angular.module('auth', [
         'ui.router'
     ]).config(function($stateProvider) {
         $stateProvider
-            .state('app.login', {
-                url: '/login',
+            .state('app.auth', {
+                url: '',
+                controller: 'AuthCtrl',
                 views: {
-                    'container': { templateUrl: '/modules/auth/views/login.html' }
+                    'container': { templateUrl: '/modules/auth/views/index.html' }
                 }
             })
-            .state('app.logout', {
+            .state('app.auth.login', {
+                url: '/login',
+                templateUrl: '/modules/auth/views/login.html',
+                controller: 'LoginCtrl'
+            })
+            .state('app.auth.logout', {
                 url: '/logout',
-                views: {
-                    'container': { templateUrl: '/modules/auth/views/logout.html' }
-                }
+                templateUrl: '/modules/auth/views/logout.html',
+                controller: 'LogoutCtrl'
             });
     });

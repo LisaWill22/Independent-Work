@@ -10,7 +10,7 @@ angular.module('signup', [
                 url: '/signup',
                 controller: 'SignupCtrl',
                 views: {
-                    'container': { templateUrl: '/modules/signup/views/signup.html' }
+                    'container': { templateUrl: '/modules/signup/views/index.html' }
                 }
             })
             .state('app.signup.contractor', {

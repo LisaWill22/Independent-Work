@@ -11,7 +11,7 @@ app.config(function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('app', {
-            template: '<div ui-view="container"></div>',
+            templateUrl: 'layout.html',
             controller: 'AppCtrl',
             abstract: true
         });
