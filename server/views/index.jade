@@ -3,7 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Raleway:300,400,600,700%7COpen+Sans:300,400,600,700%7CHandlee')
-    link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/bower_components/angular-toastr/dist/angular-toastr.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
   body(ng-app='independent-work-app')
     div(ui-view class="height-100")
@@ -11,6 +11,9 @@ html
     script(src='/bower_components/angular/angular.js')
     script(src='/bower_components/angular-animate/angular-animate.js')
     script(src='/bower_components/angular-ui-router/release/angular-ui-router.js')
+    
+    script(src='/bower_components/angular-toastr/dist/angular-toastr.js')
+    script(src='/bower_components/angular-toastr/dist/angular-toastr.tpls.js')
 
     script(src='/bower_components/jquery/dist/jquery.js')
     script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
@@ -23,6 +26,8 @@ html
     
     script(src='modules/auth/auth.js')
     script(src='modules/auth/auth.ctrl.js')
+    script(src='modules/auth/login.ctrl.js')
+    script(src='modules/auth/logout.ctrl.js')
     
     script(src='modules/signup/signup.js')
     script(src='modules/signup/signup.ctrl.js')

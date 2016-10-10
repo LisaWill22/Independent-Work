@@ -10,6 +10,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "angular-toastr": "^2.1.1",
     "bcrypt": "^0.8.7",
     "body-parser": "~1.15.1",
     "bootswatch": "^3.3.7",

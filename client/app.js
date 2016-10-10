@@ -1,13 +1,16 @@
 var app = angular.module('independent-work-app', [
     'ngAnimate',
     'ui.router',
+    // IW modules
     'home',
     'auth',
     'signup',
-    'dashboard'
+    'dashboard',
+    // third party components
+    'toastr'
 ]);
 
-app.config(function($stateProvider, $urlRouterProvider){
+app.config(function($stateProvider, $urlRouterProvider, toastrConfig){
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('app', {
@@ -15,4 +18,8 @@ app.config(function($stateProvider, $urlRouterProvider){
             controller: 'AppCtrl',
             abstract: true
         });
+
+    angular.extend(toastrConfig, {
+        positionClass: 'toast-bottom-right'
+    });
 });
