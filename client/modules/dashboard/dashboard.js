@@ -6,11 +6,11 @@ angular.module('dashboard', [
     ]).config(function($stateProvider){
 
         $stateProvider
-            .state('app.dash', {
-                url: '/dash',
+            .state('app.dashboard', {
+                url: '/dashboard',
                 controller: 'DashCtrl',
                 views: {
-                    'container': { templateUrl: '/modules/dash/views/dash.html' }
+                    'container': { templateUrl: '/modules/dashboard/views/index.html' }
                 }
             });
     });

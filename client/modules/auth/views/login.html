@@ -1,19 +1,26 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <div class="account-wall">
-                <h1 class="text-center login-title">Contractor Sign Up</h1>
-                <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
-                    alt="">
-                <form class="form-signin">
-                    <input type="text" class="form-control" placeholder="Email" required autofocus>
-                    <input type="password" class="form-control" placeholder="Password" required>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="signup()">
-                        Sign in
-                    </button>
-                </form>
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form role="form" type="nosubmit">
+                        <h2>Login</h2>
+                        <hr class="colorgraph">
+                        <div class="form-group">
+                            <input ng-model="data.email" type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+                        </div>
+                        <div class="form-group">
+                            <input ng-model="data.password" type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+                        </div>
+                        <hr class="colorgraph">
+                        <div class="row-fluid clearfix">
+                            <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                <div class="btn btn-primary btn-block btn-lg" tabindex="7" ng-click="login()">Log In</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <a href="#" class="text-center new-account" ui-sref="app.signup">Sign up for account </a>
-        </div>
+    	</div>
     </div>
 </div>
