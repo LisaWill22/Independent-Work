@@ -42,6 +42,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Bring in the passport configs
+require('./config/passport')(passport);
+
 // Serve up the client folder
 app.use(express.static(path.join(__dirname, '../client')));
 

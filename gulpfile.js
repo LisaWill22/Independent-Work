@@ -16,7 +16,7 @@ gulp.task('clean', function(){
 });
 
 gulp.task('less', function(){
-    return gulp.src('./client/stylesheets/less/**/*.less')
+    return gulp.src('./client/stylesheets/less/imports.less')
             .pipe(less())
             .pipe(concat('style.css'))
             .pipe(minify())
