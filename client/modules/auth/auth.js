@@ -5,7 +5,6 @@ angular.module('auth', [
     ]).config(function($stateProvider) {
         $stateProvider
             .state('app.auth', {
-                url: '',
                 controller: 'AuthCtrl',
                 views: {
                     'container': { templateUrl: '/modules/auth/views/index.html' }

@@ -5,9 +5,9 @@ angular.module('signup')
         console.log('ContractorSignupCtrl loaded >>', $scope);
 
         $scope.data = {};
+        $scope.data.contracter = true;
 
         $scope.signup = function () {
-            console.log('clicked');
             $http.post('/auth/signup', $scope.data)
                 .then(function(response) {
                     console.log(response);

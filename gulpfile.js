@@ -4,7 +4,8 @@ var gulp    = require('gulp'),
     concat  = require('gulp-concat'),
     minify  = require('gulp-minify-css'),
     watch   = require('gulp-watch'),
-    del     = require('del');
+    del     = require('del'),
+    nodemon = require('gulp-nodemon');
 
 gulp.task('install', function(){
     return gulp.src(['./bower.json', './package.json'])
@@ -25,6 +26,11 @@ gulp.task('less', function(){
 
 gulp.task('default', ['less'], function(){
     var watcher = gulp.watch('./client/stylesheets/less/**/*.less', ['less']);
+    nodemon({
+        script: 'server.js',
+        ext: 'js html',
+        env: { 'NODE_ENV': 'development' }
+    });
     watcher.on('change', function(event){
         console.log('File ' + event.path + ' was ' + event.type);
     });
