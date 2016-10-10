@@ -55,12 +55,24 @@ module.exports = function(passport) {
               // if there is no user with that email
               // create the user
               var newUser = new User();
+              var roles = [];
+
+              if ( req.body.contractor ) {
+                  roles.push('Contractor')
+              }
+
+              if ( req.body.employer ) {
+                  roles.push('Employer');
+              }
 
               // set the user's local credentials
+              newUser.firstName = req.body.firstName || '';
+              newUser.lastName = req.body.lastName || '';
               newUser.local.email = email;
               newUser.local.password = newUser.generateHash(password);
               newUser.skills = [];
-              newUser.roles = [];
+              newUser.roles = roles;
+              newUser._accountCreated = new Date().toISOString();
 
               // save the user
               newUser.save(function(err) {
@@ -95,7 +107,7 @@ module.exports = function(passport) {
 
            // if no user is found, return the message
            if (!user)
-               return done(null, false, res.send({ message: 'No user found' })); // req.flash is the way to set flashdata using connect-flash
+               return done(null, false, { message: 'No user found' } ); // req.flash is the way to set flashdata using connect-flash
 
            // if the user is found but the password is wrong
            if (!user.validPassword(password))

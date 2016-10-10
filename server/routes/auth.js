@@ -10,8 +10,8 @@ module.exports = function(app, passport) {
             res.json(req.user);
         });
 
-    router.route('/registration')
-        .post(passport.authenticate('local-signup', {}), function(res, rest, next) {
+    router.route('/signup')
+        .post(passport.authenticate('local-signup', {}), function(req, res, next) {
             if (req.user) {
               res.json(req.user);
             } else {
