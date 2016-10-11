@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" ng-class="{ 'slim': slimHeader }" slim-header>
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#" ui-sref="app.home">
@@ -7,8 +7,12 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-            <li><a class="btn btn-primary text-white" href="#" ui-sref="app.signup">Sign Up</a></li>
-            <li><a class="btn btn-link text-white" href="#" ui-sref="app.auth.login">Log In</a></li>
+            <li>
+                <a class="btn btn-primary" href="#" ui-sref="app.signup">Sign Up</a>
+            </li>
+            <li>
+                <a class="btn btn-link" href="#" ui-sref="app.auth.login">Log In</a>
+            </li>
         </ul>
     </div>
   </div>
