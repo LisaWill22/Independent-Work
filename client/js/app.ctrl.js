@@ -7,7 +7,7 @@ angular.module('independent-work-app')
     .directive('slimHeader', function ($window) {
         return function(scope, element, attrs) {
             angular.element($window).bind("scroll", function() {
-                 if (this.pageYOffset >= 50) {
+                 if (this.pageYOffset >= 300) {
                      scope.slimHeader = true;
                  } else {
                      scope.slimHeader = false;

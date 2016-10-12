@@ -1,11 +1,9 @@
 'use strict';
 
 angular.module('signup')
-    .controller('ContractorSignupCtrl', function($scope, $http, $state, toastr) {
-        console.log('ContractorSignupCtrl loaded >>', $scope);
+    .controller('SignupCtrl', function($scope, $http, toastr) {
 
-        $scope.data = {};
-        $scope.data.contracter = true;
+        console.log('SignupController loaded >>', $scope);
 
         $scope.signup = function () {
             $http.post('/auth/signup', $scope.data)

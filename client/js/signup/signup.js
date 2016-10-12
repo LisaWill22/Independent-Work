@@ -8,19 +8,21 @@ angular.module('signup', [
         $stateProvider
             .state('app.signup', {
                 url: '/signup',
-                controller: 'SignupCtrl',
                 views: {
-                    'container': { templateUrl: '/modules/signup/views/index.html' }
+                    'container': {
+                        controller: 'SignupCtrl',
+                        templateUrl: '/js/signup/views/index.html'
+                    }
                 }
             })
             .state('app.signup.contractor', {
                 url: '/contractor',
                 controller: 'ContractorSignupCtrl',
-                templateUrl: '/modules/signup/views/signup-contractor.html'
+                templateUrl: '/js/signup/views/signup-contractor.html'
             })
             .state('app.signup.employer', {
                 url: '/employer',
                 controller: 'EmployerSignupCtrl',
-                templateUrl: '/modules/signup/views/signup-employer.html'
+                templateUrl: '/js/signup/views/signup-employer.html'
             });
     });

@@ -14,11 +14,12 @@ app.config(function($stateProvider, $urlRouterProvider, toastrConfig){
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('app', {
-            templateUrl: 'layout.html',
+            templateUrl: 'templates/layout.html',
             controller: 'AppCtrl',
             abstract: true
         });
 
+    // Set the toastr configs
     angular.extend(toastrConfig, {
         positionClass: 'toast-bottom-right'
     });
