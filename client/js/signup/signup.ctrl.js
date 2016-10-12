@@ -8,6 +8,7 @@ angular.module('signup')
         $scope.signup = function () {
             $http.post('/auth/signup', $scope.data)
                 .then(function(response) {
+                    console.log($scope.data);
                     console.log(response);
                     toastr.success('You have successfully created an account!');
                     $state.go('app.auth.login');

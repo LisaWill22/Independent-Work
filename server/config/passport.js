@@ -70,9 +70,8 @@ module.exports = function(passport) {
               newUser.lastName = req.body.lastName || '';
               newUser.local.email = email;
               newUser.local.password = newUser.generateHash(password);
-              newUser.skills = [];
-              newUser.roles = roles;
               newUser._accountCreated = new Date().toISOString();
+              newUser.roles = req.body.roles || [];
 
               // save the user
               newUser.save(function(err) {
