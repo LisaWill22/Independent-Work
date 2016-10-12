@@ -1,14 +1,17 @@
-var gulp    = require('gulp'),
-    install = require('gulp-install'),
-    less    = require('gulp-less'),
-    concat  = require('gulp-concat'),
-    minify  = require('gulp-minify-css'),
-    watch   = require('gulp-watch'),
-    jshint  = require('gulp-jshint'),
-    del     = require('del'),
-    nodemon = require('gulp-nodemon'),
-    plumber = require('gulp-plumber');
-    runSequence = require('gulp-run-sequence');
+'use strict';
+
+const gulp    = require('gulp');
+const install = require('gulp-install');
+const less    = require('gulp-less');
+const concat  = require('gulp-concat');
+const minify  = require('gulp-minify-css');
+const watch   = require('gulp-watch');
+const jshint  = require('gulp-jshint');
+const del     = require('del');
+const nodemon = require('gulp-nodemon');
+const plumber = require('gulp-plumber');
+const runSequence = require('gulp-run-sequence');
+const bable   = require('gulp-babel')
 
 var browserSync = require('browser-sync').create();
 
