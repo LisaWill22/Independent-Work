@@ -7,7 +7,7 @@
 // Core variables and mixins
 @import "../../bower_components/bootstrap/less/variables.less";
 // Overwrite w/ bootswatch
-@import "../../../node_modules/bootswatch/simplex/variables.less";
+// @import "../../../node_modules/bootswatch/simplex/variables.less";
 // Overwrite w/ my variables
 @import "variables";
 @import "../../bower_components/bootstrap/less/mixins.less";
@@ -64,8 +64,11 @@
 
 // Bring in font-awesome
 @import "../../bower_components/font-awesome/less/font-awesome.less";
+// Bring in toaster
+@import (less) "../../bower_components/angular-toastr/dist/angular-toastr.css";
 
 // IW Custom Less
+@import 'fonts';
 @import 'common';
 @import 'navbar';
 @import 'home';

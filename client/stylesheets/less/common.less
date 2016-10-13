@@ -4,17 +4,21 @@ html {
 
 html, body, .container {
     height: 100%;
+
     font-family: 'Open Sans';
     font-weight: 400;
 }
 
 body {
     margin: 0;
-    background-color: #efefef;
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
     color: #727272;
+    background-color: #efefef;
+
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 400;
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -30,11 +34,13 @@ h2 {
 }
 
 p {
-    font-family: 'Open Sans';
-    font-weight: 400;
-    font-size: 16px;
     letter-spacing: -0.76px;
+
     color: #727272;
+
+    font-family: 'Open Sans';
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .section {
@@ -42,18 +48,23 @@ p {
 
     .section-title {
         width: 100%;
+
         text-align: center;
 
         h1 {
-            font-size: 42px;
-            color: #3e3e3e;
             letter-spacing: -2px;
+
+            color: #3e3e3e;
+
+            font-size: 42px;
         }
 
         h2 {
-            font-size: 18px;
-            color: #727272;
             letter-spacing: -0.86px;
+
+            color: #727272;
+
+            font-size: 18px;
         }
     }
 
@@ -63,13 +74,15 @@ p {
 }
 
 .section:after {
-    content: '';
     display: block;
     clear: both;
+
+    content: '';
 }
 
 [ui-view].ng-enter {
     transition: .5s;
+
     opacity: 0;
 }
 
@@ -79,6 +92,7 @@ p {
 
 [ui-view].ng-leave {
     transition: .5s;
+
     opacity: 1;
 }
 

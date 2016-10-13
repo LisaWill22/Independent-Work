@@ -1,12 +1,15 @@
 .navbar {
-    margin-bottom: 0;
     height: 60px;
-    background-color: transparent;
-    border-bottom: 0;
+    margin-bottom: 0;
+
     transition: all .3s ease-in-out;
+
+    border-bottom: 0;
+    background-color: transparent;
 
     .navbar-brand {
         height: auto;
+
         transition: all .3s ease-in-out;
     }
 
@@ -15,8 +18,9 @@
     }
 
     li > a.btn {
-        color: #fff;
         transition: all .3s ease-in-out;
+
+        color: #fff;
 
         &:focus,
         &:active {
@@ -32,15 +36,16 @@
     // When the menu shrinks
     &.slim {
         height: 40px;
+
         background-color: rgba(255, 255, 255, 0.95);
         box-shadow: 0 12px 6px -6px rgba(0, 0, 0, 0.1) !important;
 
         .navbar-brand {
             padding-top: 0px;
             img {
-                transform-origin: center;
-                transform: scale(.75);
                 transition: transform .2s ease-out;
+                transform: scale(.75);
+                transform-origin: center;
             }
         }
 
