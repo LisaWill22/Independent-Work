@@ -11,18 +11,18 @@ angular.module('signup', [
                 views: {
                     'container': {
                         controller: 'SignupCtrl',
-                        templateUrl: '/js/signup/views/index.html'
+                        templateUrl: 'signup/views/index.html'
                     }
                 }
             })
             .state('app.signup.contractor', {
                 url: '/contractor',
                 controller: 'ContractorSignupCtrl',
-                templateUrl: '/js/signup/views/signup-contractor.html'
+                templateUrl: 'signup/views/signup-contractor.html'
             })
             .state('app.signup.employer', {
                 url: '/employer',
                 controller: 'EmployerSignupCtrl',
-                templateUrl: '/js/signup/views/signup-employer.html'
+                templateUrl: 'signup/views/signup-employer.html'
             });
     });

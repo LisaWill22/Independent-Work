@@ -2,6 +2,7 @@ var app = angular.module('independent-work-app', [
     'ngAnimate',
     'ui.router',
     // IW modules
+    'app.templates',
     'home',
     'auth',
     'signup',
@@ -14,7 +15,7 @@ app.config(function($stateProvider, $urlRouterProvider, toastrConfig){
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('app', {
-            templateUrl: 'templates/layout.html',
+            templateUrl: 'partials/layout.html',
             controller: 'AppCtrl',
             abstract: true
         });

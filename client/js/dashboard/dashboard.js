@@ -10,7 +10,7 @@ angular.module('dashboard', [
                 url: '/dashboard',
                 controller: 'DashCtrl',
                 views: {
-                    'container': { templateUrl: '/js/dashboard/views/index.html' }
+                    'container': { templateUrl: 'dashboard/views/index.html' }
                 }
             });
     });
