@@ -16,6 +16,8 @@
   // Allow ES6.
   "esversion": 6,
 
+  // Definte angular global
+  "predef": ["angular"],
   /*
    * ENFORCING OPTIONS
    * =================
