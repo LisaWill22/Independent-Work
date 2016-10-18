@@ -23,7 +23,6 @@ const minifyHtml = require('gulp-minify-html');
 const ngAnnotate = require('gulp-ng-annotate');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
-const imagemin = require('gulp-imagemin');
 
 // Create an instance of browserSync
 const browserSync = require('browser-sync').create();
@@ -67,7 +66,6 @@ gulp.task('js-lint', () => {
 
 gulp.task('copy-images', () => {
     return gulp.src([PATHS.IMAGES])
-        // .pipe(imagemin())
         .pipe(gulp.dest(PATHS.DIST + '/images'))
 })
 

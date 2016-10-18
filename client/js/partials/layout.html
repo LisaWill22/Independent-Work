@@ -9,11 +9,14 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-            <li>
+            <li ng-show="!currentUser">
                 <a class="btn btn-primary" href="#" ui-sref="app.signup" ui-sref-active="active" ng-hide="hideSignup">Sign Up</a>
             </li>
-            <li>
+            <li ng-show="!currentUser">
                 <a class="btn btn-link" href="#" ui-sref="app.auth.login" ui-sref-active="active" ng-hide="hideLogin">Log In</a>
+            </li>
+            <li ng-show="currentUser">
+                <a class="btn btn-link" href="#" ui-sref="app.auth.logout" ng-hide="hideLogout">Log Out</a>
             </li>
         </ul>
     </div>
