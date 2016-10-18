@@ -46,9 +46,11 @@ module.exports = function(passport) {
         User.findOne({ 'local.email' :  email }, function(err, user) {
             // if there are any errors, return the error
             if (err)
+                console.log(err);
                 return done(err);
             // check to see if theres already a user with that email
             if (user) {
+                console.log(user);
                 return done(null, false, { message: 'User with ' + email + ' already exists.' });
             } else {
 
@@ -107,6 +109,7 @@ module.exports = function(passport) {
 
            // if no user is found, return the message
            if (!user)
+               console.log('no user');
                return done(null, false, { message: 'No user found' } );
 
            // if the user is found but the password is wrong

@@ -7,7 +7,7 @@ var mongoskin = require('mongoskin');
 var db = mongoskin.db(process.env.MONGODB_URI, {safe: true});
 /*
  |--------------------------------------------------------------------------
- | Generic collections
+ | Generic collections - CRUD for any collection in our MongoDB
  |--------------------------------------------------------------------------
 */
 
