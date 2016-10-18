@@ -3,8 +3,8 @@ angular.module('independent-work-app')
         console.log('main app ctrl loaded >> ', $scope);
 
         $rootScope.$on('Session:refresh', function(e, user, session) {
-            console.log(e);
             $scope.currentUser = user;
+            console.log($scope.currentUser);
         })
 
     })

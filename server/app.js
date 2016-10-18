@@ -12,7 +12,7 @@ require('dotenv').config();
 
 // Route stuff
 var routes = require('./routes');
-var apiRoutes = require('./routes/api');
+var apiRoutes = require('./routes/crudApi');
 var authRoutes = require('./routes/auth');
 
 // DB Stuff
@@ -45,10 +45,7 @@ app.use(passport.session());
 // Bring in the passport configs
 require('./config/passport')(passport);
 
-// Serve up the client folder if in production
-if (app.get('env') === 'production') {
-    app.use(express.static(path.join(__dirname, '../client')));
-}
+app.use(express.static(path.join(__dirname, '../client')));
 
 // Bring in routes
 app.use(routes);

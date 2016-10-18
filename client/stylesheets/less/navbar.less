@@ -19,16 +19,20 @@
 
     li > a.btn {
         transition: all .3s ease-in-out;
+        color: @brand-primary;
 
-        color: #fff;
-
-        &:focus,
-        &:active {
-            color: #fff;
+        &.hover {
+            color: darken(#fff, 10%);
         }
+
         &.btn-primary {
+            color: #fff;
+            &:hover,
+            &:active {
+                background-color: darken(@brand-primary, 3%);
+            }
             &:hover {
-                color: darken(#fff, 20);
+                color: darken(#fff, 10%);
             }
         }
     }

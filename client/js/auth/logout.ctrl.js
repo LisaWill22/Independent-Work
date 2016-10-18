@@ -1,10 +1,17 @@
 'use strict';
 
 angular.module('auth')
-    .controller('LogoutCtrl', function($scope) {
+    .controller('LogoutCtrl', function($scope, $state, $http, $timeout, $rootScope, toastr) {
         console.log('LogoutCtrl loaded >>', $scope);
 
-        $scope.logout = function() {
-
-        };
+        $http.get('/auth/logout')
+            .then(function(res){
+                $timeout(function() {
+                    $rootScope.$emit('Session:refresh', null);
+                    toastr.success('You have successfully logged out');
+                    $state.go('app.home');
+                }, 500)
+            }, function(err) {
+                console.log(err);
+            })
     });

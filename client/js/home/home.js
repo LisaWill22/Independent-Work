@@ -9,13 +9,13 @@ angular.module('home', [
             .state('app.home', {
                 url: '/',
                 views: {
-                    'container': { templateUrl: '/js/home/views/index.html' },
-                    'top@app.home': { templateUrl: '/js/home/views/top.html' },
-                    'mission@app.home': { templateUrl: '/js/home/views/mission.html' },
-                    'independent@app.home': { templateUrl: '/js/home/views/independent.html' },
-                    'new_way@app.home': { templateUrl: '/js/home/views/new_way.html' },
-                    'join@app.home': { templateUrl: '/js/home/views/join.html' },
-                    'contact@app.home': { templateUrl: '/js/home/views/contact.html' }
+                    'container': { templateUrl: 'home/views/index.html' },
+                    'top@app.home': { templateUrl: 'home/views/top.html' },
+                    'mission@app.home': { templateUrl: 'home/views/mission.html' },
+                    'independent@app.home': { templateUrl: 'home/views/independent.html' },
+                    'new_way@app.home': { templateUrl: 'home/views/new_way.html' },
+                    'join@app.home': { templateUrl: 'home/views/join.html' },
+                    'contact@app.home': { templateUrl: 'home/views/contact.html' }
                 }
             });
 
