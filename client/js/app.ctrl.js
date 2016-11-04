@@ -5,6 +5,17 @@ angular.module('independent-work-app')
 		// Listen for session refreshes and update the user
 		$rootScope.$on('Session:refresh', function(e, user, session) {
 			$scope.currentUser = user;
+			$scope.currentUser.messages = {};
+			$scope.currentUser.messages.new = [
+				{
+					message: 'You rock!',
+					from: 'Some other user'
+				},
+				{
+					message: 'You totally rock!',
+					from: 'Some other user'
+				}
+			];
 		});
 
 		// Set up the local storage
@@ -15,6 +26,17 @@ angular.module('independent-work-app')
 			$http.get('/api/users/' + $scope.$storage.userId)
 				.then(function(res) {
 					$scope.currentUser = res.data;
+					$scope.currentUser.messages = {};
+					$scope.currentUser.messages.new = [
+						{
+							message: 'You rock!',
+							from: 'Some other user'
+						},
+						{
+							message: 'You totally rock!',
+							from: 'Some other user'
+						}
+					];
 					$state.go('app.dashboard');
 				})
 				.catch(function(err) {

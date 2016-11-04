@@ -1,0 +1,79 @@
+<header>
+	<nav class="navbar navbar-default navbar-fixed-top" ng-class="{ 'slim': slimHeader }" slim-header>
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" ui-sref="app.home">
+					<img src="/images/logo_transparent_background.png" alt="" title="independent - work"/>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li ng-show="!currentUser">
+						<a class="btn btn-primary" href="#" ui-sref="app.signup" ui-sref-active="active" ng-hide="hideSignup">Sign Up</a>
+					</li>
+					<li ng-show="!currentUser">
+						<a class="btn btn-link" href="#" ui-sref="app.auth.login" ui-sref-active="active" ng-hide="hideLogin">Log In</a>
+					</li>
+					<li class="dropdown" ng-show="currentUser">
+						<a class="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-lg fa-fw fa-user-circle"></i>
+							<strong>{{ currentUser.firstName }}</strong>
+							<i class="fa fa-fw fa-caret-down"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-user">
+							<li>
+								<div class="navbar-login">
+									<div class="row">
+										<div class="col-xs-12">
+											<strong class="pull-left">{{ currentUser.firstName}}
+												{{currentUser.lastName}}</strong>
+											<strong class="pull-right">{{ currentUser.local.email}}</strong>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<a href="#" ui-sref="app.dashboard" ui-sref-active="active">
+                                            <i class="fa fa-circle-thin" aria-hidden="true"></i>Dashboard
+                                        </a>
+									</li>
+									<li class="list-group-item">
+										<a href="#" ui-sref="app.settings" ui-sref-active="active">
+                                            <i class="fa fa-circle-thin" aria-hidden="true"></i>Settings
+                                        </a>
+									</li>
+									<li class="list-group-item">
+										<a href="#" ui-sref="app.messages" ui-sref-active="active">
+                                            <i class="fa fa-circle-thin" aria-hidden="true"></i>Messages
+                                        </a>
+                                    </li>
+								</ul>
+							</li>
+							<li>
+								<div class="navbar-login navbar-login-session">
+									<div class="row">
+										<div class="col-xs-12">
+											<p>
+												<small ng-show="currentUser.messages.new.length">
+													You have
+													<a href="#" ui-sref="app.messages">
+														<i class="fa fa-fw fa-envelope"></i>
+														{{currentUser.messages.new.length }}
+														new messages
+													</a>
+												</small>
+												<a href="#" ui-sref="app.auth.logout" class="btn btn-sm btn-default pull-right">log out</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
