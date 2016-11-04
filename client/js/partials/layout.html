@@ -1,28 +1,26 @@
-<nav class="navbar navbar-default navbar-fixed-top"
-    ng-class="{ 'slim': slimHeader }"
-    slim-header>
-  <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#" ui-sref="app.home">
-          <img src="/images/logo_transparent_background.png" alt="" title="independent - work" />
-      </a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-            <li ng-show="!currentUser">
-                <a class="btn btn-primary" href="#" ui-sref="app.signup" ui-sref-active="active" ng-hide="hideSignup">Sign Up</a>
-            </li>
-            <li ng-show="!currentUser">
-                <a class="btn btn-link" href="#" ui-sref="app.auth.login" ui-sref-active="active" ng-hide="hideLogin">Log In</a>
-            </li>
-            <li ng-show="currentUser">
-                <a class="btn btn-link" href="#" ui-sref="app.auth.logout" ng-hide="hideLogout">Log Out</a>
-            </li>
-        </ul>
-    </div>
-  </div>
+<nav class="navbar navbar-default navbar-fixed-top" ng-class="{ 'slim': slimHeader }" slim-header>
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#" ui-sref="app.home">
+				<img src="/images/logo_transparent_background.png" alt="" title="independent - work"/>
+			</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li ng-show="!currentUser">
+					<a class="btn btn-primary" href="#" ui-sref="app.signup" ui-sref-active="active" ng-hide="hideSignup">Sign Up</a>
+				</li>
+				<li ng-show="!currentUser">
+					<a class="btn btn-link btn-border" href="#" ui-sref="app.auth.login" ui-sref-active="active" ng-hide="hideLogin">Log In</a>
+				</li>
+				<li ng-show="currentUser">
+					<a class="btn btn-link btn-border" href="#" ui-sref="app.auth.logout" ng-hide="hideLogout">Log Out</a>
+				</li>
+			</ul>
+		</div>
+	</div>
 </nav>
 
 <div ui-view="container" class="height-100 app-container">
-    <!--Main app sits here-->
+	<!--Main app sits here-->
 </div>

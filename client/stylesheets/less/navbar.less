@@ -20,13 +20,19 @@
     li > a.btn {
         transition: all .3s ease-in-out;
         color: @brand-primary;
+        margin-right: @padding-large-horizontal;
 
-        &.hover {
-            color: darken(#fff, 10%);
+        &.btn-link {
+            &:focus,
+            &:hover {
+                color: lighten(@brand-primary, 10%);
+            }
         }
 
         &.btn-primary {
             color: #fff;
+
+            &:focus,
             &:hover,
             &:active {
                 background-color: darken(@brand-primary, 3%);
@@ -55,7 +61,7 @@
 
         li {
             .btn-link {
-                color: #000;
+                color: @brand-primary;
             }
         }
 
@@ -65,7 +71,7 @@
         }
 
         .navbar-right {
-            margin-top: 6px;
+            margin-top: 10px;
         }
     }
 }
