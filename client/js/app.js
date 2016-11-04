@@ -3,6 +3,8 @@ var app = angular.module('independent-work-app', [
     // third party components
     'toastr',
     'ui.router',
+    'ngStorage',
+    'angular-loading-bar',
     // IW modules
     'app.templates',
     'home',
@@ -11,7 +13,7 @@ var app = angular.module('independent-work-app', [
     'dashboard'
 ]);
 
-app.config(function($stateProvider, $urlRouterProvider, toastrConfig){
+app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, toastrConfig){
     $urlRouterProvider.otherwise('/');
     $stateProvider
         .state('app', {
@@ -24,4 +26,7 @@ app.config(function($stateProvider, $urlRouterProvider, toastrConfig){
     angular.extend(toastrConfig, {
         positionClass: 'toast-bottom-right'
     });
+
+    // Set up local storage prefix
+    $localStorageProvider.setKeyPrefix('iw-app');
 });

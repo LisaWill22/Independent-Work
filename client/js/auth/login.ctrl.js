@@ -11,7 +11,8 @@ angular.module('auth')
                 .then(function(res) {
                     toastr.success('Successfully logged in');
                     $state.go('app.dashboard');
-                    $rootScope.$broadcast('Session:refresh', res);
+                    $rootScope.$broadcast('Session:refresh', res.data);
+                    $scope.$storage.userId = res.data._id;
                 }, function(err) {
                     toastr.warning('Whoops, something went wrong...');
                     console.log(err);

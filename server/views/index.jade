@@ -1,38 +1,44 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body(ng-app='independent-work-app')
-    div(ui-view class="height-100")
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:300,400|Montserrat')
+    body(ng-app='independent-work-app' autoscroll="true")
+        div(ui-view class="height-100" autoscroll="true")
+        
+        script(src='/bower_components/jquery/dist/jquery.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
 
-    script(src='/bower_components/angular/angular.js')
-    script(src='/bower_components/angular-animate/angular-animate.js')
-    script(src='/bower_components/angular-ui-router/release/angular-ui-router.js')
-    
-    script(src='/bower_components/angular-toastr/dist/angular-toastr.js')
-    script(src='/bower_components/angular-toastr/dist/angular-toastr.tpls.js')
+        script(src='/bower_components/angular/angular.js')
+        script(src='/bower_components/angular-animate/angular-animate.js')
+        script(src='/bower_components/angular-ui-router/release/angular-ui-router.js')
 
-    script(src='/bower_components/jquery/dist/jquery.js')
-    script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+        script(src='/bower_components/angular-toastr/dist/angular-toastr.js')
+        script(src='/bower_components/angular-toastr/dist/angular-toastr.tpls.js')
 
-    script(src='js/app.js')
-    script(src='js/app.ctrl.js')
-    script(src='templates.js')
-    
-    script(src='js/home/home.js')
-    script(src='js/home/home.ctrl.js')
-    
-    script(src='js/auth/auth.js')
-    script(src='js/auth/auth.ctrl.js')
-    script(src='js/auth/login.ctrl.js')
-    script(src='js/auth/logout.ctrl.js')
-    script(src='js/auth/forgot-password.ctrl.js')
-    
-    script(src='js/signup/signup.js')
-    script(src='js/signup/signup.ctrl.js')
-    script(src='js/signup/contractor.signup.ctrl.js')
-    script(src='js/signup/employer.signup.ctrl.js')
-    
-    script(src='js/dashboard/dashboard.js')
-    script(src='js/dashboard/dashboard.ctrl.js')
+        script(src='/bower_components/ngstorage/ngStorage.js')
+        
+        script(src='/bower_components/angular-loading-bar/build/loading-bar.js')
+
+        script(src='js/app.js')
+        script(src='js/app.ctrl.js')
+        script(src='templates.js')
+
+        script(src='js/home/home.js')
+        script(src='js/home/home.ctrl.js')
+
+        script(src='js/auth/auth.js')
+        script(src='js/auth/auth.ctrl.js')
+        script(src='js/auth/login.ctrl.js')
+        script(src='js/auth/logout.ctrl.js')
+        script(src='js/auth/forgot-password.ctrl.js')
+
+        script(src='js/signup/signup.js')
+        script(src='js/signup/signup.ctrl.js')
+        script(src='js/signup/contractor.signup.ctrl.js')
+        script(src='js/signup/employer.signup.ctrl.js')
+
+        script(src='js/dashboard/dashboard.js')
+        script(src='js/dashboard/dashboard.ctrl.js')

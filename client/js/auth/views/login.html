@@ -1,37 +1,47 @@
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form role="form" type="nosubmit">
-                        <h3>
-                            Sign In
-                            <h5>
-                                or <a href="#" ui-sref="app.signup">or create account</a>
-                            </h5>
-                        </h3>
-                        <hr class="colorgraph">
-                        <div class="form-group">
-                            <input ng-model="data.email" type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
-                        </div>
-                        <div class="form-group">
-                            <input ng-model="data.password" type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
-                        </div>
-                        <hr class="colorgraph">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="btn btn-primary btn-block btn-lg" tabindex="7" ng-click="login()">Log In</div>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="text-center">
-                            <small>
-                                <a href="#" ui-sref="app.auth.forgot-password">Forgot your password?</a>
-                            </small>
-                        </div>
-                    </form>
-                </div>
-            </div>
-    	</div>
-    </div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-sm-offset-3 col-md-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<form role="form" type="nosubmit" ng-show="!currentUser">
+						<h3>
+							Log In
+							<h5>
+								or
+								<a href="#" ui-sref="app.signup">create an account</a>
+							</h5>
+						</h3>
+						<hr class="colorgraph">
+						<div class="form-group">
+							<input ng-model="data.email" type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+						</div>
+						<div class="form-group">
+							<input ng-model="data.password" type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+						</div>
+						<hr class="colorgraph">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="btn btn-primary btn-block btn-lg" tabindex="7" ng-click="login()">Go to your dashboard</div>
+							</div>
+						</div>
+						<hr>
+						<div class="text-center">
+							<small>
+								<a href="#" ui-sref="app.auth.forgot-password">Forgot your password?</a>
+							</small>
+						</div>
+					</form>
+					<div class="text-center" ng-show="currentUser">
+						You are already logged in as
+						{{ currentUser.local.email }}.
+						<br/>
+						<br/>
+						<div class="text-center">
+							<a href="#" class="btn btn-default" ui-sref="app.auth.logout">Log in as a different user</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

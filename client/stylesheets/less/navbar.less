@@ -1,71 +1,114 @@
 .navbar {
-    height: 60px;
-    margin-bottom: 0;
+	margin-bottom: 0;
+	height: 60px;
+	border-bottom: 0;
+	background-color: transparent;
+	transition: all 0.3s ease-in-out;
 
-    transition: all .3s ease-in-out;
+	.navbar-brand {
+		height: auto;
+		transition: all 0.3s ease-in-out;
+	}
 
-    border-bottom: 0;
-    background-color: transparent;
+	.navbar-right {
+		margin-top: 12px;
+	}
 
-    .navbar-brand {
-        height: auto;
+	li > a.btn {
+		margin-right: @padding-large-horizontal;
+		color: @brand-primary;
+		transition: all 0.3s ease-in-out;
 
-        transition: all .3s ease-in-out;
-    }
-
-    .navbar-right {
-        margin-top: 12px;
-    }
-
-    li > a.btn {
-        transition: all .3s ease-in-out;
-        color: @brand-primary;
-
-        &.hover {
-            color: darken(#fff, 10%);
+        &:last-child {
+            margin-right: 0;
         }
 
-        &.btn-primary {
-            color: #fff;
-            &:hover,
-            &:active {
-                background-color: darken(@brand-primary, 3%);
-            }
-            &:hover {
-                color: darken(#fff, 10%);
-            }
-        }
-    }
+		&.btn-link {
+			&:focus,
+			&:hover {
+				color: lighten(@brand-primary, 10%);
+			}
+		}
 
-    // When the menu shrinks
-    &.slim {
-        height: 40px;
+		&.btn-primary {
+			color: #fff;
 
-        background-color: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 12px 6px -6px rgba(0, 0, 0, 0.1) !important;
+			&:active,
+			&:focus,
+			&:hover {
+				background-color: darken(@brand-primary, 3%);
+			}
 
-        .navbar-brand {
-            padding-top: 0px;
-            img {
-                transition: transform .2s ease-out;
-                transform: scale(.75);
-                transform-origin: center;
-            }
-        }
+			&:hover {
+				color: darken(#fff, 10%);
+			}
+		}
+	}
 
-        li {
-            .btn-link {
-                color: #000;
-            }
-        }
+	// When the menu shrinks
+	&.slim {
+		height: 40px;
+		background-color: rgba(255, 255, 255, 0.95);
+		box-shadow: 0 12px 6px -6px rgba(0, 0, 0, 0.1) !important;
 
-        .btn {
-            padding-top: 3px;
-            padding-bottom: 3px;
-        }
+		.navbar-brand {
+			padding-top: 0;
 
-        .navbar-right {
-            margin-top: 6px;
-        }
-    }
+			img {
+				transition: transform 0.2s ease-out;
+				transform: scale(.75);
+				transform-origin: center;
+			}
+		}
+
+		li {
+			.btn-link {
+				color: @brand-primary;
+			}
+		}
+
+		.btn {
+			padding-top: 3px;
+			padding-bottom: 3px;
+		}
+
+		.navbar-right {
+			margin-top: 10px;
+		}
+	}
+}
+
+.navbar-login {
+	padding: 10px 10px;
+	min-width: 305px;
+}
+
+.navbar-login-session {
+	padding: 0 10px;
+}
+
+
+.dropdown-toggle {
+	cursor: pointer;
+}
+
+.dropdown-menu-user {
+	padding-bottom: 15px;
+	.list-group-item {
+		padding: 0;
+		a {
+			display: block;
+			padding: 10px;
+			transition: all .3s ease-out;
+			&:hover {
+				background-color: darken(#fff, 10%);
+			}
+
+			.fa-circle-thin {
+				margin-right: 2px;
+				margin-left: 2px;
+				width: 20px;
+			}
+		}
+	}
 }

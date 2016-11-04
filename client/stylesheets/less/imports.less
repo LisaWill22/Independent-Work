@@ -1,9 +1,8 @@
-/*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-
+///////////////////////////////////////
+//
+// IW Vendor Less
+//
+///////////////////////////////////////
 // Core variables and mixins
 @import "../../bower_components/bootstrap/less/variables.less";
 // Overwrite w/ bootswatch
@@ -59,19 +58,24 @@
 @import "../../bower_components/bootstrap/less/utilities.less";
 @import "../../bower_components/bootstrap/less/responsive-utilities.less";
 
-// Bring in the bootswatch stuff
-// @import "../../../node_modules/bootswatch/simplex/bootswatch.less";
-
-// Bring in font-awesome
-@fa-font-path:  "http://netdna.bootstrapcdn.com/font-awesome/4.6.3/fonts"; // for referencing Bootstrap CDN font files directly
-@import "../../bower_components/font-awesome/less/font-awesome.less";
 // Bring in toaster
 @import (less) "../../bower_components/angular-toastr/dist/angular-toastr.css";
 
+///////////////////////////////////////
+//
 // IW Custom Less
+//
+///////////////////////////////////////
+// common styles
+@import 'app';
 @import 'fonts';
 @import 'common';
+// component styles
+@import 'buttons';
 @import 'navbar';
+@import 'loading-bar';
+@import 'spinner';
+// page specifc styles
 @import 'home';
 @import 'login';
 @import 'signup';
