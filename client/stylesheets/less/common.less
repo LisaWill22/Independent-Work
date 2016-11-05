@@ -109,3 +109,14 @@ p {
 .push-top {
     padding-top: @padding-large-vertical;
 }
+
+.row.collapse {
+    [class^="col"] {
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+}

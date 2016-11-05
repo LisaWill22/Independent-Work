@@ -8,7 +8,7 @@ angular.module('dashboard', [
         $stateProvider
             .state('app.dashboard', {
                 url: '/dashboard',
-                controller: 'DashCtrl',
+                controller: 'DashboardCtrl',
                 views: {
                     'container': { templateUrl: 'dashboard/views/index.html' }
                 }
