@@ -1,9 +1,41 @@
+'use strict';
+
 angular.module('independent-work-app')
-	.controller('AppCtrl', function($scope, $rootScope, $http, $state, $localStorage) {
+	.controller('AppCtrl', function($scope, $rootScope, $http, $state, $localStorage, session) {
+
 		console.log('main app ctrl loaded >> ', $scope);
+
+		// Set up the local storage
+		$scope.$storage = $localStorage;
+
+		if (session && session.data) {
+			let stateName = $state.$current.name;
+			$scope.currentUser = session.data;
+			$scope.currentUser.messages = {};
+			$scope.currentUser.messages.new = [
+				{
+					message: 'You rock!',
+					from: 'Some other user'
+				},
+				{
+					message: 'You totally rock!',
+					from: 'Some other user'
+				}
+			];
+			// Redirect to the right place
+			// If user goes to the base url and logged in, they'll
+			// redirect to the dashboard
+			if (stateName !== 'app.home') {
+				$state.go(stateName);
+			} else {
+				$state.go('app.dashboard');
+			}
+		}
+
 
 		// Listen for session refreshes and update the user
 		$rootScope.$on('Session:refresh', function(e, user, session) {
+			// Set the app's currentUser
 			$scope.currentUser = user;
 			$scope.currentUser.messages = {};
 			$scope.currentUser.messages.new = [
@@ -18,36 +50,8 @@ angular.module('independent-work-app')
 			];
 		});
 
-		// Set up the local storage
-		$scope.$storage = $localStorage;
-
-		// If there is a userId in local storage, grab it from the db and send to the dash
-		if ($scope.$storage.userId) {
-			$http.get('/api/users/' + $scope.$storage.userId)
-				.then(function(res) {
-					$scope.currentUser = res.data;
-					$scope.currentUser.messages = {};
-					$scope.currentUser.messages.new = [
-						{
-							message: 'You rock!',
-							from: 'Some other user'
-						},
-						{
-							message: 'You totally rock!',
-							from: 'Some other user'
-						}
-					];
-					$state.go('app.dashboard');
-				})
-				.catch(function(err) {
-					console.error(err);
-				})
-				.finally(function() {
-
-				});
-		}
-
 	})
+	// Drop in spinner
 	.directive('spinner', function() {
         return {
             restrict: 'EA',
@@ -57,6 +61,7 @@ angular.module('independent-work-app')
             }
         }
 	})
+	// Controls shrinking the header at a certain scroll point
 	.directive('slimHeader', function($window) {
 		return function(scope, element, attrs) {
 			angular.element($window).bind('scroll', function() {

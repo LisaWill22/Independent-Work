@@ -27,27 +27,24 @@
 										<div class="col-xs-12">
 											<strong class="pull-left">{{ currentUser.firstName}}
 												{{currentUser.lastName}}</strong>
-											<strong class="pull-right">{{ currentUser.local.email}}</strong>
+											<small class="pull-right">{{ currentUser.local.email}}</small>
 										</div>
+									</div>
+									<div class="notification-wrapper">
+										<i class=""></i>
 									</div>
 								</div>
 							</li>
 							<li>
-								<ul class="list-group">
+								<ul class="list-group list-group-menu list-unstyled">
 									<li class="list-group-item">
-										<a href="#" ui-sref="app.dashboard" ui-sref-active="active">
-                                            <i class="fa fa-circle-thin" aria-hidden="true"></i>Dashboard
-                                        </a>
+										<a href="#" ui-sref="app.dashboard" ui-sref-active="active">Dashboard</a>
 									</li>
 									<li class="list-group-item">
-										<a href="#" ui-sref="app.settings" ui-sref-active="active">
-                                            <i class="fa fa-circle-thin" aria-hidden="true"></i>Settings
-                                        </a>
+										<a href="#" ui-sref="app.settings.profile" ui-sref-active="active">Settings</a>
 									</li>
 									<li class="list-group-item">
-										<a href="#" ui-sref="app.messages" ui-sref-active="active">
-                                            <i class="fa fa-circle-thin" aria-hidden="true"></i>Messages
-                                        </a>
+										<a href="#" ui-sref="app.messages" ui-sref-active="active">Messages</a>
                                     </li>
 								</ul>
 							</li>
@@ -60,8 +57,7 @@
 													You have
 													<a href="#" ui-sref="app.messages">
 														<i class="fa fa-fw fa-envelope"></i>
-														{{currentUser.messages.new.length }}
-														new messages
+														{{currentUser.messages.new.length }} new messages
 													</a>
 												</small>
 												<a href="#" ui-sref="app.auth.logout" class="btn btn-sm btn-default pull-right">log out</a>
@@ -70,10 +66,10 @@
 									</div>
 								</div>
 							</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
+						</ul>
+					</li>
+				</ul>
 			</div>
-		</nav>
-	</header>
+        </div>
+	</nav>
+</header>

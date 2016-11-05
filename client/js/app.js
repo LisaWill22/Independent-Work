@@ -10,16 +10,28 @@ var app = angular.module('independent-work-app', [
     'home',
     'auth',
     'signup',
-    'dashboard'
+    'dashboard',
+    'settings',
+    // Generic Services
+    'SessionService'
 ]);
 
-app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, toastrConfig){
+app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $compileProvider, toastrConfig){
+
+    // Send the user to the home page if they get a bad route
     $urlRouterProvider.otherwise('/');
+
+    // Register the base app state
     $stateProvider
         .state('app', {
             templateUrl: 'partials/layout.html',
             controller: 'AppCtrl',
-            abstract: true
+            abstract: true,
+            resolve: {
+                session: function(Session) {
+                    return Session.refreshSession();
+                }
+            }
         });
 
     // Set the toastr configs
@@ -29,4 +41,11 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, t
 
     // Set up local storage prefix
     $localStorageProvider.setKeyPrefix('iw-app');
+
+    // Performance enhancement
+    $compileProvider.debugInfoEnabled(false);
+});
+
+app.run(function() {
+
 });

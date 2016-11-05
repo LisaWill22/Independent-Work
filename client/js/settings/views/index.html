@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="h4">Your settings</h3>
+                </div>
+                <ul class="list-group list-group-menu list-unstyled">
+                    <li class="list-group-item">
+                        <a href="#" ui-sref="app.settings.profile" ui-sref-active="active">
+                            Profile
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" ui-sref="app.settings.account" ui-sref-active="active">
+                            Account
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" ui-sref="app.settings.messaging" ui-sref-active="active">
+                            Messaging
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-8">
+            <ui-view>
+                <!-- different settings views sit here -->
+            </ui-view>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="h4">Public Profile</h3>
+	</div>
+	<div class="panel-body">
+		<form>
+			<hr class="colorgraph">
+
+			<div class="row">
+				<div class="col-md-9 col-xs-12">
+
+					<!-- Name -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="firstName">First name</label>
+								<input ng-model="data.firstName"
+                                       type="text"
+                                       name="firsName"
+                                       id="firsName"
+                                       class="form-control"
+                                       placeholder="John">
+							</div>
+							<div class="col-sm-6">
+								<label for="lastName">Last name</label>
+								<input ng-model="data.lastName"
+                                       type="text"
+                                       name="lastName"
+                                       id="lastName"
+                                       class="form-control"
+                                       placeholder="Doe">
+							</div>
+						</div>
+					</div>
+
+					<!-- Email -->
+					<div class="form-group">
+						<label for="email">Public email</label>
+						<select ng-model="data.showEmail" class="form-control">
+							<option ng-value="false">Don't show my email address</option>
+							<option ng-value="true">{{ currentUser.local.email }}</option>
+						</select>
+					</div>
+
+					<!-- Bio -->
+					<div class="form-group">
+						<label for="bio">Bio</label>
+						<textarea ng-model="data.bio"
+                                  class="form-control"
+                                  name="bio"
+                                  id="bio"
+                                  rows="8"
+                                  cols="40"
+                                  placeholder="Tell a little about yourself">
+                        </textarea>
+					</div>
+
+
+
+				</div>
+			</div>
+
+			<hr class="colorgraph">
+
+			<!-- SUBMIT BUTTON -->
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="btn btn-primary btn-lg" type="submit">Save profile</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

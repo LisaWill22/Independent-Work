@@ -23,6 +23,7 @@ const minifyHtml = require('gulp-minify-html');
 const ngAnnotate = require('gulp-ng-annotate');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
 
 // Create an instance of browserSync
 const browserSync = require('browser-sync').create();
@@ -135,6 +136,11 @@ gulp.task('beautify', () => {
         .pipe(plumber.stop())
 });
 
+// Compile
+gulp.task('babel', () => {
+
+});
+
 // Compiles less, autoprefixes, thebn minifies and dumps into CSS
 // - causes style injection via browserSync (what .stream() is for)
 gulp.task('less', () => {
@@ -194,14 +200,14 @@ gulp.task('default', ['dev'], () => {
 
     // Set up some basic watchers and log file changes
     gulp.watch(PATHS.LESS, ['less', 'csscomb']).on('change', logFileChange);
-    gulp.watch(PATHS.JS, ['js-lint', 'beautify', 'reload']).on('change', logFileChange);
+    gulp.watch(PATHS.JS, ['babel', 'js-lint', 'reload']).on('change', logFileChange);
     gulp.watch(PATHS.HTML, ['templates']).on('change', logFileChange);
     gulp.watch(PATHS.TEMPLATE_FILE, ['reload']).on('change', logFileChange);
 
     // Set up nodemon to watch server.js files
     nodemon({
         script: 'server.js',
-        ignore: 'client',
+        ignore: ['./client/**/*.js', 'gulpfile.babel.js'],
         ext: 'js',
         env: { 'NODE_ENV': 'development' }
     });
@@ -211,7 +217,7 @@ gulp.task('serve-build', ['build'], () => {
     // Set up nodemon to watch server.js files
     nodemon({
         script: 'server.js',
-        ignore: 'client',
+        ignore: './client/**/*.js',
         ext: 'js',
         env: { 'NODE_ENV': 'production' }
     });

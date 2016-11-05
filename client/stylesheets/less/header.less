@@ -10,14 +10,11 @@
 		transition: all 0.3s ease-in-out;
 	}
 
-	.navbar-right {
-		margin-top: 12px;
-	}
-
 	li > a.btn {
 		margin-right: @padding-large-horizontal;
 		color: @brand-primary;
 		transition: all 0.3s ease-in-out;
+		margin-top: 15px;
 
         &:last-child {
             margin-right: 0;
@@ -73,7 +70,8 @@
 		}
 
 		.navbar-right {
-			margin-top: 10px;
+			margin-top: 0;
+			padding-top: 0;
 		}
 	}
 }
@@ -85,30 +83,4 @@
 
 .navbar-login-session {
 	padding: 0 10px;
-}
-
-
-.dropdown-toggle {
-	cursor: pointer;
-}
-
-.dropdown-menu-user {
-	padding-bottom: 15px;
-	.list-group-item {
-		padding: 0;
-		a {
-			display: block;
-			padding: 10px;
-			transition: all .3s ease-out;
-			&:hover {
-				background-color: darken(#fff, 10%);
-			}
-
-			.fa-circle-thin {
-				margin-right: 2px;
-				margin-left: 2px;
-				width: 20px;
-			}
-		}
-	}
 }
