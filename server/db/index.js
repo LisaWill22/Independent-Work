@@ -1,11 +1,10 @@
-var mongoose = require('mongoose');
-var chalk = require('chalk');
-
+const mongoose = require('mongoose');
+const chalk = require('chalk');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI);
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, chalk.red('connection error:')));
 

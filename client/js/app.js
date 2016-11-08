@@ -5,6 +5,7 @@ var app = angular.module('independent-work-app', [
     'ui.router',
     'ngStorage',
     'angular-loading-bar',
+    'ngTagsInput',
     // IW modules
     'app.templates',
     'home',
