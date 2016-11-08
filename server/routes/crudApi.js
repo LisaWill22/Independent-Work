@@ -49,17 +49,22 @@ router.route('/:collectionName/:id')
 			res.send(result)
 		})
 	})
-	.put(function(req, res) {
-		delete req.body._id
-		req.collection.updateById(req.params.id, {
-			$set: req.body
-		}, {
-			safe: true,
-			multi: false
-		}, function(e, result) {
-			res.sendStatus((result === 1) ? 200 : 404)
-		});
-	})
+	// .put(function(req, res, next) {
+	// 	delete req.body._id
+	// 	req.collection.findOneAndUpdate({ _id: req.params.id}, {
+	// 		$set: req.body
+	// 	}, {
+	// 		safe: true,
+	// 		new: true,
+	// 		multi: false
+	// 	// }, function(e, user) {
+	// 		if (e) {
+	// 			console.log(e);
+	// 			return next(e);
+	// 		}
+	// 		res.send(user);
+	// 	});
+	// })
 	.delete(function(req, res, next) {
 		req.collection.removeById(req.params.id, function(e, result) {
 			if (e) return next(e)

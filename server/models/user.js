@@ -1,11 +1,13 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-var userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     local :{
         email: String,
         password: String
     },
+    messageThreads: Array,
+    showEmail: Boolean,
     firstName: String,
     lastName: String,
     phone: String,

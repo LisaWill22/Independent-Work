@@ -55,7 +55,17 @@
                         </textarea>
 					</div>
 
-
+					<!-- Skills -->
+					<div class="form-group">
+						<label for="skills">Skills</label>
+						<tags-input ng-model="currentUser.skills">
+							<auto-complete source="loadSkills($query)"
+										   highlight-matched-text="true"
+										   display-property="name"
+										   load-on-focus="true">
+							</auto-complete>
+						</tags-input>
+					</div>
 
 				</div>
 			</div>
@@ -65,7 +75,7 @@
 			<!-- SUBMIT BUTTON -->
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="btn btn-primary btn-lg" type="submit">Save profile</div>
+					<div class="btn btn-primary btn-lg" type="submit" ng-click="saveProfile()">Save profile</div>
 				</div>
 			</div>
 		</form>
