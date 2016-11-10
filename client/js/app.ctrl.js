@@ -9,8 +9,10 @@ angular.module('independent-work-app')
 		$scope.$storage = $localStorage;
 
 		if (session && session.data) {
+			
 			let stateName = $state.$current.name;
 			$scope.currentUser = session.data;
+			console.log('currentuser is >>', $scope.currentUser);
 			$scope.currentUser.messages = {};
 			$scope.currentUser.messages.new = [
 				{
@@ -48,6 +50,7 @@ angular.module('independent-work-app')
 					from: 'Some other user'
 				}
 			];
+			console.log('currentuser is >>', $scope.currentUser);
 		});
 
 	})
