@@ -1,11 +1,13 @@
 var app = angular.module('independent-work-app', [
     'ngAnimate',
+    'ngSanitize',
     // third party components
     'toastr',
     'ui.router',
+    'ui.select',
+    'ui.bootstrap',
     'ngStorage',
     'angular-loading-bar',
-    'ngTagsInput',
     // IW modules
     'app.templates',
     'home',
@@ -47,6 +49,26 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
     $compileProvider.debugInfoEnabled(false);
 });
 
-app.run(function() {
+app.run(function($timeout, $rootScope) {
+    console.log('App is bootstrapped! >', this);
 
+    // override ui-router scrolling
+    // add google analytics tracking
+    $rootScope.$on('$stateChangeSuccess', function () {
+        window.scrollTo(0, 0);
+        // log the google analytics event
+        //   window.ga('send', 'pageview', {
+        //     page: $location.url()
+        //   });
+    });
+
+    // handles initial page loading animations
+    // $timeout(function () {
+    //     $('#app-container').css('opacity', 1);
+    //     $('#home-loading').css('opacity', 0);
+    // }, 1000);
+    //
+    // $timeout(function () {
+    //     $('#home-loading').remove();
+    // }, 1100);
 });
