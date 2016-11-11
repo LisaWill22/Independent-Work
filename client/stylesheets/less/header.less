@@ -1,86 +1,89 @@
-.navbar {
-	margin-bottom: 0;
-	height: 60px;
-	border-bottom: 0;
-	background-color: transparent;
-	transition: all 0.3s ease-in-out;
-
-	.navbar-brand {
-		height: auto;
+header {
+	.navbar {
+		margin-bottom: 0;
+		height: 60px;
+		border-bottom: 0;
+		background-color: transparent;
 		transition: all 0.3s ease-in-out;
-	}
-
-	li > a.btn {
-		margin-right: @padding-large-horizontal;
-		color: @brand-primary;
-		transition: all 0.3s ease-in-out;
-		margin-top: 15px;
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-		&.btn-link {
-			&:focus,
-			&:hover {
-				color: lighten(@brand-primary, 10%);
-			}
-		}
-
-		&.btn-primary {
-			color: #fff;
-
-			&:active,
-			&:focus,
-			&:hover {
-				background-color: darken(@brand-primary, 3%);
-			}
-
-			&:hover {
-				color: darken(#fff, 10%);
-			}
-		}
-	}
-
-	// When the menu shrinks
-	&.slim {
-		height: 40px;
-		background-color: rgba(255, 255, 255, 0.95);
-		box-shadow: 0 12px 6px -6px rgba(0, 0, 0, 0.1) !important;
 
 		.navbar-brand {
-			padding-top: 0;
+			height: auto;
+			transition: all 0.3s ease-in-out;
+		}
 
-			img {
-				transition: transform 0.2s ease-out;
-				transform: scale(.75);
-				transform-origin: center;
+		li > a.btn {
+			margin-right: @padding-large-horizontal;
+			color: @brand-primary;
+			transition: all 0.3s ease-in-out;
+			margin-top: 15px;
+
+	        &:last-child {
+	            margin-right: 0;
+	        }
+
+			&.btn-link {
+				&:focus,
+				&:hover {
+					color: lighten(@brand-primary, 10%);
+				}
+			}
+
+			&.btn-primary {
+				color: #fff;
+
+				&:active,
+				&:focus,
+				&:hover {
+					background-color: darken(@brand-primary, 3%);
+				}
+
+				&:hover {
+					color: darken(#fff, 10%);
+				}
 			}
 		}
 
-		li {
-			.btn-link {
-				color: @brand-primary;
+		// When the menu shrinks
+		&.slim {
+			height: 40px;
+			background-color: rgba(255, 255, 255, 0.95);
+			box-shadow: 0 12px 6px -6px rgba(0, 0, 0, 0.1) !important;
+
+			.navbar-brand {
+				padding-top: 0;
+
+				img {
+					transition: transform 0.2s ease-out;
+					transform: scale(.75);
+					transform-origin: center;
+				}
 			}
-		}
 
-		.btn {
-			padding-top: 3px;
-			padding-bottom: 3px;
-		}
+			li {
+				.btn-link {
+					color: @brand-primary;
+				}
+			}
 
-		.navbar-right {
-			margin-top: 0;
-			padding-top: 0;
+			.btn {
+				padding-top: 3px;
+				padding-bottom: 3px;
+			}
+
+			.navbar-right {
+				margin-top: 0;
+				padding-top: 0;
+			}
 		}
 	}
-}
 
-.navbar-login {
-	padding: 10px 10px;
-	min-width: 305px;
-}
+	.navbar-login {
+		padding: 10px 10px;
+		min-width: 305px;
+	}
 
-.navbar-login-session {
-	padding: 0 10px;
+	.navbar-login-session {
+		padding: 0 10px;
+	}
+	
 }

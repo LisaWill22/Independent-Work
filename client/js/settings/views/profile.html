@@ -35,11 +35,9 @@
 					<!-- Skills -->
 					<div class="form-group">
 						<label for="skills">Skills</label>
-						<ui-select multiple tagging="tagTransform" ng-model="data.skills" theme="bootstrap">
+						<ui-select multiple tagging="addSkill" ng-model="data.skills" theme="bootstrap">
 							<ui-select-match>{{$item.name}}</ui-select-match>
-							<ui-select-choices repeat="skill in skills" group-by="'name'">
-								<div ng-if="skill.isTag" ng-bind-html="(skill.name | highlight: $select.search) +' (new)'"></div>
-								<div ng-if="!skill.isTag" ng-bind-html="skill.name + skill.isTag| highlight: $select.search"></div>
+							<ui-select-choices repeat="skill in skills | propsFilter: { name: $select.search }" group-by="'name'">
 								<small>{{skill.name}}</small>
 							</ui-select-choices>
 						</ui-select>

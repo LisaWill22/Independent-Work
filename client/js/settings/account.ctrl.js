@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('settings')
-    .controller('ChangePWCtrl', function($scope) {
-        console.log('ChangePWCtrl loaded >>', $scope);
+    .controller('AccountSettingsCtrl', function($scope) {
+        console.log('AccountSettingsCtrl loaded >>', $scope);
+        $scope.data = angular.copy($scope.currentUser);
     });

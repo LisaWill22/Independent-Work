@@ -24,12 +24,29 @@ angular.module('settings')
 
         $http.get('/api/skills')
             .then(function(res){
+                console.log(res);
                 $scope.skills = res.data;
             })
             .catch(function(err) {
+                console.log(err);
                 $scope.skills = [];
             })
             .finally(function() {
 
             });
+
+        $scope.addSkill = function(skillName) {
+            var skill = {
+                name: skillName,
+                description: null,
+                cateogries: [],
+                _created: new Date()
+            };
+
+            return skill;
+        };
+
+        function saveSkill (skill) {
+            return $http.post('/api/skills', skill);
+        }
     });
