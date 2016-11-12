@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('settings')
-    .controller('NotificationsCtrl', function($scope) {
-        console.log('NotificationsCtrl loaded >>', $scope);
+    .controller('MsgSettingsCtrl', function($scope) {
+        console.log('MsgSettingsCtrl loaded >>', $scope);
+        $scope.data = angular.copy($scope.currentUser);
     });

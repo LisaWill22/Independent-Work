@@ -1,4 +1,22 @@
 <div class="container">
     <h1>DASHBOARD</h1>
-    {{ currentUser | json }}    
+    <div ng-show="loading" class="text-center">
+        Loading projects...
+        <spinner></spinner>
+    </div>
+    <div class="row" ng-show="!loading">
+        <div class="col-xs-12 col-sm-6" ng-repeat="project in projects track by $index">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>{{ project.name }}</h3>
+                    <span class="label label-primary" ng-repeat="skill in project.skills">{{ skill.name}}</span>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        {{ project.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

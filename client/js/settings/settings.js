@@ -9,11 +9,14 @@ angular.module('settings', [
             .state('app.settings', {
                 url: '/settings',
                 abstract: true,
-                controller: 'SettingsCtrl',
                 views: {
-                    'container': { templateUrl: 'settings/views/index.html' }
+                    'container': {
+                        templateUrl: 'settings/views/index.html',
+                        controller: 'SettingsCtrl'
+                    }
                 }
             })
+            // All user profile settings
             .state('app.settings.profile', {
                 url: '/profile',
                 controller: 'ProfileCtrl',
@@ -28,5 +31,12 @@ angular.module('settings', [
                 url: '/messaging',
                 controller: 'MsgSettingsCtrl',
                 templateUrl: 'settings/views/messaging.html'
+            })
+            // Employer specific
+            .state('app.settings.postings', {
+                url: '/postings',
+                controller: 'PostingSettingsCtrl',
+                templateUrl: 'settings/views/postings.html'
             });
+            // Contractor specific
     });
