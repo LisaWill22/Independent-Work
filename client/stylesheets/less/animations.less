@@ -1,3 +1,30 @@
+/**
+*  .ng-show-fade-fade
+*
+*  Animation that is used on ng-show/ng-hide elements.
+*  Gives the element a soft fade in/fade out animation.
+*/
 .ng-show-fade {
-    
+    opacity: 1;
 }
+.ng-show-fade.ng-hide-add, .ng-show-fade.ng-hide-remove {
+    transition: opacity ease-out .3s;
+}
+
+.ng-show-fade.ng-hide {
+    opacity: 0;
+}
+
+.ng-show-fade.ng-hide-add {
+    position: absolute;
+    right: 0;
+    left: 0;
+    opacity: 0;
+}
+//
+//
+// .ng-repeat-fade.ng-enter-stagger {
+//   transition-delay: 0.2s;
+//   animation-delay: 0.2s;
+// }
+//

@@ -1,10 +1,10 @@
 <div class="container">
     <h1>DASHBOARD</h1>
-    <div ng-show="loading" class="text-center">
+    <div ng-show="loading" class="text-center ng-show-fade">
         Loading projects...
         <spinner></spinner>
     </div>
-    <div class="row" ng-show="!loading">
+    <div class="row ng-show-fade" ng-show="!loading">
         <div class="col-xs-12 col-sm-6" ng-repeat="project in projects track by $index">
             <div class="panel panel-default">
                 <div class="panel-heading">
