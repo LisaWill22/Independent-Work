@@ -37,8 +37,11 @@
 							</li>
 							<li>
 								<ul class="list-group list-group-menu list-unstyled">
-									<li class="list-group-item" ng-show="currentUser.employer">
-										<a href="#" ui-sref="app.employer.postings.add" ui-sref-active="active" class="btn btn-primary">Add a job posting</a>
+									<li class="list-group-item" ng-show="employer">
+										<button class="btn btn-primary btn-block btn-no-radius" ng-click="openAddProjectModal()">
+											<i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
+											Create project posting
+										</button>
 									</li>
 									<li class="list-group-item">
 										<a href="#" ui-sref="app.dashboard" ui-sref-active="active">Dashboard</a>

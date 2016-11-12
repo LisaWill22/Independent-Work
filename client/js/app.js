@@ -33,6 +33,9 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 			resolve: {
 				session: function(Session) {
 					return Session.refreshSession();
+				},
+				skills: function($http) {
+					return $http.get('/api/skills');
 				}
 			}
 		});
@@ -73,6 +76,7 @@ app.run(function($timeout, $rootScope) {
 	// }, 1100);
 })
 
+// Used in UI select
 app.filter('propsFilter', function() {
 	return function(items, props) {
 		var out = [];

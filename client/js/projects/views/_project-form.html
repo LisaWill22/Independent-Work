@@ -1,0 +1,50 @@
+<div class="form-project">
+    <div class="form-group">
+
+        <!-- Project Name -->
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-8">
+                    <label for="projectName">Project name</label>
+                    <input ng-model="data.name"
+                          type="text"
+                          name="projectName"
+                          id="projectName"
+                          class="form-control"
+                          placeholder="Web Application for County school system">
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills desired -->
+        <div class="form-group">
+            <label for="skills">Skills desired</label>
+            <ui-select multiple="true"
+                       search-enabled="true"
+                       close-on-select="false"
+                       ng-model="data.skills"
+                       theme="bootstrap">
+                <ui-select-match placeholder="What skills does this project require?">
+                    {{ $item.name }}
+                </ui-select-match>
+                <ui-select-choices
+                    repeat="skill in skills track by skill.name | propsFilter: { name: $select.search }"
+                    group-by="'category'">
+                    <small>{{ skill.name }}</small>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <!-- Project description -->
+        <div class="form-group">
+            <label for="projectDescription">Description</label>
+            <textarea ng-model="data.description"
+                      class="form-control"
+                      name="projectDescription"
+                      id="projectDescription"
+                      rows="8" cols="40"
+                      placeholder="Explain a little bit about the project. Typically a general overview of the project goal with a detailed description of the work desired provides the best match with contractors"></textarea>
+        </div>
+        
+    </div>
+</div>

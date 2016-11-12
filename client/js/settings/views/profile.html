@@ -14,7 +14,7 @@
 						<div class="row">
 							<div class="col-sm-6">
 								<label for="firstName">First name</label>
-								<input ng-model="data.firstName" type="text" name="firsName" id="firsName" class="form-control" placeholder="John">
+								<input ng-model="data.firstName" type="text" name="firstName" id="firstName" class="form-control" placeholder="John">
 							</div>
 							<div class="col-sm-6">
 								<label for="lastName">Last name</label>
@@ -23,21 +23,28 @@
 						</div>
 					</div>
 
-					<!-- Email -->
-					<!-- <div class="form-group">
-						<label for="email">Public email</label>
-						<select ng-model="data.showEmail" class="form-control">
-							<option ng-value="false">Don't show my email address</option>
-							<option ng-value="true">{{ currentUser.local.email }}</option>
-						</select>
-					</div> -->
+					<!-- Name -->
+					<div class="form-group" ng-show="employer">
+						<div class="row">
+							<div class="col-sm-6">
+								<label for="firstName">Company Name</label>
+								<input ng-model="data.companyName" type="text" name="companyName" id="companyName" class="form-control" placeholder="ACME Corp.">
+							</div>
+						</div>
+					</div>
 
 					<!-- Skills -->
-					<div class="form-group">
+					<div class="form-group" ng-show="contractor">
 						<label for="skills">Skills</label>
-						<ui-select multiple tagging="addSkill" ng-model="data.skills" theme="bootstrap">
+						<ui-select multiple="true"
+								   tagging="addSkill"
+								   ng-model="data.skills"
+								   theme="bootstrap">
 							<ui-select-match>{{$item.name}}</ui-select-match>
-							<ui-select-choices repeat="skill in skills | propsFilter: { name: $select.search }" group-by="'name'">
+							<ui-select-choices
+								repeat="skill in skills track by skill.name | propsFilter: { name: $select.search }"
+								minimum-input-length="2"
+								group-by="'category'">
 								<small>{{skill.name}}</small>
 							</ui-select-choices>
 						</ui-select>
