@@ -47,11 +47,14 @@
 										<a href="#" ui-sref="app.dashboard" ui-sref-active="active">Dashboard</a>
 									</li>
 									<li class="list-group-item">
-										<a href="#" ui-sref="app.settings.profile" ui-sref-active="active">Settings</a>
+										<a href="#" ui-sref="app.projects" ui-sref-active="active">Projects</a>
 									</li>
 									<li class="list-group-item">
 										<a href="#" ui-sref="app.messages" ui-sref-active="active">Messages</a>
-                                    </li>
+									</li>
+									<li class="list-group-item">
+										<a href="#" ui-sref="app.settings.profile" ui-sref-active="active">Settings</a>
+									</li>
 								</ul>
 							</li>
 							<li>
@@ -59,13 +62,13 @@
 									<div class="row">
 										<div class="col-xs-12">
 											<p>
-												<small ng-show="currentUser.messages.new.length">
+												<!-- <small ng-show="currentUser.messages.new.length">
 													You have
 													<a href="#" ui-sref="app.messages">
 														<i class="fa fa-fw fa-envelope"></i>
 														{{currentUser.messages.new.length }} new messages
 													</a>
-												</small>
+												</small> -->
 												<a href="#" ui-sref="app.auth.logout" class="btn btn-sm btn-default pull-right">log out</a>
 											</p>
 										</div>
