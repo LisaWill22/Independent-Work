@@ -8,7 +8,13 @@ angular.module('settings')
         $scope.data = angular.copy($scope.currentUser);
         $scope.data.showEmail = 'true';
 
+        // Placeholder for the list of all skills returned from the api
         var allSkills;
+
+        // Saves a skill to the api - called in profile save to save new skills
+        function saveSkill (skill) {
+            return $http.post('/api/skills', skill);
+        }
 
         $scope.saveProfile = function() {
 
@@ -72,6 +78,14 @@ angular.module('settings')
                 });
         }
 
+        // Adds back skill to list of options on removal
+        $scope.onSkillRemove = function(item, model) {
+            if ($scope.skills.indexOf(item) === -1) {
+                $scope.skills.push(item);
+            }
+        };
+
+        // Adds a skill tag when it does not exist yet
         $scope.addSkill = function(skillName) {
 
             var newSkill;
@@ -94,7 +108,4 @@ angular.module('settings')
             return newSkill;
         };
 
-        function saveSkill (skill) {
-            return $http.post('/api/skills', skill);
-        }
     });

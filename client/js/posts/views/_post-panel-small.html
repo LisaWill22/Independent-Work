@@ -1,0 +1,38 @@
+<div class="panel panel-default panel-post">
+    <div class="panel-body">
+        <div class="media">
+            <div class="media-left media-middle">
+                <a href="#"  ui-sref="app.contractors({ id: item.user._id })">
+                    <img class="media-object img img-circle img-thumbnail img-avatar" src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+                </a>
+            </div>
+            <div class="media-body">
+                <h3 class="media-heading">
+                    <a href="#" ui-sref="app.posts.detail({ id: item._id})">{{ item.title }}</a>
+                </h3>
+                <p>
+                    <small class="block">
+                        Posted {{ item._createdDate | date: 'fullDate'}} by
+                        <a href="#" ui-sref="app.contractors({ id: item.user._id })">
+                            {{ item.user.firstName }} {{ item.user.lastName }}
+                        </a>
+                    </small>
+                    <small class="block" ng-show="item.lastPost">
+                        Last post {{ item.lastPost.date | date: 'fullDate'}} by
+                        <a href="#" ui-sref="app.contractors({ id: item.user._id })">
+                            {{ item.lastPost.user.firstName }} {{ item.lastPost.user.lastName }}
+                        </a>
+                    </small>
+                    <p>
+                        <span class="label label-primary" ng-repeat="skill in item.skills">{{ skill.name | sentenceCase }}</span>
+                    </p>
+                </p>
+            </div>
+        </div>
+        <div class="reply-wrapper">
+            <div class="label label-default text-uppercase text-secondary">
+                {{ 13 }} replies
+            </div>
+        </div>
+    </div>
+</div>

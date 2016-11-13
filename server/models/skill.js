@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 
 var skillSchema = new mongoose.Schema({
-    name: String,
+    title: String,
     description: String,
-    categories: Array,
+    topics: Array,
     _created: Date,
 }, { strict: false });
 
