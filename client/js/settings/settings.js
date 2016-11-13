@@ -33,10 +33,10 @@ angular.module('settings', [
                 templateUrl: 'settings/views/messaging.html'
             })
             // Employer specific
-            .state('app.settings.postings', {
-                url: '/postings',
-                controller: 'PostingSettingsCtrl',
-                templateUrl: 'settings/views/postings.html'
+            .state('app.settings.posts', {
+                url: '/posts',
+                controller: 'PostsSettingsCtrl',
+                templateUrl: 'settings/views/posts.html'
             });
             // Contractor specific
     });

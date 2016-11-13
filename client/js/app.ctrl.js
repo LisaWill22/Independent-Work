@@ -28,26 +28,25 @@ angular.module('independent-work-app')
 
 		// Listen for session refreshes and update the user
 		$rootScope.$on('Session:refresh', function(e, user, session) {
-			console.log(user);
 			refreshSession(user);
 			console.log('currentuser is >>', $scope.currentUser);
 		});
 
 		// Opens the add posting modal
 		// Only visible if account type is employer
-		$scope.openAddProjectModal = function() {
+		$scope.openCreatePostModal = function() {
 			console.log('open');
-			openAddProjectModal();
+			openCreatePostModal();
 		};
 
-		function openAddProjectModal() {
+		function openCreatePostModal() {
 			$scope.modalInstance = $uibModal.open({
 				animation: true,
 				scope: $scope,
 				ariaLabelledBy: 'modal-title',
 				ariaDescribedBy: 'modal-body',
-				templateUrl: 'projects/views/add-project-modal.html',
-				controller: 'AddProjectModalCtrl',
+				templateUrl: 'posts/views/create-post-modal.html',
+				controller: 'CreatePostModalCtrl',
 				size: 'md'
 			});
 		}
@@ -74,6 +73,39 @@ angular.module('independent-work-app')
 				}];
 			}
 		}
+	})
+	.controller('CreatePostModalCtrl', function($scope, $rootScope, $uibModalInstance, $http, toastr) {
+
+		console.log('CreatePostModalCtrl >>', $scope);
+
+		$scope.data = {};
+
+		$scope.createPost = function() {
+			$scope.data._createdDate = new Date();
+			$scope.data.user = $scope.currentUser;
+			$http.post('/api/posts', $scope.data)
+				.then(function(res) {
+					if (res.status === 200) {
+						toastr.success('Project created successfully!');
+						$rootScope.$broadcast('Posts:reload');
+						$uibModalInstance.close();
+					} else {
+						console.log(res);
+						toastr.warning('There was an error creating your project. Please try again.')
+					}
+				})
+				.catch(function(err) {
+					console.log(err);
+					toastr.warning('There was an error creating your project. Please try again.')
+				})
+				.finally(function() {
+					console.log('final');
+				});
+		};
+
+		$scope.cancel = function() {
+			$uibModalInstance.close();
+		};
 	})
 	// Drop in spinner
 	.directive('spinner', function() {
@@ -104,37 +136,31 @@ angular.module('independent-work-app')
 			});
 		};
 	})
-	.controller('AddProjectModalCtrl', function($scope, $uibModalInstance, $http, toastr) {
+	.filter("sentenceCase", function() {
+		return _.memoize(function(x) {
+			var capitalize, fmt;
 
-		console.log('AddProjectModalCtrl >>', $scope);
+			if (!angular.isString(x)) {
+				return;
+			}
+			x = x.toLowerCase();
+			capitalize = function(str) {
+				str += '';
+				return str.charAt(0).toUpperCase() + str.slice(1);
+			};
+			fmt = function(y) {
+				var capitalized;
 
-		$scope.data = {};
-		console.log($scope.skills);
-
-		$scope.createProject = function() {
-			console.log('adding');
-			$scope.data.employer = $scope.currentUser;
-			$http.post('/api/projects', $scope.data)
-				.then(function(res) {
-					console.log(res);
-					if (res.status === 200) {
-						toastr.success('Project created successfully!');
-						$uibModalInstance.close();
-					} else {
-						console.log(res);
-						toastr.warning('There was an error creating your project. Please try again.')
-					}
-				})
-				.catch(function(err) {
-					console.log(err);
-					toastr.warning('There was an error creating your project. Please try again.')
-				})
-				.finally(function() {
-					console.log('final');
-				});
-		};
-
-		$scope.cancel = function() {
-			$uibModalInstance.close();
-		};
-	})
+				return capitalized = capitalize($.trim(y));
+			};
+			x = _.map(x.split("."), function(z) {
+				return fmt(z);
+			}).join(". ");
+			x = _.map(x.split("!"), function(z) {
+				return fmt(z);
+			}).join("! ");
+			return x = _.map(x.split(","), function(z) {
+				return z;
+			}).join(", ");
+		});
+	});

@@ -10,13 +10,16 @@ const userSchema = new mongoose.Schema({
     showEmail: Boolean,
     firstName: String,
     lastName: String,
+    location: {
+        city: String,
+        state: String
+    },
     phone: String,
     roles: Array,           // Possible values: 'contractor', 'hirer', 'admin'
     skills: Array,          // Array of id's from the Skills collection
-    postings: Array,        // Array of ids from the Postings collection
+    posts: Array,        // Array of ids from the Postings collection
     // Meta data
-    _accountCreated: Date,
-    _lastLogin: Date
+    _accountCreated: Date
 }, { strict: false });
 
 // generating a hash

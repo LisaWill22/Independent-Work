@@ -1,3 +1,5 @@
+'use strict';
+
 var app = angular.module('independent-work-app', [
 	'ngAnimate',
 	'ngSanitize',
@@ -14,12 +16,13 @@ var app = angular.module('independent-work-app', [
 	'auth',
 	'signup',
 	'dashboard',
+	'posts',
 	'settings',
 	// Generic Services
 	'SessionService'
 ]);
 
-app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $compileProvider, toastrConfig, uiSelectConfig) {
+app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $compileProvider, toastrConfig) {
 
 	// Send the user to the home page if they get a bad route
 	$urlRouterProvider.otherwise('/');
@@ -56,13 +59,8 @@ app.run(function($timeout, $rootScope) {
 	console.log('App is bootstrapped! >', this);
 
 	// override ui-router scrolling
-	// add google analytics tracking
 	$rootScope.$on('$stateChangeSuccess', function() {
 		window.scrollTo(0, 0);
-		// log the google analytics event
-		//   window.ga('send', 'pageview', {
-		//     page: $location.url()
-		//   });
 	});
 
 	// handles initial page loading animations
@@ -74,7 +72,7 @@ app.run(function($timeout, $rootScope) {
 	// $timeout(function () {
 	//     $('#home-loading').remove();
 	// }, 1100);
-})
+});
 
 // Used in UI select
 app.filter('propsFilter', function() {

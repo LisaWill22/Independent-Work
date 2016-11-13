@@ -37,20 +37,20 @@
 							</li>
 							<li>
 								<ul class="list-group list-group-menu list-unstyled">
-									<li class="list-group-item" ng-show="employer">
-										<button class="btn btn-primary btn-block btn-no-radius" ng-click="openAddProjectModal()">
+									<li class="list-group-item" ng-show="contractor">
+										<button class="btn btn-primary btn-block btn-no-radius" ng-click="openCreatePostModal()">
 											<i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
-											Create project posting
+											Create post
 										</button>
 									</li>
 									<li class="list-group-item">
 										<a href="#" ui-sref="app.dashboard" ui-sref-active="active">Dashboard</a>
 									</li>
-									<li class="list-group-item">
-										<a href="#" ui-sref="app.projects" ui-sref-active="active">Projects</a>
-									</li>
-									<li class="list-group-item">
-										<a href="#" ui-sref="app.messages" ui-sref-active="active">Messages</a>
+									<li class="list-group-item clearfix">
+										<a href="#" ui-sref="app.messages" ui-sref-active="active">
+											Messages
+											<span class="badge badge-primary pull-right">{{ currentUser.messages.new.length }}</span>
+										</a>
 									</li>
 									<li class="list-group-item">
 										<a href="#" ui-sref="app.settings.profile" ui-sref-active="active">Settings</a>
@@ -62,21 +62,14 @@
 									<div class="row">
 										<div class="col-xs-12">
 											<p>
-												<!-- <small ng-show="currentUser.messages.new.length">
-													You have
-													<a href="#" ui-sref="app.messages">
-														<i class="fa fa-fw fa-envelope"></i>
-														{{currentUser.messages.new.length }} new messages
-													</a>
-												</small> -->
 												<a href="#" ui-sref="app.auth.logout" class="btn btn-sm btn-default pull-right">log out</a>
 											</p>
 										</div>
 									</div>
 								</div>
 							</li>
-						</ul>
-					</li>
+						</ul> <!-- end dropdown menu -->
+					</li> <!-- end dropdown menu  toggle-->
 				</ul>
 			</div>
         </div>

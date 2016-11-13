@@ -1,0 +1,50 @@
+<div class="form-posting">
+    <div class="form-group">
+
+        <!-- posting Name -->
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-8">
+                    <label for="postingName">Title</label>
+                    <input ng-model="data.title"
+                          type="text"
+                          name="postingTitle"
+                          id="postingTitle"
+                          class="form-control"
+                          placeholder="Some posting title">
+                </div>
+            </div>
+        </div>
+
+        <!-- posting description -->
+        <div class="form-group">
+            <label for="postingDescription">Content</label>
+            <textarea ng-model="data.content"
+                      class="form-control"
+                      name="postingDescription"
+                      id="postingDescription"
+                      rows="8" cols="40"
+                      placeholder="Explain a little bit about the posting."></textarea>
+        </div>
+
+        <!-- Skill tags input -->
+        <div class="form-group">
+            <label for="skills">Related Skills</label>
+            <ui-select multiple="true"
+                       search-enabled="true"
+                       close-on-select="false"
+                       ng-model="data.skills"
+                       theme="bootstrap">
+                <ui-select-match placeholder="What skills does this posting require?">
+                    {{ $item.name }}
+                </ui-select-match>
+                <ui-select-choices
+                    repeat="skill in skills track by skill.name | propsFilter: { name: $select.search }"
+                    group-by="'category'">
+                    <small>{{ skill.name }}</small>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+    </div>
+</div>
