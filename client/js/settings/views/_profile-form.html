@@ -1,0 +1,70 @@
+<div class="form-profile">
+
+    <!-- Name -->
+    <div class="form-group">
+    	<div class="row">
+    		<div class="col-sm-6">
+    			<label for="firstName">First name</label>
+    			<input ng-model="data.firstName" type="text" name="firstName" id="firstName" class="form-control" placeholder="John">
+    		</div>
+    		<div class="col-sm-6">
+    			<label for="lastName">Last name</label>
+    			<input ng-model="data.lastName" type="text" name="lastName" id="lastName" class="form-control" placeholder="Doe">
+    		</div>
+    	</div>
+    </div>
+
+    <!-- Company Name -->
+    <div class="form-group" ng-show="employer">
+    	<div class="row">
+    		<div class="col-sm-12">
+    			<label for="firstName">Company Name</label>
+    			<input ng-model="data.companyName" type="text" name="companyName" id="companyName" class="form-control" placeholder="ACME Corp.">
+    		</div>
+    	</div>
+    </div>
+
+    <!-- Location info -->
+    <div class="form-group">
+    	<div class="row">
+    		<div class="col-sm-5">
+    			<label for="city">City</label>
+    			<input ng-model="data.location.city" type="text" name="city" id="city" class="form-control" placeholder="ACME Corp.">
+    		</div>
+    		<div class="col-sm-3">
+    			<label for="state">State</label>
+    			<select class="form-control" name="state" ng-model="data.location.state">
+    			</select>
+    		</div>
+    		<div class="col-sm-4">
+    			<label for="zip">Zipcode</label>
+    			<input class="form-control" type="number" name="zip" id="zip" ng-model="data.location.zipcode">
+    		</div>
+    	</div>
+    </div>
+
+    <!-- Skills -->
+    <div class="form-group" ng-show="contractor">
+    	<label for="skills">Skills</label>
+    	<ui-select multiple="true"
+    			   tagging="addSkill"
+    			   ng-model="data.skills"
+    			   on-remove="onSkillRemove($item)"
+    			   theme="bootstrap">
+    		<ui-select-match>{{$item.name}}</ui-select-match>
+    		<ui-select-choices
+    			repeat="skill in skills track by skill.name | propsFilter: { name: $select.search }"
+    			minimum-input-length="2"
+    			group-by="'category'">
+    			<small>{{skill.name}}</small>
+    		</ui-select-choices>
+    	</ui-select>
+    </div>
+
+    <!-- Bio -->
+    <div class="form-group">
+    	<label for="bio">Bio</label>
+    	<textarea ng-model="data.bio" class="form-control" name="bio" id="bio" rows="8" cols="40" placeholder="Tell a little about yourself"></textarea>
+    </div>
+
+</div>

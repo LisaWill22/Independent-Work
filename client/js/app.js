@@ -16,6 +16,7 @@ var app = angular.module('independent-work-app', [
 	'auth',
 	'signup',
 	'dashboard',
+	'contractors',
 	'posts',
 	'settings',
 	// Generic Services

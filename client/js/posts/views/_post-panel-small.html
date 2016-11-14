@@ -13,13 +13,13 @@
                 <p>
                     <small class="block">
                         Posted {{ item._createdDate | date: 'fullDate'}} by
-                        <a href="#" ui-sref="app.contractors({ id: item.user._id })">
+                        <a href="#" ui-sref="app.contractors.profile({ id: item.user._id })">
                             {{ item.user.firstName }} {{ item.user.lastName }}
                         </a>
                     </small>
                     <small class="block" ng-show="item.lastPost">
                         Last post {{ item.lastPost.date | date: 'fullDate'}} by
-                        <a href="#" ui-sref="app.contractors({ id: item.user._id })">
+                        <a href="#" ui-sref="app.contractors.profile({ id: item.user._id })">
                             {{ item.lastPost.user.firstName }} {{ item.lastPost.user.lastName }}
                         </a>
                     </small>

@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-body text-center">
+                <img class="img img-circle img-thumbnail img-avatar" src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+
+                <h2 class="lead">{{ contractor.firstName}} {{ contractor.lastName}}</h2>
+
+                <h3 ng-show="contractor.skills && contractor.skills.length">
+                    <span class="label label-primary" ng-repeat="skill in contractor.skills">{{ skill }}</span>
+                </h3>
+
+                <button uib-popover-template=" 'chat/views/_send-message-popover.html' "
+                        popover-placement="bottom-left"
+                        popover-trigger="'outsideClick'"
+                        popover-title="{{ 'Send Message to ' + contractor.firstName}}"
+                        type="button"
+                        class="btn btn-default">
+                        Message {{ contractor.firstName }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
