@@ -14,5 +14,10 @@ angular.module('posts', [
                         templateUrl: 'posts/views/index.html'
                     }
                 }
+            })
+            .state('app.posts.detail', {
+                url: '/:id',
+                controller: 'PostsDetailCtrl',
+                templateUrl: 'posts/views/detai.index.html'
             });
     });

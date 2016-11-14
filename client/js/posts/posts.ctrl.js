@@ -5,6 +5,4 @@ angular.module('posts')
 
         console.log('PostsCtrl loaded >>', $scope);
 
-        $scope.data = angular.copy($scope.currentUser);
-
     });

@@ -200,7 +200,7 @@ gulp.task('default', ['dev'], () => {
 
     // Set up some basic watchers and log file changes
     gulp.watch(PATHS.LESS, ['less', 'csscomb']).on('change', logFileChange);
-    gulp.watch(PATHS.JS, ['babel', 'js-lint', 'reload']).on('change', logFileChange);
+    gulp.watch(PATHS.JS, ['js-lint', 'reload']).on('change', logFileChange);
     gulp.watch(PATHS.HTML, ['templates']).on('change', logFileChange);
     gulp.watch(PATHS.TEMPLATE_FILE, ['reload']).on('change', logFileChange);
 

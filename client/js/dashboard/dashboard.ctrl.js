@@ -43,6 +43,10 @@ angular.module('dashboard')
                 .then(function(res) {
                     $scope.items = res.data;
                     $scope.loading = false;
+                    $scope.items = _.filter(res.data, function(user) {
+                        return user.roles.indexOf('contractor') !== -1;
+                    });
+                    console.log($scope.items);
                 })
                 .catch(function(err) {
                     console.log(err);

@@ -10,7 +10,12 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<!-- Employer left menu -->
-					<div class="" ng-show="employer"></div>
+					<div class="text-right" ng-show="employer">
+						<h2 class="h4">Search again</h2>
+						<div class="form-group">
+
+						</div>
+					</div>
 
 					<!-- Contractor left menu -->
 					<div class="text-right" ng-show="contractor">
@@ -25,7 +30,19 @@
 		<div class="col-md-9 col-sm-8">
 			<ui-view>
 
-				<div class="panel" ng-show="employer">
+				<div class="panel panel-default" ng-show="employer">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-12">
+								<h2>Contractors</h2>
+							</div>
+						</div>
+						<div class="row" ng-repeat="item in items" ng-show="items.length > 0">
+							<div class="col-xs-12">
+								<div ng-include=" 'contractors/views/_contractor-panel-small.html' "></div>
+							</div>
+						</div>
+					</div>
                 </div><!--end employer view -->
 
 				<div class="panel panel-default" ng-show="contractor">
