@@ -2,11 +2,13 @@ doctype html
 html
     head
         title= title
+        meta(charset='utf-8')
         link(rel='stylesheet', href='bower_components/angular-ui-select/dist/select.css')
         link(rel='stylesheet', href='angular-ui-bootstrap/dist/ui-bootstrap-csp.css')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
         link(rel='stylesheet', href='stylesheets/style.css')
         link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:300,400|Montserrat')
+        base(href="/")
     body(ng-app='independent-work-app' autoscroll="true")
         div(ui-view class="height-100" autoscroll="true")
         

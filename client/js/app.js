@@ -24,7 +24,7 @@ var app = angular.module('independent-work-app', [
 	'SessionService'
 ]);
 
-app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $compileProvider, toastrConfig) {
+app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $compileProvider, $locationProvider, toastrConfig) {
 
 	// Send the user to the home page if they get a bad route
 	$urlRouterProvider.otherwise('/');
@@ -55,6 +55,10 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 
 	// Performance enhancement
 	$compileProvider.debugInfoEnabled(false);
+
+	// use the HTML5 History API
+	$locationProvider.html5Mode(true);
+
 });
 
 app.run(function($timeout, $rootScope) {
