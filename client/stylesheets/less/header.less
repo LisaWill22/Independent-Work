@@ -11,15 +11,20 @@ header {
 			transition: all 0.3s ease-in-out;
 		}
 
+		li {
+			&:last-child {
+				a.btn {
+					margin-right: 0;
+				}
+			}
+		}
+
 		li > a.btn {
 			margin-right: @padding-large-horizontal;
 			color: @brand-primary;
 			transition: all 0.3s ease-in-out;
 			margin-top: 15px;
 
-	        &:last-child {
-	            margin-right: 0;
-	        }
 
 			&.btn-link {
 				&:focus,
@@ -60,6 +65,9 @@ header {
 			}
 
 			li {
+				a {
+					margin-top: 10px;
+				}
 				.btn-link {
 					color: @brand-primary;
 				}
@@ -85,5 +93,5 @@ header {
 	.navbar-login-session {
 		padding: 0 10px;
 	}
-	
+
 }

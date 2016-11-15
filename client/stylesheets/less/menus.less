@@ -16,8 +16,6 @@
 	padding-left: 0;
 	font-size: 13px;
 
-
-
 	.list-group-item {
 		padding: 0;
 		border-radius: 0;
@@ -54,8 +52,24 @@
     }
 }
 
-.panel {
-	h2 {
-		margin-top: 0;
+.dropdown-user-menu {
+	.popover-content {
+		padding: 0;
+	}
+	.popover {
+		color: #727272;
+		font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size: 16px;
+		font-weight: 400;
+		max-width: initial;
+		padding: 0;
+		border-radius: @border-radius-base;
+		border-color: #ddd;
+		&.bottom {
+			margin-top: 0;
+		}
+	}
+	.arrow {
+		right: 13px !important;
 	}
 }

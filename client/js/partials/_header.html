@@ -1,0 +1,32 @@
+<header>
+	<nav class="navbar navbar-default navbar-fixed-top" ng-class="{ 'slim': slimHeader }" slim-header>
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#" ui-sref="app.home">
+					<img src="/images/logo_transparent_background.png" alt="" title="independent - work"/>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li ng-show="!currentUser">
+						<a class="btn btn-primary" href="#" ui-sref="app.signup" ui-sref-active="active" ng-hide="hideSignup">Sign Up</a>
+					</li>
+					<li ng-show="!currentUser">
+						<a class="btn btn-link" href="#" ui-sref="app.auth.login" ui-sref-active="active" ng-hide="hideLogin">Log In</a>
+					</li>
+					<li class="dropdown dropdown-user-menu" ng-show="currentUser" ng-click="userMenuOpen = !userMenuOpen">
+						<a uib-popover-template=" 'partials/_user-menu.html' "
+						   popover-placement="bottom-right"
+						   popover-trigger="'outsideClick'"
+						   popover-is-open="userMenuOpen"
+						   class="btn btn-link dropdown-toggle">
+							<i class="fa fa-lg fa-fw fa-user-circle"></i>
+							<strong>{{ currentUser.firstName }}</strong>
+							<i class="fa fa-fw fa-caret-down"></i>
+						</a>
+					</li> <!-- end dropdown menu  toggle-->
+				</ul>
+			</div>
+        </div>
+	</nav>
+</header>
