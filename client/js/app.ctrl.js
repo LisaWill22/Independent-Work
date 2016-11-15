@@ -1,9 +1,58 @@
 'use strict';
 
 angular.module('independent-work-app')
-	.controller('AppCtrl', function(session, skills, $scope, $rootScope, $http, $state, $localStorage, $uibModal) {
+	.factory('socket', function() {
+		var socket = io.connect('http://localhost:3000');
+		return {
+			on: function(eventName, callback) {
+				socket.on(eventName, function() {
+					var args = arguments;
+					$rootScope.$apply(function() {
+						callback.apply(socket, args);
+					});
+				});
+			},
+			emit: function(eventName, data, callback) {
+				socket.emit(eventName, data, function() {
+					var args = arguments;
+					$rootScope.$apply(function() {
+						if (callback) {
+							callback.apply(socket, args);
+						}
+					});
+				})
+			}
+		};
+	});
+
+angular.module('independent-work-app')
+	.controller('AppCtrl', function(session, skills, $scope, $rootScope, $http, $state, $localStorage, $uibModal, socket) {
 
 		console.log('main app ctrl loaded >> ', $scope);
+
+		// Socket listeners
+		// ================
+		socket.on('init', function(data) {
+			$scope.name = data.name;
+			$scope.users = data.users;
+		});
+
+		socket.on('send:message', function(message) {
+			$scope.messages.push(message);
+		});
+
+		socket.on('change:name', function(data) {
+			// changeName(data.oldName, data.newName);
+		});
+
+		socket.on('user:join', function(data) {
+			$scope.messages.push({
+				user: 'chatroom',
+				text: 'User ' + data.name + ' has joined.'
+			});
+			$scope.users.push(data.name);
+		});
+
 
 		// Set up the local storage
 		$scope.$storage = $localStorage;

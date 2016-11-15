@@ -80,6 +80,13 @@ app.run(function($timeout, $rootScope) {
 	// }, 1100);
 });
 
+app.factory('socket', function(socketFactory) {
+	return socketFactory({
+		prefix: 'iw-',
+		ioSocket: io.connect('http://localhost:3000')
+	});
+});
+
 // Used in UI select
 app.filter('propsFilter', function() {
 	return function(items, props) {

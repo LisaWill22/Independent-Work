@@ -6,6 +6,7 @@ let ChatSocket = (server) => {
 	this.io = require('socket.io')(this.server);
 
 	this.io.on('connection', (client) => {
+		console.log('hello');
 		client.broadcast.emit('chat.hi');
 
 		client.on('chat.join', (name) => {

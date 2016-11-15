@@ -24,6 +24,7 @@
     "angular-ui-select": "^0.19.6",
     "angular-sanitize": "^1.5.8",
     "lodash": "^4.16.6",
-    "angular-socket-io": "^0.7.0"
+    "angular-socket-io": "^0.7.0",
+    "socket.io-client": "^1.5.1"
   }
 }

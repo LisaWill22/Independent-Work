@@ -21,18 +21,15 @@ app.set('port', port);
 
 const server = http.createServer(app);
 const io = require('socket.io')(server);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
 io.on('connection', function(socket) {
 	console.log('a user connected');
 });
 
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 /**
  * Event listener for HTTP server "error" event.
