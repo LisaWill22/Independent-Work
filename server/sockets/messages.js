@@ -1,34 +1,36 @@
-var sio = require("socket.io");
+'use strict';
 
-var client = redis.createClient()
-var app = express.createServer();
-var io = sio.listen(app);
+let ChatSocket = (server) => {
 
-io.set("store", new sio.RedisStore);
+	this.server = server;
+	this.io = require('socket.io')(this.server);
 
+	this.io.on('connection', (client) => {
+		client.broadcast.emit('chat.hi');
 
-// In this example we have one master client socket
-// that receives messages from others.
+		client.on('chat.join', (name) => {
+			client.name = name;
+			client.broadcast.emit('chat.join', name);
+		});
 
-io.sockets.on('connection', function(socket) {
+		client.on('chat.typing', () => {
+			let message = client.name + ' typing';
+			client.broadcast.emit('chat.typing', client.name + ' is typing...');
+		});
 
-  // Promote this socket as master
-  socket.on("I'm the master", function() {
+		client.on('chat.message', (message) => {
+			let data = {
+				user: client.name,
+				text: message,
+				date: new Date()
+			}
+			this.io.emit('chat.message', data);
+		});
 
-    // Save the socket id to Redis so that all processes can access it.
-    client.set("mastersocket", socket.id, function(err) {
-      if (err) throw err;
-      console.log("Master socket is now" + socket.id);
-    });
-  });
+		client.on('disconnect', () => {
+			client.broadcast.emit('chat.leave', client.name);
+		});
+	});
+};
 
-  socket.on("message to master", function(msg) {
-
-    // Fetch the socket id from Redis
-    client.get("mastersocket", function(err, socketId) {
-      if (err) throw err;
-      io.sockets.socket(socketId).emit(msg);
-    });
-  });
-
-});
+module.exports = ChatSocket;

@@ -19,6 +19,7 @@ angular.module('contractors')
         $scope.sendMessage = function(contractor) {
             console.log(contractor);
             console.log($scope.data.message);
+            $scope.data.message = null;
         };
 
     });

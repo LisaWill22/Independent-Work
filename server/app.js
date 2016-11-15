@@ -9,10 +9,8 @@ const passport = require('passport');
 
 // Setups up the dot env Stuff
 require('dotenv').config();
-
 // DB bring in db connection
 const db = require('./db');
-
 // Create the app
 const app = express();
 

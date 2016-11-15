@@ -10,6 +10,7 @@ var app = angular.module('independent-work-app', [
 	'ui.bootstrap',
 	'ngStorage',
 	'angular-loading-bar',
+	'btford.socket-io',
 	// IW modules
 	'app.templates',
 	'home',

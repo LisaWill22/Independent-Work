@@ -7,8 +7,8 @@ angular.module('independent-work-app')
 
 		// Set up the local storage
 		$scope.$storage = $localStorage;
-
 		$scope.skills = skills.data;
+		$scope.userMenuOpen = false;
 
 		if (session && session.data) {
 			let stateName = $state.$current.name;
@@ -123,7 +123,7 @@ angular.module('independent-work-app')
 				if ($state.includes('home')) {
 					yOffset = 300;
 				} else {
-					yOffset = 100;
+					yOffset = 80;
 				}
 
 				if (this.pageYOffset >= yOffset) {

@@ -1,7 +1,7 @@
 <div class="container">
 	<!-- Show loader while CTRL is loading items -->
 	<div ng-show="loading" class="text-center ng-show-fade">
-		Loading dashboard...
+		<h2 class="lead">Loading dashboard...</h2>
 		<spinner></spinner>
 	</div>
 	<!-- List of dashboard items -->
@@ -68,7 +68,7 @@
 						</div>
 						<div class="row" ng-repeat="item in items" ng-show="items.length &&!loading">
 							<div class="col-xs-12">
-								<div ng-include=" 'posts/views/_post-panel-small.html' "></div>
+								<div ng-include=" 'posts/views/_post-snippet.html' "></div>
 							</div>
 						</div>
 					</div>
@@ -78,7 +78,6 @@
 						</button>
 					</div>
 				</div><!-- end contractor view-->
-
 			</ui-view>
 		</div>
 	</div>
