@@ -4,50 +4,35 @@
  * Module dependencies.
  */
 
-var app = require('./server/app');
-var debug = require('debug')('independent-work-front:server');
-var http = require('http');
+const app = require('./server/app');
+const debug = require('debug')('independent-work-front:server');
+const http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+const port = process.env.PORT || 3000;
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+const server = http.createServer(app);
+const io = require('socket.io')(server);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
+io.on('connection', function(socket) {
+	console.log('a user connected');
+});
+
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Normalize a port into a number, string, or false.
- */
-
-function normalizePort(val) {
-	var port = parseInt(val, 10);
-
-	if (isNaN(port)) {
-		// named pipe
-		return val;
-	}
-
-	if (port >= 0) {
-		// port number
-		return port;
-	}
-
-	return false;
-}
 
 /**
  * Event listener for HTTP server "error" event.

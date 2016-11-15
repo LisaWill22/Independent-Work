@@ -1,0 +1,27 @@
+<!-- Show loader while CTRL is loading items -->
+<div ng-show="loading" class="text-center ng-show-fade">
+    Loading post
+    <spinner></spinner>
+</div>
+
+<div class="row ng-show-fade" ng-show="!loading">
+    <div class="col-md-3 col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Post Stats</h4>
+            </div>
+            <div class="panel-body">
+                <p>{{ post.replies.length }} replies</p>
+                <p>{{ post.contributors.length }} contributors</p>
+                <p>{{ '23' }} days active</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-8">
+        <div class="row">
+            <div class="col-xs-12">
+                
+            </div>
+        </div>
+    </div>
+</div>
