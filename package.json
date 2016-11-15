@@ -68,6 +68,7 @@
     "gulp-run-sequence": "^0.3.2",
     "gulp-sourcemaps": "^2.1.1",
     "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.9",
     "imagemin-gifsicle": "^5.1.0",
     "jshint": "^2.9.3",
