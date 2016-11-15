@@ -24,6 +24,7 @@ const ngAnnotate = require('gulp-ng-annotate');
 const sourcemaps = require('gulp-sourcemaps');
 const uglify = require('gulp-uglify');
 const babel = require('gulp-babel');
+const gutil = require('gulp-util');
 
 // Create an instance of browserSync
 const browserSync = require('browser-sync').create();
@@ -250,4 +251,6 @@ function logFileChange(event) {
 let onError = function(err) {
 	gutil.beep();
 	console.log(err);
+
+    this.emit('end')
 };
