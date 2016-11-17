@@ -34,6 +34,7 @@ angular.module('independent-work-app')
 		// ================
 		socket.on('chat message', function(data) {
 			console.log(data.message);
+			alert(data.message)
 		});
 
 		// Set up the local storage

@@ -15,12 +15,22 @@ angular.module('chat')
             // Build out message
             var message = {
                 thread: $scope.currentUser._id + '-' + $scope.data.recipient._id,
-                sender: $scope.currentUser._id,
-                recipient: $scope.data.recipient._id,
+                sender: {
+                    id: $scope.currentUser._id,
+                    fistName: $scope.currentUser.firstName,
+                    lastName: $scope.currentUser.lastName,
+                    email: $scope.currentUser.email
+                },
+                recipient: {
+                    id: $scope.data.recipient._id,
+                    fistName: $scope.data.recipient.firstName,
+                    lastName: $scope.data.recipient.lastName,
+                    email: $scope.data.recipient.email,
+                },
                 message: $scope.data.message,
                 unread: true,
                 _dateSent: new Date()
-            }
+            };
 
             // Send message to API
             $http.post('/chats', message)

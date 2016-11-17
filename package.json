@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "postinstall": "bower install",
-    "start": "node server.js"
+    "start": "node ./server/app.js"
   },
   "dependencies": {
     "angular-socket-io": "^0.7.0",

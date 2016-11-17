@@ -87,19 +87,25 @@ app.use('/api', apiRoutes);
 app.use('/api', userRoutes);
 // app.use('/chats', chatRoutes);
 
+
 const Chat = require('./models/chat').Chat;
+
 app.post('/chats', function(req, res, next) {
+
 	// Create new chat model
 	const newChat = new Chat(req.body);
+
 	// Save the chat to mongo
 	newChat.save(function(err, chat) {
 		if (err) {
 			console.log(err);
 			return res.send(err);
 		}
-		console.log(chat);
-		// Emit the message
+
+		// Emit the message to all users
 		io.sockets.emit('chat message', chat);
+
+
 		// Return the chat
 		return res.send(chat);
 	});

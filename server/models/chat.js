@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 
 var chatSchema = new mongoose.Schema({
     // a user id
-    sender: String,
-    recipient: String,
+    sender: Object,
+    recipient: Object,
     // some message content
     message: String,
     // controls flagging if user has unread messages
