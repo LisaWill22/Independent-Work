@@ -5,26 +5,80 @@
 *  Gives the element a soft fade in/fade out animation.
 */
 .ng-show-fade {
-    opacity: 1;
+	opacity: 1;
 }
-.ng-show-fade.ng-hide-add, .ng-show-fade.ng-hide-remove {
-    transition: opacity ease-out .3s;
+
+.ng-show-fade.ng-hide-add,
+.ng-show-fade.ng-hide-remove {
+	transition: opacity ease-out 0.3s;
 }
 
 .ng-show-fade.ng-hide {
-    opacity: 0;
+	opacity: 0;
 }
 
 .ng-show-fade.ng-hide-add {
+	position: absolute;
+	right: 0;
+	left: 0;
+	opacity: 0;
+}
+/*------------------------------------*\
+  #ANIMATIONS
+    - Keyframe animations and ng animate classes
+\*------------------------------------*/
+
+
+/* Have to set height explicity on ui-view
+to prevent collapsing during animation*/
+.ui-view-container {
+    position: relative;
+    width: 100%;
+}
+
+/**
+ *  .animate-view
+ *
+ *  Animation that is used on views entering and leaving the ui-view
+ *  Gives the element a soft fade in/fade out animation while
+ *  giving it a slight upward motion effect
+ */
+
+[ui-view].animate-view.ng-enter,
+[ui-view].animate-view.ng-leave {
     position: absolute;
     right: 0;
     left: 0;
-    opacity: 0;
+    -webkit-transition: all .3s ease-in;
+       -moz-transition: all .3s ease-in;
+         -o-transition: all .3s ease-in;
+            transition: all .3s ease-in;
 }
-//
-//
-// .ng-repeat-fade.ng-enter-stagger {
-//   transition-delay: 0.2s;
-//   animation-delay: 0.2s;
-// }
-//
+
+[ui-view].animate-view.ng-enter {
+    opacity: 0;
+    -webkit-transform: scale3d(.98, .98, .98);
+       -moz-transform: scale3d(.98, .98, .98);
+            transform: scale3d(.98, .98, .98);
+}
+
+[ui-view].animate-view.ng-enter-active {
+    opacity: 1;
+    -webkit-transform: scale3d(1, 1, 1);
+       -moz-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+}
+
+[ui-view].animate-view.ng-leave {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+       -moz-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+}
+
+[ui-view].animate-view.ng-leave-active {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 20px, 0);
+       -moz-transform: translate3d(0, 20px, 0);
+            transform: translate3d(0, 20px, 0);
+}

@@ -13,11 +13,12 @@ var app = angular.module('independent-work-app', [
 	'btford.socket-io',
 	// IW modules
 	'app.templates',
-	'home',
 	'auth',
-	'signup',
-	'dashboard',
+	'chat',
 	'contractors',
+	'dashboard',
+	'home',
+	'signup',
 	'posts',
 	'settings',
 	// Generic Services
@@ -62,7 +63,7 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 });
 
 app.run(function($timeout, $rootScope) {
-	console.log('App is bootstrapped! >', this);
+	console.log('App is bootstrapped! >');
 
 	// override ui-router scrolling
 	$rootScope.$on('$stateChangeSuccess', function() {

@@ -2081,7 +2081,7 @@ angular.module('ui.bootstrap.position', [])
  * A set of utility methods for working with the DOM.
  * It is meant to be used where we need to absolute-position elements in
  * relation to another element (this is the case for tooltips, popovers,
- * typeahead suggestions etc.).
+ *  suggestions etc.).
  */
   .factory('$uibPosition', ['$document', '$window', function($document, $window) {
     /**
@@ -4154,7 +4154,7 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.stackedMap', 'ui.bootstrap.p
               ariaHiddenCount = parseInt(sibling.getAttribute(ARIA_HIDDEN_ATTRIBUTE_NAME), 10);
 
             if (!ariaHiddenCount) {
-              ariaHiddenCount = elemIsAlreadyHidden ? 1 : 0;  
+              ariaHiddenCount = elemIsAlreadyHidden ? 1 : 0;
             }
 
             sibling.setAttribute(ARIA_HIDDEN_ATTRIBUTE_NAME, ariaHiddenCount + 1);
@@ -4192,7 +4192,7 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.stackedMap', 'ui.bootstrap.p
           }
         );
       }
-      
+
       $modalStack.close = function(modalInstance, result) {
         var modalWindow = openedWindows.get(modalInstance);
         unhideBackgroundElements();
@@ -5109,7 +5109,7 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.s
 
               if (tooltip) {
                 tooltip.remove();
-                
+
                 tooltip = null;
                 if (adjustmentTimeout) {
                   $timeout.cancel(adjustmentTimeout);
@@ -5117,7 +5117,7 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.s
               }
 
               openedTooltips.remove(ttScope);
-              
+
               if (tooltipLinkedScope) {
                 tooltipLinkedScope.$destroy();
                 tooltipLinkedScope = null;
@@ -7156,6 +7156,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.debounce', 'ui.bootstrap
       controller: 'UibTypeaheadController',
       require: ['ngModel', '^?ngModelOptions', 'uibTypeahead'],
       link: function(originalScope, element, attrs, ctrls) {
+          console.log(originalScope);
         ctrls[2].init(ctrls[0], ctrls[1]);
       }
     };

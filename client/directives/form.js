@@ -1,22 +1,22 @@
-angular.module('pdForm', [
+angular.module('boForm', [
     'ngMessages',
     'ngSanitize'
 ])
     /**
     * @ngdoc directive
-    * @name pdForm.directive:pdForm
+    * @name boForm.directive:boForm
     * @restrict 'A'
     * @element form
     * @description
     *
-    * This is the main directive of the pdForm module and it is implemented as an attribute on a form element.
-    * Other attribute directives like `pd-validate`, the validation directive, can also be placed on the form element.
+    * This is the main directive of the boForm module and it is implemented as an attribute on a form element.
+    * Other attribute directives like `bo-validate`, the validation directive, can also be placed on the form element.
     *
     * @example
-        <example module="pdForm">
-            <file name="pd-form-example.html">
-                <div ng-controller="pdFormDemoCtrl">
-                    <form pd-form
+        <example module="boForm">
+            <file name="bo-form-example.html">
+                <div ng-controller="boFormDemoCtrl">
+                    <form bo-form
                       autocomplete="off"
                       novalidate
                       name="signupForm"
@@ -30,7 +30,7 @@ angular.module('pdForm', [
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="form-group" pd-validate>
+                                <div class="form-group" bo-validate>
                                     <label>First Name</label>
                                     <input type="text"
                                            name="first_name"
@@ -40,7 +40,7 @@ angular.module('pdForm', [
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="form-group" pd-validate>
+                                <div class="form-group" bo-validate>
                                     <label>Last Name</label>
                                     <input type="text"
                                            name="last_name"
@@ -52,23 +52,23 @@ angular.module('pdForm', [
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="form-group" pd-validate>
+                                <div class="form-group" bo-validate>
                                     <label>Email Address</label>
                                     <input type="email"
                                            name="email"
                                            ng-model="data.email"
                                            class="form-control"
                                            ng-required="true"
-                                           pd-available="/email-available"/>
+                                           bo-available="/email-available"/>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="form-group" pd-validate>
+                                <div class="form-group" bo-validate>
                                     <label>Password</label>
                                     <input type="password"
-                                           pd-password-rules
+                                           bo-password-rules
                                            name="password"
                                            ng-model="data.password"
                                            class="form-control"
@@ -76,10 +76,10 @@ angular.module('pdForm', [
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="form-group" pd-validate>
+                                <div class="form-group" bo-validate>
                                     <label>Confirm Password</label>
                                     <input type="password"
-                                           pd-password-match="password"
+                                           bo-password-match="password"
                                            name="confirm_password"
                                            ng-model="data.confirm_password"
                                            class="form-control"
@@ -87,7 +87,7 @@ angular.module('pdForm', [
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group" pd-validate>
+                        <div class="form-group" bo-validate>
                             <p class="control-label"><br/>
                                 <input type="checkbox" class="custom-checkbox"
                                        name="agree_tos" id="agree_tos"
@@ -114,9 +114,9 @@ angular.module('pdForm', [
                     </form>
                 </div>
             </file>
-            <file name="pdFormCtrl.js">
-                angular.module('pdForm')
-                    .controller('pdFormDemoCtrl', function($scope) {
+            <file name="boFormCtrl.js">
+                angular.module('boForm')
+                    .controller('boFormDemoCtrl', function($scope) {
                         $scope.afterSubmit = function () {
                             alert('afterSubmit fired');
                         };
@@ -179,16 +179,16 @@ angular.module('pdForm', [
 
     /**
      * @ngdoc directive
-     * @name pdForm.directive:pdValidate
+     * @name boForm.directive:boValidate
      * @terminal
      * @restrict 'A'
      * @description
      *
-     * pdValidate is used to trigger validation on an input. It should be implemented as an attribute
+     * boValidate is used to trigger validation on an input. It should be implemented as an attribute
      * on an input elements parent or container element. It takes no parameters, but instead handles
      * hiding and showing error messages found in
      *
-     * `pd-assets/pd-form/default-errors-messages.html`:
+     * `bo-assets/bo-form/default-errors-messages.html`:
      *
      * <pre>
          <span ng-message="required">This field is required.</span>
@@ -197,14 +197,14 @@ angular.module('pdForm', [
          <span ng-message="email">A valid email address is required</span>
          <span ng-message="pattern">Invalid entry</span>
          <span ng-message="url">Invalid URL</span>
-         <span ng-message="pdAvailable">Value is not available for use</span>
-         <span ng-message="pdPasswordMatch">Passwords must match</span>
-         <span ng-message="pdPasswordRules">Invalid password</span>
-         <span ng-message="pdInsurance">You must fill both insurance fields</span>
+         <span ng-message="boAvailable">Value is not available for use</span>
+         <span ng-message="boPasswordMatch">Passwords must match</span>
+         <span ng-message="boPasswordRules">Invalid password</span>
+         <span ng-message="boInsurance">You must fill both insurance fields</span>
      * </pre>
      *
      * The validation messsage it triggers is based on the type of validation attribute placed on field itself,
-     * i.e, the input field that is a child of the element that has the `pd-validate` directive as an attribute.
+     * i.e, the input field that is a child of the element that has the `bo-validate` directive as an attribute.
      * Requires a `<form>` element as its parent.
      *
      */
@@ -214,27 +214,27 @@ angular.module('pdForm', [
             require: '^form',
             terminal: true,
             link: function (scope, element, attrs, fCtrl) {
-                var attrName = fCtrl.$name + '.' + element.find('input,textarea,select,pd-select').attr('name'),
+                var attrName = fCtrl.$name + '.' + element.find('input,textarea,select,bo-select').attr('name'),
                     messages = element.find('[ng-message]').remove();
 
                 if ( attrName.indexOf('undefined') > -1 ) {
                     attrName = fCtrl.$name + '.' + element.attr('field-name');
                 }
 
-                if ( _.has(attrs, 'showValidIcon') && attrs.pdShowValidIcon !== 'false' ) {
+                if ( _.has(attrs, 'showValidIcon') && attrs.boShowValidIcon !== 'false' ) {
                     element.css('position', 'relative');
                     element.append('<div class="input-valid-wrapper"><i class="fa fa-fw fa-check animate-show-fade" ng-show="' + attrName + '.$valid"></i></div>');
                 }
 
-                // if ( _.has(attrs, 'pdShowValidIcon') && attrs.pdShowInvalidIcon !== 'false' ) {
+                // if ( _.has(attrs, 'boShowValidIcon') && attrs.boShowInvalidIcon !== 'false' ) {
                 //     element.css('position', 'relative');
                 //     element.append('<div class="input-valid-wrapper"><i class="fa fa-fw fa-close animate-show-fade" ng-show="' + attrName + '.$invalid && ' + attrName + '.$dirty"></i></div>');
                 // }
 
-                element.removeAttr('pd-validate');
+                element.removeAttr('bo-validate');
                 element.attr('ng-class', '{\'has-error\':' + attrName + '.$invalid && (' + attrName + '.$touched || ' + fCtrl.$name + '.$attempted)}');
                 element.append('<div class="help-block animate-show-fade" ng-messages="' + attrName + '.$error">' +
-                    '<small ng-messages-include="pd-form/default-error-messages.html"></small>' +
+                    '<small ng-messages-include="bo-form/default-error-messages.html"></small>' +
                     '</div>');
                 element.find('.help-block').append(messages);
                 $compile(element)(scope);
@@ -244,18 +244,18 @@ angular.module('pdForm', [
 
     /**
      * @ngdoc directive
-     * @name pdForm.directive:pdAvailable
+     * @name boForm.directive:boAvailable
      * @restrict 'A'
      * @element input
      * @description
      *
-     * pdAvailable is used to check whether a username/email is available for registration. This directive is
+     * boAvailable is used to check whether a username/email is available for registration. This directive is
      * implemented as an attribute on an input field, most likely `<input type="email">`, though it will work
      * on any type of element or input type. Checks against our API/database to see if there's a user in our system
      * with that email already registered and displays a ng-message based on the result of the post to the db.
      * Requires the field to have an `ng-model`.
      *
-     * @param {string} pd-available Should be a relative URL that points to something like `/accounts/email-available` or another API endpoint.
+     * @param {string} bo-available Should be a relative URL that points to something like `/accounts/email-available` or another API endpoint.
      *
      */
     .directive('boAvailable', function ($http, $q, $timeout, $compile) {
@@ -263,7 +263,7 @@ angular.module('pdForm', [
             require: 'ngModel',
             restrict: 'A',
             link: function (scope, element, attrs, ngModel, fCtrl) {
-                var url = attrs.pdAvailable,
+                var url = attrs.boAvailable,
                     currentValue = false,
                     loadingName = attrs.name + '_loading',
                     aborter = $q.defer(),
@@ -341,7 +341,7 @@ angular.module('pdForm', [
 
     /**
     * @ngdoc directive
-    * @name pdForm.directive:input
+    * @name boForm.directive:input
     * @restrict 'E'
     * @element input
     * @priority 1
@@ -377,12 +377,12 @@ angular.module('pdForm', [
 
     /**
     * @ngdoc directive
-    * @name pdForm.directive:pdPasswordRules
+    * @name boForm.directive:boPasswordRules
     * @restrict 'A'
     * @element input
     * @description
     *
-    * The `pd-password-rules` directive checks the users password against the following rules during registration:
+    * The `bo-password-rules` directive checks the users password against the following rules during registration:
     *
     *   * must be between 8-128 characters
     *   * must contain 1 uppercase character, 1 lowercase character, 1 number, and 1 symbol or special character
@@ -460,7 +460,7 @@ angular.module('pdForm', [
 
                 ngModel.$parsers.push(function (value) {
                     scope.valid = validRe.test(value);
-                    ngModel.$setValidity('pdPasswordRules', scope.valid);
+                    ngModel.$setValidity('boPasswordRules', scope.valid);
                     setValidityUI(value);
                     return value;
                 });
@@ -470,17 +470,17 @@ angular.module('pdForm', [
 
      /**
      * @ngdoc directive
-     * @name pdForm.directive:pdPasswordMatch
+     * @name boForm.directive:boPasswordMatch
      * @scope
      * @restrict 'A'
      * @element input
      * @description
      *
-     * The `pd-password-rules` directive checks the users password against another password field to verify
+     * The `bo-password-rules` directive checks the users password against another password field to verify
      * that they contain the same password. Should be placed on an `<input type="password">`.
      * Requires a `<form>` element as a parent.
      *
-     * @param {string} pd-password-match Should contain a string that references the input `name` attribute of the
+     * @param {string} bo-password-match Should contain a string that references the input `name` attribute of the
      *                                   password field you are trying to check for a match.
      *
      */
@@ -489,14 +489,14 @@ angular.module('pdForm', [
             require: '^form',
             restrict: 'A',
             link: function (scope, element, attrs, fCtrl) {
-                var passwordField = fCtrl[attrs.pdPasswordMatch],
+                var passwordField = fCtrl[attrs.boPasswordMatch],
                     confirmField = fCtrl[attrs.name];
 
                 function setMatchValidity(value) {
                     if (value !== passwordField.$modelValue) {
-                        confirmField.$setValidity('pdPasswordMatch', false);
+                        confirmField.$setValidity('boPasswordMatch', false);
                     } else {
-                        confirmField.$setValidity('pdPasswordMatch', true);
+                        confirmField.$setValidity('boPasswordMatch', true);
                     }
                 }
 

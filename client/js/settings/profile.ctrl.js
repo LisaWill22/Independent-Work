@@ -58,7 +58,6 @@ angular.module('settings')
             $http.get('/api/skills')
                 .then(function(res){
                     allSkills = res.data;
-
                     $scope.skills = [];
                     allSkills.forEach(function(skill) {
                         var userHasSkill = $scope.data.skills.find(function(userSkill) {

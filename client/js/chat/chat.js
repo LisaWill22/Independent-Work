@@ -6,19 +6,16 @@ angular.module('chat', [
         $stateProvider
             .state('app.chat', {
                 abstract: true,
-                controller: 'ChatCtrl',
                 views: {
-                    'container': { templateUrl: 'chat/views/index.html' }
+                    'container': {
+                        templateUrl: 'chat/views/index.html',
+                        controller: 'ChatCtrl'
+                    }
                 }
             })
             .state('app.chat.list', {
                 url: '/messages',
                 templateUrl: 'chat/views/chat-list.html',
                 controller: 'ChatListCtrl'
-            })
-            .state('app.chat.detail', {
-                url: '/logout',
-                templateUrl: 'chat/views/logout.html',
-                controller: 'LogoutCtrl'
-            })
+            });
     });

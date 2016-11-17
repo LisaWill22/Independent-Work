@@ -1,0 +1,37 @@
+<div class="container">
+	<h1 class="text-center">Chat</h1>
+	<div class="row">
+		<div class="col-xs-6 col-xs-offset-3 text-center">
+			<!-- <ui-select
+				ng-model="data.recipient"
+				theme="bootstrap"
+				reset-search-input="false" >
+				<ui-select-match placeholder="Select a user">
+					{{ $select.selected.firstName + ' ' + $selec.selected.lastName }}
+				</ui-select-match>
+				<ui-select-choices repeat="user in users track by $index">
+					<div ng-bind-html="(user.firstName + ' ' + user.lastName) | highlight: $select.search"></div>
+				</ui-select-choices>
+			</ui-select> -->
+			<!-- <ui-select multiple="false"
+					   ng-model="data.recipient"
+					   theme="bootstrap">
+				<ui-select-match>{{user.firstName}}</ui-select-match>
+				<ui-select-choices
+					repeat="user in users track by user._id | propsFilter: { name: $select.search }"
+					minimum-input-length="2">
+					<small>{{user.firstName}}</small>
+				</ui-select-choices>
+			</ui-select> -->
+			<select ng-model="data.recipient" ng-options="user.firstName + ' ' + user.lastName for user in users"></select>
+			<br/>
+			<textarea class="form-control" placeholder="Whatchu got to say?" rows="4" ng-model="data.message"></text-area>
+			<button class="btn btn-primary btn-block btn-lg" type="button" name="send" ng-click="sendMessage()">SEND</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<ui-view></ui-view>
+		</div>
+	</div>
+</div>

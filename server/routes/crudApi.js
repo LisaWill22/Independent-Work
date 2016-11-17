@@ -38,8 +38,7 @@ router.route('/:collectionName')
 	.post(function(req, res, next) {
 		req.collection.insert(req.body, {}, function(e, results) {
 			if (e) return next(e)
-			console.log(results);
-			res.send(results[0])
+			res.send(results.ops[0])
 		})
 	});
 
