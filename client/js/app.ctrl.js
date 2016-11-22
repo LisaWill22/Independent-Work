@@ -20,7 +20,7 @@ angular.module('independent-work-app')
 							callback.apply(socket, args);
 						}
 					});
-				})
+				});
 			}
 		};
 	});
@@ -33,8 +33,7 @@ angular.module('independent-work-app')
 		// Socket listeners
 		// ================
 		socket.on('chat message', function(data) {
-			console.log(data.message);
-			alert(data.message)
+			alert(data.message);
 		});
 
 		// Set up the local storage
@@ -67,7 +66,6 @@ angular.module('independent-work-app')
 		// Opens the add posting modal
 		// Only visible if account type is employer
 		$scope.openCreatePostModal = function() {
-			console.log('open');
 			openCreatePostModal();
 		};
 
@@ -168,7 +166,7 @@ angular.module('independent-work-app')
 			});
 		};
 	})
-	.filter("sentenceCase", function() {
+	.filter('sentenceCase', function() {
 		return _.memoize(function(x) {
 			var capitalize, fmt;
 
@@ -185,14 +183,14 @@ angular.module('independent-work-app')
 
 				return capitalized = capitalize($.trim(y));
 			};
-			x = _.map(x.split("."), function(z) {
+			x = _.map(x.split('.'), function(z) {
 				return fmt(z);
-			}).join(". ");
-			x = _.map(x.split("!"), function(z) {
+			}).join('. ');
+			x = _.map(x.split('!'), function(z) {
 				return fmt(z);
-			}).join("! ");
-			return x = _.map(x.split(","), function(z) {
+			}).join('! ');
+			return x = _.map(x.split(','), function(z) {
 				return z;
-			}).join(", ");
+			}).join(', ');
 		});
 	});

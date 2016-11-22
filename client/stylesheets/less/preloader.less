@@ -1,0 +1,79 @@
+/*------------------------------------------*/
+/*   Text-Logo
+/*------------------------------------------*/
+.text-logo{
+    font-family: 'Raleway','Open Sans',Helvetica,Arial,sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 19px;
+    line-height: 21px;
+    color: #ffffff;
+}
+
+/*------------------------------------------*/
+/*   Preloader
+/*------------------------------------------*/
+
+.preloader{
+    background-color: @brand-primary;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99999;
+    overflow: hidden !important;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.loader-container{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.signal {
+    display: inline-block;
+    margin-top: 10px;
+    width: 30px;
+    height: 30px;
+    border: 3px solid #fff;
+    border-radius: 30px;
+    opacity: 1;
+    animation: pulsate 1s infinite ease-out;
+    -webkit-animation: pulsate 1s infinite ease-out;
+}
+
+@-webkit-keyframes pulsate {
+    0% {
+      opacity: 0.0;
+      transform:scale(.1);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform:scale(1.2);
+    }
+}
+
+@keyframes pulsate {
+    0% {
+      opacity: 0.0;
+      transform:scale(.1);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform:scale(1.2);
+    }
+}

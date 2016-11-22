@@ -7,10 +7,21 @@ html
         link(rel='stylesheet', href='angular-ui-bootstrap/dist/ui-bootstrap-csp.css')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
         link(rel='stylesheet', href='stylesheets/style.css')
-        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:300,400|Montserrat')
+        link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:300,400|RaleWay:300,400,700')
         //- base(href="/")
     body(ng-app='independent-work-app' autoscroll="true")
-        div(ui-view class="height-100" autoscroll="true")
+        // Preloader
+        div.preloader#home-loading
+            div.loader-container
+                div.text-logo Independent Work
+                div.signal
+    
+        // App View
+        div(ui-view class="height-100" autoscroll="true" id="app-container")
+        
+        //
+        // SCRIPTS
+        //
         
         // Jquery/Bootstrap deps
         script(src='bower_components/jquery/dist/jquery.js')

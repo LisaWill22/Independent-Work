@@ -63,7 +63,6 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 });
 
 app.run(function($timeout, $rootScope) {
-	console.log('App is bootstrapped! >');
 
 	// override ui-router scrolling
 	$rootScope.$on('$stateChangeSuccess', function() {
@@ -71,14 +70,14 @@ app.run(function($timeout, $rootScope) {
 	});
 
 	// handles initial page loading animations
-	// $timeout(function () {
-	//     $('#app-container').css('opacity', 1);
-	//     $('#home-loading').css('opacity', 0);
-	// }, 1000);
-	//
-	// $timeout(function () {
-	//     $('#home-loading').remove();
-	// }, 1100);
+	$timeout(function () {
+	    $('#app-container').css('opacity', 1);
+	    $('#home-loading').css('opacity', 0);
+	}, 1000);
+	$timeout(function () {
+	    $('#home-loading').remove();
+	}, 1001);
+	
 });
 
 app.factory('socket', function(socketFactory) {
