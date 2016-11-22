@@ -56,10 +56,6 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 
 	// Performance enhancement
 	$compileProvider.debugInfoEnabled(false);
-
-	// use the HTML5 History API
-	// $locationProvider.html5Mode(true);
-
 });
 
 app.run(function($timeout, $rootScope) {
@@ -73,18 +69,25 @@ app.run(function($timeout, $rootScope) {
 	$timeout(function () {
 	    $('#app-container').css('opacity', 1);
 	    $('#home-loading').css('opacity', 0);
-	}, 1000);
+	}, 1500);
 	$timeout(function () {
 	    $('#home-loading').remove();
-	}, 1001);
-	
+	}, 1501);
+
 });
 
-app.factory('socket', function(socketFactory) {
-	return socketFactory({
-		prefix: 'iw-',
-		ioSocket: io.connect('http://localhost:3000')
-	});
+//Service to interact with the socket library
+app.factory('socket', function (socketFactory) {
+	var serverBaseUrl = 'https://launchpeer-iw.herokuapp.com';
+	// var serverBaseUrl = 'http://localhost:3000';
+
+    var myIoSocket = io.connect(serverBaseUrl);
+
+    var socket = socketFactory({
+        ioSocket: myIoSocket
+    });
+
+    return socket;
 });
 
 // Used in UI select

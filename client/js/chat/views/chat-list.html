@@ -1,0 +1,44 @@
+<div class="chat-list">
+    <div ng-show="loading" class="text-center ng-show-fade">
+        <h2 class="lead">Loading messages...</h2>
+        <spinner></spinner>
+    </div>
+
+    <div class="row" ng-show="!loading">
+
+        <!-- MESSAGE THREADS PANE -->
+        <div class="col-sm-4">
+            <ul class="list-group">
+                <li class="list-group-item clearfix" ng-repeat="user in users">
+                    <a href="#" ui-sref="app.chat.list.detail({ id: user._id })">{{ user.firstName }} {{ user.lastName}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- CHAT PANE -->
+        <div class="col-sm-8">
+            <!-- CHAT MESSAGE LIST -->
+            <div class="chat-container" id="chat-container">
+                <div class="panel animate-fade-in" ng-repeat="message in messages">
+                    <div class="panel-body">
+                        <h5 ng-class="{ 'text-primary': message.sender._id === currentUser._id, 'text-info': message.sender._id !== currentUser._id }">
+                            {{ message.sender.firstName }} {{ message.sender.lastName }}
+                            <small>{{ message._dateSent | date:'short'}}</small>
+                        </h5>
+                        {{ message.message }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHAT SENDING CONTROL-->
+            <textarea class="form-control chat-box" placeholder="Whatchu got to say?" rows="4" ng-model="data.message"></text-area>
+            <button class="btn btn-primary btn-block btn-lg" type="button" name="send" ng-click="sendMessage()" ng-enter="sendMessage()">SEND</button>
+        </div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-xs-12">
+            <ui-view></ui-view>
+        </div>
+    </div> -->
+</div>

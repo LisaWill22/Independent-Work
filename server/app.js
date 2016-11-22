@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -8,6 +10,9 @@ const session = require('express-session');
 const passport = require('passport');
 const http = require('http');
 const debug = require('debug')('independent-work-front:server');
+
+const Chat = require('./models/chat').Chat;
+// const redis = require('socket.io-redis');
 
 // Setups up the dot env Stuff
 require('dotenv').config();
@@ -32,7 +37,6 @@ app.set('view engine', 'jade');
 // Bringi all the routes
 const routes = require('./routes');
 const userRoutes = require('./routes/user');
-const chatRoutes = require('./routes/chat');
 const apiRoutes = require('./routes/crudApi');
 
 // Set up basic express app stuffs
@@ -63,21 +67,39 @@ const server = http.createServer(app);
 
 // setup our sockets - Socket.io - http://socket.io/get-started/chat/
 const io = require('socket.io')(server);
+// io.adapter(redis({ host: 'localhost', port: 6379 }));
 
 // Event that handles when a user in the client connects,
-io.sockets.on('connection', function(socket) {
+io.on('connection', function(socket) {
 	console.log('a user connected');
-
-	io.sockets.emit('test', { message: 'This a test' });
 
 	// Event that fires when a user in the client disconnectsion
 	socket.on('disconnect', function(){
   		console.log('user disconnected');
 	});
 
-	// Event that fires when a user hits POST /api/messages
-	socket.on('chat message', function(msg){
-  		io.emit('chat message', msg);
+	//Sending message to Specific user
+	socket.on('new chat',function(data){
+		// Create new chat model
+		var newChat = new Chat(data.message);
+		// Save it to mongo
+		newChat.save(function(err, chat) {
+			if (err) {
+				return console.log(err);
+			}
+
+			// Create new message thread if necessary
+
+
+			// Alert every one in that room
+			return io.in('general').emit('chat created', chat);
+		});
+	});
+
+	// Join after a user connects
+	socket.on('join', function (user) {
+		socket.join('general'); // We are using room of socket io
+		io.in('general').emit('user joined', user);
 	});
 });
 
@@ -85,32 +107,6 @@ io.sockets.on('connection', function(socket) {
 app.use(routes);
 app.use('/api', apiRoutes);
 app.use('/api', userRoutes);
-// app.use('/chats', chatRoutes);
-
-
-const Chat = require('./models/chat').Chat;
-
-app.post('/chats', function(req, res, next) {
-
-	// Create new chat model
-	const newChat = new Chat(req.body);
-
-	// Save the chat to mongo
-	newChat.save(function(err, chat) {
-		if (err) {
-			console.log(err);
-			return res.send(err);
-		}
-
-		// Emit the message to all users
-		io.sockets.emit('chat message', chat);
-
-
-		// Return the chat
-		return res.send(chat);
-	});
-});
-//
 
 // Set up the static directory from which we are serving files
 app.use(express.static(path.join(__dirname, '../client')));
@@ -155,7 +151,7 @@ function onError(error) {
 		throw error;
 	}
 
-	var bind = typeof port === 'string' ?
+	let bind = typeof port === 'string' ?
 		'Pipe ' + port :
 		'Port ' + port;
 
@@ -176,8 +172,8 @@ function onError(error) {
 
 // Event listener fired on the server.listening event
 function onListening() {
-	var addr = server.address();
-	var bind = typeof addr === 'string' ?
+	let addr = server.address();
+	let bind = typeof addr === 'string' ?
 		'pipe ' + addr :
 		'port ' + addr.port;
 	debug('Listening on ' + bind);

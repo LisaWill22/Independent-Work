@@ -17,5 +17,10 @@ angular.module('chat', [
                 url: '/messages',
                 templateUrl: 'chat/views/chat-list.html',
                 controller: 'ChatListCtrl'
+            })
+            .state('app.chat.list.detail`', {
+                url: '/:id',
+                templateUrl: 'chat/views/chat-detail.html',
+                controller: 'ChatDetailCtrl'
             });
     });

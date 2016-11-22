@@ -1,40 +1,9 @@
 'use strict';
 
 angular.module('independent-work-app')
-	.factory('socket', function($rootScope) {
-		var socket = io.connect('http://localhost:3000');
-		return {
-			on: function(eventName, callback) {
-				socket.on(eventName, function() {
-					var args = arguments;
-					$rootScope.$apply(function() {
-						callback.apply(socket, args);
-					});
-				});
-			},
-			emit: function(eventName, data, callback) {
-				socket.emit(eventName, data, function() {
-					var args = arguments;
-					$rootScope.$apply(function() {
-						if (callback) {
-							callback.apply(socket, args);
-						}
-					});
-				});
-			}
-		};
-	});
-
-angular.module('independent-work-app')
 	.controller('AppCtrl', function(session, skills, $scope, $rootScope, $http, $state, $localStorage, $uibModal, socket) {
 
 		console.log('main app ctrl loaded >> ', $scope);
-
-		// Socket listeners
-		// ================
-		socket.on('chat message', function(data) {
-			alert(data.message);
-		});
 
 		// Set up the local storage
 		$scope.$storage = $localStorage;
@@ -42,8 +11,10 @@ angular.module('independent-work-app')
 		$scope.userMenuOpen = false;
 
 		if (session && session.data) {
+
 			let stateName = $state.$current.name;
 			refreshSession(session.data);
+
 			// Redirect to the right place
 			if (stateName !== 'app.home') {
 				$state.go(stateName);
@@ -85,22 +56,19 @@ angular.module('independent-work-app')
 			// Set the app's currentUser
 			$scope.currentUser = user;
 
+
 			if (user) {
+				// Set the socket up
+				socket.emit('join', user);
+
 				// Set the role for UI toggling
 				$scope.contractor = user.roles.find(function(role) {
 					return role === 'contractor';
 				});
+
 				$scope.employer = user.roles.find(function(role) {
 					return role === 'employer';
 				});
-				$scope.currentUser.messages = {};
-				$scope.currentUser.messages.new = [{
-					message: 'You rock!',
-					from: 'Some other user'
-				}, {
-					message: 'You totally rock!',
-					from: 'Some other user'
-				}];
 			}
 		}
 	})
