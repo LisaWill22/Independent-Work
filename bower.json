@@ -25,6 +25,8 @@
     "angular-sanitize": "^1.5.8",
     "lodash": "^4.16.6",
     "angular-socket-io": "^0.7.0",
-    "socket.io-client": "^1.5.1"
+    "socket.io-client": "^1.5.1",
+    "animate.css": "^3.5.2",
+    "wow": "wow.js#^1.1.2"
   }
 }
