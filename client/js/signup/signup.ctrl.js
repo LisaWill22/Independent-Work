@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('signup')
-    .controller('SignupCtrl', function($scope, $http, toastr) {
+    .controller('SignupCtrl', function($scope, $http, $rootScope, toastr) {
 
         console.log('SignupController loaded >>', $scope);
+
+        $rootScope.hideFooter = true;
 
         $scope.signup = function () {
             $http.post('/auth/signup', $scope.data)

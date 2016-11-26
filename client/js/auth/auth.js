@@ -6,9 +6,11 @@ angular.module('auth', [
         $stateProvider
             .state('app.auth', {
                 abstract: true,
-                controller: 'AuthCtrl',
                 views: {
-                    'container': { templateUrl: 'auth/views/index.html' }
+                    'container': {
+                        controller: 'AuthCtrl',
+                        templateUrl: 'auth/views/index.html' 
+                    }
                 }
             })
             .state('app.auth.login', {

@@ -4,6 +4,8 @@ angular.module('dashboard')
     .controller('DashboardCtrl', function($scope, $rootScope, $http, $timeout, toastr) {
         console.log('DashboardCtrl loaded >>', $scope);
 
+        $rootScope.hideFooter = true;
+
         // Load in postings
         if ($scope.contractor) {
             $scope.loading = true;

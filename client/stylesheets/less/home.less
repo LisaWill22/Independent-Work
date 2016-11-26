@@ -2,11 +2,15 @@
 	margin-top: -160px;
 }
 
+.section {
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
 .top-section {
 	position: relative;
-	padding: 100px 60px;
 	min-height: 800px;
-    max-height: 100vh;
+	height: 100vh;
 	background: url('/images/hero.jpg') no-repeat;
 	background-position: center top;
 	background-position: fixed;
@@ -39,7 +43,6 @@
 }
 
 .mission-section {
-	padding: 80px 10px 0 20px;
 
 	.mission-block {
 		margin-bottom: 30px;
@@ -61,11 +64,21 @@
 }
 
 .independent-section {
-	border-top: 1px solid #979797;
+	margin-top: 100;
+	margin-bottom: 100;
+	padding-top: 0;
+	padding-bottom: 0;
+	min-height: 543px;
+
+	.container-fluid {
+		padding: 0;
+	}
 
 	.left-area {
-		height: 554px;
-		background-color: #727272;
+		min-height: 543px;
+		background: url('/images/img-left.jpg') no-repeat;
+		background-position: center center;
+		background-size: cover;
 	}
 
 	.right-area {
@@ -93,31 +106,44 @@
 	}
 }
 
-.new-way-section {
-	padding: 129px 20px 100px;
-	height: 856px;
-	border-top: 1px solid #979797;
+.light-bg {
+	background-color: #fafafa;
+}
 
+.new-way-section {
 	.right-area {
 		img {
-			margin-top: 20px;
+			margin-top: 100px;
+		}
+	}
+
+	p {
+		line-height: 28px;
+	}
+
+	h2 {
+		margin-bottom: 10px;
+		&:hover {
+			i {
+				color: @brand-primary;
+			}
+		}
+		i {
+			vertical-align: middle;
+			transition: all .3s ease-out;
 		}
 	}
 
 	.left-area {
 		h2 {
-			color: #3e3e3e;
-			letter-spacing: -1.1px;
+			color: #353535;
+			font-weight: 400;
 			font-size: 23px;
-			opacity: 0.4;
+			line-height: 32px;
 		}
 
 		.block {
 			margin-top: 25px;
-
-			.block-title {
-				margin-bottom: 20px;
-			}
 
 			.block-title:after {
 				display: block;
@@ -148,10 +174,10 @@
 }
 
 .join-section {
+	padding: 0;
 	height: 423px;
 	background: url('/images/cta-background.jpg') no-repeat;
 	background-position: center;
-	background-size: cover;
 	background-size: cover;
 
 	.mark {
@@ -198,109 +224,34 @@
 			font-family: "Raleway-Bold";
 		}
 
-		.left-area {
-			float: left;
-			width: 674px;
-
-			p {
-				margin-bottom: 20px;
-				color: #ced3d8;
-				letter-spacing: 1.07px;
-				font-size: 15px;
-				font-family: "Open Sans";
-			}
-
-			input,
-			textarea {
-				margin-bottom: 10px;
-				width: 566px;
-				border: 0;
-				background-color: #2f3539;
-				color: #727272;
-				letter-spacing: 1.07px;
-				font-size: 15px;
-				font-family: "Open Sans";
-			}
-
-			.btn.contact-send {
-				margin-top: 10px;
-				padding-top: 14px;
-				width: 175px;
-				height: 44px;
-				border-radius: 5px;
-				background-color: #c0392b;
-				color: #fff;
-				text-transform: uppercase;
-				letter-spacing: 0.79px;
-				font-size: 11px;
-				font-family: "Raleway-Bold";
-			}
-
-		}
-
-		.right-area {
-			float: left;
-			width: 290px;
-
-			.component {
-				margin-bottom: 10px;
-
-				div {
-					float: left;
-					padding-top: 5px;
-					color: #CED3D8;
-					letter-spacing: 0.94px;
-					font-size: 15px;
-					font-family: "Open Sans";
-				}
-
-				.right-symbol {
-					float: left;
-					margin-right: 5px;
-					width: 30px;
-					height: 30px;
-					background-color: #d8d8d8;
-				}
-
-				.email {
-					color: #C0392B;
-					letter-spacing: 1.07px;
-				}
-			}
-
-			.component:after {
-				display: block;
-				clear: both;
-				content: '';
-			}
-		}
-	}
-
-	.top-area:after {
-		display: block;
-		clear: both;
-		content: '';
-	}
-
-	.footer {
-		margin-top: 100px;
-		width: 100%;
-		color: #CED3D8;
-		text-align: center;
-
-		span {
-			margin-right: 15px;
-			text-transform: uppercase;
-			letter-spacing: 0.69px;
-			font-size: 11px;
-			font-family: "Raleway-Bold";
-		}
-
-		.copyright {
-			margin-top: 10px;
-			letter-spacing: 0.81px;
-			font-size: 13px;
+		p {
+			margin-bottom: 20px;
+			color: #ced3d8;
+			letter-spacing: 1.07px;
+			font-size: 15px;
 			font-family: "Open Sans";
 		}
+
+		input,
+		textarea {
+			border-color: transparent;
+			background-color: #2f3539;
+			color: #727272;
+			font-size: 15px;
+			transition: all 0.3s ease-out;
+
+			&:hover {
+				border-color: @brand-primary;
+			}
+
+			&:active,
+			&:focus {
+				outline: none;
+				background-color: @brand-primary;
+				box-shadow: none;
+				color: darken(#fff, 10%);
+			}
+		}
+
 	}
 }

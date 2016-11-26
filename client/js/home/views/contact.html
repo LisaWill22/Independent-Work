@@ -1,34 +1,56 @@
-<div class="section contact-section">
-    <div class="container">
-        <div class="row top-area">
-            <div class="col-md-6 left-area wow slideInLeft">
-                <h2>GET IN TOUCH</h2>
-                <p>Want to support or just want to say hi? It's all good, we'd love to connect with you.<br/>
-                    Fill out the form below and we'll get back to you ASAP!</p>
-                <input type="text" class="form-control" placeholder="Your name" ng-model="data.name" />
-                <input type="text" class="form-control" placeholder="Email address" ng-model="data.email"/>
-                <textarea class="form-control" rows="5" placeholder="Your message" ng-model="data.message"></textarea>
-                <a class="btn btn-primary btn-lg" ng-click="sendContactEmail()">Send Message</a>
-            </div>
-            <div class="col-md-6 right-area wow slideInRight" data-wow-delay=".1s">
-                <h2>OUR CONTACT</h2>
-                <div class="component">
-                    <div class="right-symbol"></div>
-                    <div class="email">
-                        <a href="mail:tolisa@independentwork.com">lisa@independentwork.com</a>
+<div class="section contact-section" id="contact">
+	<div class="container">
+		<div class="row top-area">
+			<div class="col-md-6 wow slideInLeft">
+				<h2>GET IN TOUCH</h2>
+				<p>
+                    Want to support or just want to say hi? It's all good, we'd love to connect with you.
+                    <br/>
+                    <br/>
+					Fill out the form below and we'll get back to you ASAP!
+                </p>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Your name" ng-model="data.name"/>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Email address" ng-model="data.email"/>
+				</div>
+				<div class="form-group">
+					<textarea class="form-control" rows="5" placeholder="Your message" ng-model="data.message"></textarea>
+				</div>
+				<a class="btn btn-primary btn-lg" ng-click="sendContactEmail()">Send Message</a>
+			</div>
+			<div class="col-md-5 col-md-offset-1 wow slideInRight" data-wow-delay=".1s">
+				<h2>OUR CONTACT INFO</h2>
+				<div class="media">
+					<div class="media-left">
+                        <i class="fa fa-fw fa-lg fa-envelope"></i>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">
+                            <a href="mail:tolisa@independentwork.com">lisa@independentwork.com</a>
+                        </h4>
+					</div>
+				</div>
+                <div class="media">
+                    <div class="media-left">
+                        <i class="fa fa-fw fa-lg fa-map-marker"></i>
+                    </div>
+                    <div class="media-body">
+                        <div>5130 S Ft Apache Rd.<br/>
+                            Ste. 215 #250<br/>
+                            Las Vegas, NV 89148</div>
                     </div>
                 </div>
-                <div class="component">
-                    <div class="right-symbol"></div>
-                    <div>5130 S Ft Apache Rd.<br/>
-                        Ste. 215 #250<br/>
-                        Las Vegas, NV 89148</div>
+                <div class="media">
+                    <div class="media-left">
+                        <i class="fa fa-fw fa-lg fa-phone"></i>
+                    </div>
+                    <div class="media-body">
+                        <a href="tel:18778744820">1-877-874-4820</a>
+                    </div>
                 </div>
-                <div class="component">
-                    <div class="right-symbol"></div>
-                    <div>1-877-874-4820</div>
-                </div>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('auth')
-    .controller('LoginCtrl', function($scope, $http, $state, $rootScope, toastr) {
+    .controller('LoginCtrl', function($scope, $http, $state, toastr) {
         console.log('LoginCtrl loaded >>', $scope);
 
         $scope.data = {};

@@ -11,7 +11,6 @@ angular.module('independent-work-app')
 		$scope.userMenuOpen = false;
 
 		if (session && session.data) {
-
 			let stateName = $state.$current.name;
 			refreshSession(session.data);
 
@@ -24,8 +23,9 @@ angular.module('independent-work-app')
 				$state.go('app.dashboard');
 			}
 		} else {
+			let stateName = $state.$current.name;
 			// Go to home if not logged in
-			$state.go('app.home');
+			$state.go(stateName);
 		}
 
 		// Listen for session refreshes and update the user
@@ -104,6 +104,21 @@ angular.module('independent-work-app')
 		$scope.cancel = function() {
 			$uibModalInstance.close();
 		};
+	})
+	// Animated scoll to element id
+	.directive('scrollTo', function() {
+		return {
+			restrict: 'A',
+			link: function(scope, el, attrs) {
+				if (attrs.scrollTo) {
+					el.on('click', function(e) {
+						$('html, body').animate({
+							scrollTop: $('#'+attrs.scrollTo).offset().top
+						}, 650);
+					});
+				}
+			}
+		}
 	})
 	// Drop in spinner
 	.directive('spinner', function() {
