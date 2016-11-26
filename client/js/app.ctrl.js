@@ -1,9 +1,14 @@
 'use strict';
 
+var mailChimpUrl = '//independentwork.us13.list-manage.com/subscribe/post?u=1caaabe4f2e84eeb4df6c6745&amp;id=fb2065f650';
+
 angular.module('independent-work-app')
 	.controller('AppCtrl', function(session, skills, $scope, $rootScope, $http, $state, $localStorage, $uibModal, socket) {
 
 		console.log('main app ctrl loaded >> ', $scope);
+
+		// MailChimp stuffs
+		//independentwork.us13.list-manage.com/subscribe/post?u=1caaabe4f2e84eeb4df6c6745&amp;id=fb2065f650
 
 		// Set up the local storage
 		$scope.$storage = $localStorage;
@@ -34,6 +39,23 @@ angular.module('independent-work-app')
 			console.log('currentuser is >>', $scope.currentUser);
 		});
 
+		// Opens the modal for user to signup to mailchimp list
+		$scope.openMailChimpModal = function() {
+			openMailChimpModal();
+		};
+
+		function openMailChimpModal() {
+			$scope.mcModalInstance = $uibModal.open({
+				animation: true,
+				scope: $scope,
+				ariaLabelledBy: 'modal-title',
+				ariaDescribedBy: 'modal-body',
+				templateUrl: 'home/views/add-to-mc-modal.html',
+				controller: 'addToMailChimpModalCtrl',
+				size: 'md'
+			});
+		}
+
 		// Opens the add posting modal
 		// Only visible if account type is employer
 		$scope.openCreatePostModal = function() {
@@ -41,7 +63,7 @@ angular.module('independent-work-app')
 		};
 
 		function openCreatePostModal() {
-			$scope.modalInstance = $uibModal.open({
+			$scope.postModalInstance = $uibModal.open({
 				animation: true,
 				scope: $scope,
 				ariaLabelledBy: 'modal-title',
@@ -70,6 +92,22 @@ angular.module('independent-work-app')
 					return role === 'employer';
 				});
 			}
+		}
+	})
+	.controller('addToMailChimpModalCtrl', function($scope, $rootScope, $uibModalInstance, $http, toastr) {
+		console.log('CreatePostModalCtrl >>', $scope);
+
+		$scope.data = {};
+		$scope.success = false;
+
+		$scope.addToList = function() {
+			$http.post(mailChimpUrl, $scope.data)
+				.then(function(res) {
+					console.log(res);
+				})
+				.catch(function(err) {
+					console.log(err);
+				})
 		}
 	})
 	.controller('CreatePostModalCtrl', function($scope, $rootScope, $uibModalInstance, $http, toastr) {
