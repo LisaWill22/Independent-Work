@@ -1,0 +1,15 @@
+<div class="post-reply-box" id="replyBox">
+    <h3>Reply to post</h3>
+    <form>
+        <!-- posting description -->
+        <div class="form-group">
+            <textarea ng-model="data.reply.content"
+                      ui-tinymce="tinymceOptions"
+                      class="form-control"
+                      name="postReply"
+                      id="postReply"
+                      rows="8" cols="40"></textarea>
+        </div>
+        <button type="button" name="button" class="btn btn-lg btn-primary btn-block" ng-click="submitReply()">Submit Reply</button>
+    </form>
+</div>

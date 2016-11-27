@@ -30,15 +30,18 @@
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
                         <h3 class="pull-left">{{ post.title }}</h3>
-                        <button class="pull-right btn btn-primary btn-sm">
+                        <button scroll-top="replyBox" class="pull-right btn btn-primary btn-sm panel-align-top">
                             <i class="fa fa-fw fa-reply" aria-hidden="true"></i>
                             Reply
                         </button>
                     </div>
-                    <div class="panel-body">
-                        <div ng-include=" 'posts/views/_post-head.html' "></div>
-                        <div ng-repeat="reply in post.replies track by $index" ng-include=" 'posts/views/_post-reply.html' "></div>
-                    </div>
+                    <div ng-include=" 'posts/views/_post-head.html' "></div>
+                </div>
+                <div class="post-replies">
+                    <div ng-repeat="reply in post.replies track by $index" ng-include=" 'posts/views/_post-reply.html' "></div>
+                </div>
+                <div class="">
+                    <div ng-include=" 'posts/views/_post-foot.html' "></div>
                 </div>
             </div>
         </div>

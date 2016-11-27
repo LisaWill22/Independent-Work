@@ -63,7 +63,7 @@ angular.module('settings')
                 .catch(function(err) {
                     console.log(err);
                     toastr.warning('There was an error deleting this post. Please close this window and try again.')
-                })
+                });
         }
 
         $scope.cancel = function() {
@@ -84,7 +84,7 @@ angular.module('settings')
                 .catch(function(err) {
                     console.log(err);
                     toastr.warning('There was an error editing this post. Please close this window and try again.')
-                })
+                });
         }
 
 
