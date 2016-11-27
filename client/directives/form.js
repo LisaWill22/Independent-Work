@@ -223,18 +223,18 @@ angular.module('boForm', [
 
                 if ( _.has(attrs, 'showValidIcon') && attrs.boShowValidIcon !== 'false' ) {
                     element.css('position', 'relative');
-                    element.append('<div class="input-valid-wrapper"><i class="fa fa-fw fa-check animate-show-fade" ng-show="' + attrName + '.$valid"></i></div>');
+                    element.append('<div class="input-valid-wrapper"><i class="fa fa-fw fa-check ng-show-fade" ng-show="' + attrName + '.$valid"></i></div>');
                 }
 
                 // if ( _.has(attrs, 'boShowValidIcon') && attrs.boShowInvalidIcon !== 'false' ) {
                 //     element.css('position', 'relative');
-                //     element.append('<div class="input-valid-wrapper"><i class="fa fa-fw fa-close animate-show-fade" ng-show="' + attrName + '.$invalid && ' + attrName + '.$dirty"></i></div>');
+                //     element.append('<div class="input-valid-wrapper"><i class="fa fa-fw fa-close ng-show-fade" ng-show="' + attrName + '.$invalid && ' + attrName + '.$dirty"></i></div>');
                 // }
 
                 element.removeAttr('bo-validate');
                 element.attr('ng-class', '{\'has-error\':' + attrName + '.$invalid && (' + attrName + '.$touched || ' + fCtrl.$name + '.$attempted)}');
-                element.append('<div class="help-block animate-show-fade" ng-messages="' + attrName + '.$error">' +
-                    '<small ng-messages-include="bo-form/default-error-messages.html"></small>' +
+                element.append('<div class="help-block ng-show-fade" ng-messages="' + attrName + '.$error">' +
+                    '<small ng-messages-include="directives/templates/default-error-messages.html"></small>' +
                     '</div>');
                 element.find('.help-block').append(messages);
                 $compile(element)(scope);
@@ -396,13 +396,13 @@ angular.module('boForm', [
             restrict: 'A',
             link: function(scope, element, attrs, ngModel) {
                 var rulesMarkup =   '<div class="password-rules-container">' +
-                                        '<div ng-show="valid != true && valid != undefined" class="password-rules animate-show-fade">' +
+                                        '<div ng-show="valid != true && valid != undefined" class="password-rules ng-show-fade">' +
                                             '<span>8 or more characters, must contain one of each of the following</span>' +
                                             '<ul>' +
-                                                '<li>Uppercase Letter <i ng-show="hasUppercase" class="fa fa-fw fa-check text-success animate-show-fade"></i></li>' +
-                                                '<li>Lowercase Letter <i ng-show="hasLowercase" class="fa fa-fw fa-check text-success animate-show-fade"></i></li>' +
-                                                '<li>Number <i ng-show="hasNumber" class="fa fa-fw fa-check text-success animate-show-fade"></i></li>' +
-                                                '<li>Symbol <i ng-show="hasSymbol" class="fa fa-fw fa-check text-success animate-show-fade"></i></li>' +
+                                                '<li>Uppercase Letter <i ng-show="hasUppercase" class="fa fa-fw fa-check text-success ng-show-fade"></i></li>' +
+                                                '<li>Lowercase Letter <i ng-show="hasLowercase" class="fa fa-fw fa-check text-success ng-show-fade"></i></li>' +
+                                                '<li>Number <i ng-show="hasNumber" class="fa fa-fw fa-check text-success ng-show-fade"></i></li>' +
+                                                '<li>Symbol <i ng-show="hasSymbol" class="fa fa-fw fa-check text-success ng-show-fade"></i></li>' +
                                             '</ul>' +
                                         '</div>' +
                                     '</div>';

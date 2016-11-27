@@ -41,7 +41,8 @@ const PATHS = {
 	DIST: './dist',
 	CLIENT: './client',
 	FONTS: './client/fonts/**/*.*',
-	IMAGES: './client/images/**/*.*'
+	IMAGES: './client/images/**/*.*',
+	DIRECTIVE_TEMPLATES: './client/directives/templates/**/*.html'
 }
 
 // Installs dependencies. Not sure why is a thing, bu ok

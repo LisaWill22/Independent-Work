@@ -6,16 +6,17 @@ angular.module('auth')
 
         $scope.data = {};
 
-        $scope.login = function() {
-            $http.post('/auth/login', $scope.data)
-                .then(function(res) {
-                    toastr.success('Successfully logged in');
-                    $state.go('app.dashboard');
-                    $rootScope.$broadcast('Session:refresh', res.data);
-                    $scope.$storage.userId = res.data._id;
-                }, function(err) {
-                    toastr.warning('Whoops, something went wrong...');
-                    console.log(err);
-                });
+        $scope.afterSubmit = function(res) {
+            toastr.success('Successfully logged in');
+            $state.go('app.dashboard');
+            $rootScope.$broadcast('Session:refresh', res.data);
+            $scope.$storage.userId = res.data._id;
+
         };
+
+        $scope.onError = function(err) {
+            toastr.warning('Whoops, something went wrong...');
+            console.log(err);
+        };
+
     });
