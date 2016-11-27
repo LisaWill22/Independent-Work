@@ -33,5 +33,10 @@ module.exports = function(app, passport) {
 			res.redirect('/');
 		});
 
+	router.route('/pass-reset')
+		.post(function(req, res, next) {
+			console.log(req);
+		});
+
 	app.use('/auth', router);
 };

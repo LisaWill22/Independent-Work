@@ -9,16 +9,53 @@
                     <br/>
 					Fill out the form below and we'll get back to you ASAP!
                 </p>
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Your name" ng-model="data.name"/>
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Email address" ng-model="data.email"/>
-				</div>
-				<div class="form-group">
-					<textarea class="form-control" rows="5" placeholder="Your message" ng-model="data.message"></textarea>
-				</div>
-				<a class="btn btn-primary btn-lg" ng-click="sendContactEmail()">Send Message</a>
+				<form autocomplete="off"
+                      novalidate
+					  bo-form
+                      name="contactForm"
+					  ng-on-error="onError"
+                      ng-after-submit="afterContactFormSubmit"
+                      ng-action="/mail/send/smtp">
+
+					  <div class="alert alert-success ng-show-fade" ng-show="contactForm.$serverSuccess">
+					  	<p>
+					  		Your message was sent successfully. Someone from our team will be in touch. Thank you!
+					  	</p>
+					  </div>
+
+					  <div class="alert alert-warning ng-show-fade" ng-show="contactForm.$serverError">
+					  	<p>
+					  		There was an error processing your contact request. Please try again soon.
+					  	</p>
+					  </div>
+
+					  <div class="form-group" bo-validate show-valid-icon>
+						  <input type="text"
+						  		 class="form-control"
+								 placeholder="Your name"
+								 ng-required="true"
+								 ng-model="data.name"/>
+					  </div>
+
+					  <div class="form-group" bo-validate show-valid-icon>
+						  <input type="text"
+						  		 class="form-control"
+								 placeholder="Email address"
+								 ng-required="true"
+								 ng-model="data.email"/>
+					  </div>
+					  <div class="form-group">
+						  <textarea class="form-control"
+						  			rows="5"
+									placeholder="Your message"
+									ng-model="data.message"
+									ng-required="true">
+							</textarea>
+					  </div>
+					  <button class="btn btn-primary btn-lg" type="submit" ng-disabled="!contactForm.$valid">
+						  Send Message
+					  </button>
+				</form>
 			</div>
 			<div class="col-md-5 col-md-offset-1 wow slideInRight" data-wow-delay=".1s">
 				<h2>OUR CONTACT INFO</h2>

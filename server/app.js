@@ -38,6 +38,7 @@ app.set('view engine', 'jade');
 const routes = require('./routes');
 const userRoutes = require('./routes/user');
 const apiRoutes = require('./routes/crudApi');
+const mailRoutes = require('./routes/mail');
 
 // Set up basic express app stuffs
 app.use(logger('dev'));
@@ -107,6 +108,7 @@ io.on('connection', function(socket) {
 app.use(routes);
 app.use('/api', apiRoutes);
 app.use('/api', userRoutes);
+app.use('/mail', mailRoutes);
 
 // Set up the static directory from which we are serving files
 app.use(express.static(path.join(__dirname, '../client')));
