@@ -3,6 +3,7 @@
 var app = angular.module('independent-work-app', [
 	'ngAnimate',
 	'ngSanitize',
+	'ngMessages',
 	// third party components
 	'toastr',
 	'ui.router',
@@ -22,6 +23,8 @@ var app = angular.module('independent-work-app', [
 	'signup',
 	'posts',
 	'settings',
+	// Generic components
+	'boForm',
 	// Generic Services
 	'SessionService'
 ]);
