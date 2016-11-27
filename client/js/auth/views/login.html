@@ -19,6 +19,11 @@
 								<a href="#" ui-sref="app.signup">create an account</a>
 							</h5>
 						</h3>
+						<div class="alert alert-warning ng-show-fade" ng-show="loginForm.$serverError">
+							<p>
+								Bad usename or password. Try again or recover your account.
+							</p>
+						</div>
 						<hr class="colorgraph">
 						<div class="form-group" bo-validate show-valid-icon>
 							<input ng-model="data.email"
@@ -41,7 +46,7 @@
 						<hr class="colorgraph">
 						<div class="row">
 							<div class="col-xs-12">
-								<button class="btn btn-primary btn-block btn-lg" type="submit">
+								<button ng-disabled="!loginForm.$valid" class="btn btn-primary btn-block btn-lg" type="submit">
 									Go to dashboard
 								</button>
 							</div>

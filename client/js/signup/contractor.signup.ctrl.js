@@ -8,16 +8,21 @@ angular.module('signup')
         $scope.data.roles = [];
         $scope.data.roles.push('contractor');
 
-        $scope.signup = function () {
-            $http.post('/auth/signup', $scope.data)
-                .then(function(response) {
-                    toastr.success('You have successfully created an account!');
-                    $timeout(function(){
-                        $state.go('app.auth.login');
-                    }, 500);
-                }, function(err) {
-                    console.error(err);
-                    toastr.error('There was an error creating your account. Please try again.');
-                });
+        $scope.onError = function(err) {
+            console.error(err);
+            $scope.data.password = null;
+            $scope.data.passwordConfirm = null;
+            toastr.error('There was an error creating your account. Please try again.');
+        };
+
+        $scope.beforeSubmit = function() {
+            delete $scope.data.passwordConfirm;
+        };
+
+        $scope.afterSubmit = function(res) {
+            toastr.success('You have successfully created an account!');
+            $timeout(function(){
+                $state.go('app.auth.login');
+            }, 500);
         };
     });

@@ -11,3 +11,42 @@
         color: @brand-danger;
     }
 }
+
+
+.help-block {
+    margin-bottom: 0;
+}
+
+.form-group .help-block span {
+    display: none;
+    font-size: 13px;
+}
+
+.form-group.has-error .help-block span {
+    display: block;
+}
+
+
+.bo-password-rules {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    padding: 1em 1em 0;
+    font-size: 10px;
+    line-height: 1.2;
+    color: @gray-dark;
+    background: white;
+    border: 1px solid @panel-inner-border;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .25);
+    .fa-check {
+        color: @brand-success;
+    }
+}
+
+.bo-password-rules-container {
+    .clearfix();
+
+    position: relative;
+    overflow-y: visible;
+}
