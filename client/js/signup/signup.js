@@ -39,10 +39,12 @@ angular.module('signup', [
             })
             .state('app.signup.employer.one', {
                 url: '/step-one',
+                controller: 'EmployerSignupOneCtrl',
                 templateUrl: 'signup/views/signup-employer-1.html'
             })
             .state('app.signup.employer.two', {
                 url: '/step-two',
+                controller: 'EmployerSignupTwoCtrl',
                 templateUrl: 'signup/views/signup-employer-2.html'
             });
     });

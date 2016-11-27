@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form role="form"
+                    bo-form
+                    autocomplete="off"
+                    novalidate
+                    method="PUT"
+                    name="signupProfileForm"
+                    ng-on-error="onError"
+                    ng-after-submit="afterSubmit"
+                    ng-action="/api/users/{{currentUser._id}}">
+
+                    <h3>Add your profile information</h3>
+
+                    <hr class="colorgraph">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="first_name">First name</label>
+                            <div class="form-group" bo-validate show-valid-icon>
+                                <input ng-required="true"
+                                       ng-model="data.firstName"
+                                       type="text"
+                                       name="first_name"
+                                       id="first_name"
+                                       class="form-control"
+                                       placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <label for="last_name">Last name</label>
+                            <div class="form-group" bo-validate show-valid-icon>
+                                <input ng-required="true"
+                                       ng-model="data.lastName"
+                                       type="text"
+                                       name="last_name"
+                                       id="last_name"
+                                       class="form-control"
+                                       placeholder="Last Name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location info -->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label for="city">City</label>
+                                <input ng-model="data.location.city" type="text" name="city" id="city" class="form-control">
+                            </div>
+                            <div class="col-sm-3">
+                                <label for="state">State</label>
+                                <select class="form-control" name="state" ng-model="data.location.state" ng-options="key for (key, value) in states">
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="zip">Zipcode</label>
+                                <input class="form-control" type="number" name="zip" id="zip" ng-model="data.location.zipcode">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bio -->
+                    <div class="form-group">
+                        <label for="bio">Bio</label>
+                        <textarea ng-model="data.bio" class="form-control" name="bio" id="bio" rows="4" cols="40" placeholder="Tell a little about yourself"></textarea>
+                    </div>
+
+                    <hr class="colorgraph">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button class="btn btn-default btn-block btn-lg"
+                                    type="submit"
+                                    ng-disabled="!signupProfileForm.$valid">
+                                    Go To Dashboard
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+	</div>
+</div>
