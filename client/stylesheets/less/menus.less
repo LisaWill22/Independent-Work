@@ -2,6 +2,24 @@
 	cursor: pointer;
 }
 
+.dropdown-menu {
+	li {
+		transition: all .2s ease-out;
+		&:hover {
+			a {
+				color: @brand-primary;
+			}
+			i {
+				color: @brand-primary;
+			}
+		}
+	}
+	a,
+	i {
+		transition: all .2s ease-out;
+	}
+}
+
 .dropdown-menu-user {
 	padding-bottom: 15px;
 	.list-group-menu {

@@ -1,10 +1,10 @@
 <div class="post-head">
-    <div class="user-info">
-
-    </div>
-    <div class="post-info">
-        <p>
-            {{ post.content }}
-        </p>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="user-info"></div>
+        </div>
+        <div class="col-sm-9">
+            <div class="post-info" ng-bind-html="post.content"></div>
+        </div>
     </div>
 </div>

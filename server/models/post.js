@@ -11,4 +11,4 @@ var postSchema = new mongoose.Schema({
     topics: Array
 }, { strict: false });
 
-exports.Posting = mongoose.model('Post', postingSchema);
+exports.Post = mongoose.model('Post', postSchema);

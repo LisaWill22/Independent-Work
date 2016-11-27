@@ -15,7 +15,6 @@ angular.module('posts')
             $scope.loading = true;
             $http.get('/api/posts/' + $stateParams.id)
                 .then(function(res) {
-                    console.log(res.data);
                     $scope.post = res.data;
                 })
                 .catch(function(err) {

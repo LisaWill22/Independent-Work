@@ -1,18 +1,73 @@
-<form>
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="h4">Community Posts</h3>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="h4">Community Posts</h3>
+	</div>
+	<div class="panel-body">
+		<!-- Show loader while CTRL is loading items -->
+		<div ng-show="loading" class="text-center ng-show-fade">
+			<h2 class="lead">Loading your posts...</h2>
+			<spinner></spinner>
 		</div>
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-md-9 col-xs-12">
-					<h1>FORM GOES HERE</h1>
+		<!-- Posts table -->
+		<div class="row ng-show-fade" ng-show="!loading">
+			<div class="col-xs-12">
+				<div ng-show="!posts.length">
+					<h3 class="text-center">Looks like you don't have ay posts yet!</h3>
+					<h4 class="text-center lead">Create a post to join the conversation or start your own.</h4>
+					<br />
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<button class="btn btn-primary btn-lg" type="button" name="button" ng-click="openCreatePostModal()">Create Community Post</button>
+						</div>
+					</div>
+					<br />
 				</div>
+				<table class="table table-hover" ng-show="posts.length">
+					<thead>
+						<tr>
+							<td>Post Title</td>
+							<td>Post Date</td>
+							<td>Last Reply</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="post in posts">
+							<td>
+								<a href="#" ui-sref="app.posts.detail({ id: post._id })">{{ post.title }}</a>
+							</td>
+							<td><small>{{ post._createdDate | date:'shortDate' }}</small></td>
+							<td>
+								<span ng-show="post.replies && post.replies.length">
+									<small>
+										{{ post.replies.user.firstName }} at {{ post.replies[0]._createdDate | date:'shortDate' }} {{ post.replies[0]._createdDate | date:'shortTime' }}
+									</small>
+								</span>
+								<span ng-show="!post.replies.length"><small>No replies</small></span>
+							</td>
+							<td class="text-right">
+								<div class="btn-group" uib-dropdown>
+									<button id="btn-append-to-single-button" type="button" class="btn btn-secondary" uib-dropdown-toggle>
+										Actions <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+										<li role="menuitem">
+											<a ng-click="openEditPostModal(post)">Edit post <i class="fa fa-fw fa-pencil pull-right"></i></a>
+										</li>
+										<li role="menuitem">
+											<a ng-click="openDeletePostModal(post)">Delete post <i class="fa fa-fw fa-close pull-right"></i></a>
+										</li>
+										<li class="divider"></li>
+										<li role="menuitem">
+											<a href="#" ui-sref="app.posts.detail({ id: post._id })">View post <i class="fa fa-fw fa-eye pull-right"></i></a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		<div class="panel-footer">
-			<!-- SUBMIT BUTTON -->
-			<div class="btn btn-primary btn-lg" type="submit">Save Settings</div>
-		</div>
 	</div>
-</form>
+</div>

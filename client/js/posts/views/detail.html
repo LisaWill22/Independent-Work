@@ -11,12 +11,16 @@
                 <h4>Post Stats</h4>
             </div>
             <div class="panel-body">
-                <p>{{ post.replies.length }} replies</p>
-                <p>{{ post.contributors.length }} contributors</p>
-                <p>{{ '23' }} days active</p>
-                <h3 ng-show="post.skills && post.skills.length">
-                    <span class="label label-primary label-skill" ng-repeat="skill in post.skills">{{ skill.name }}</span>
-                </h3>
+                <div class="row-fluid clearfix">
+                    <div class="col-xs-12">
+                        <p>{{ post.replies.length }} replies</p>
+                        <p>{{ post.contributors.length }} contributors</p>
+                        <p>{{ '23' }} days active</p>
+                        <p ng-show="post.skills && post.skills.length">
+                            <span class="label label-primary label-skill block" ng-repeat="skill in post.skills">{{ skill.name }}</span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

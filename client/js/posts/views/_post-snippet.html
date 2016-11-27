@@ -29,9 +29,9 @@
                 </p>
             </div>
         </div>
-        <div class="reply-wrapper">
+        <div class="reply-wrapper" ng-show="item.replies && item.replies.length">
             <div class="label label-default text-uppercase text-secondary">
-                {{ 13 }} replies
+                {{ item.replies.length }} replies
             </div>
         </div>
     </div>

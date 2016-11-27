@@ -12,6 +12,12 @@ angular.module('dashboard')
             getPosts();
         }
 
+        // Load all contractors (paginated?)
+        if ($scope.employer) {
+            $scope.loading = true;
+            getContractors();
+        }
+
         $rootScope.$on('Posts:reload', function() {
             $scope.loading = true;
             getPosts();
@@ -22,13 +28,7 @@ angular.module('dashboard')
                 .then(function(res) {
                     $timeout(function() {
                         $scope.items = res.data;
-                        $scope.items.forEach(function(item) {
-                            item.lastPost = {};
-                            item.lastPost.date = new Date ();
-                            item.lastPost.user = {};
-                            item.lastPost.user.firstName = 'James';
-                            item.lastPost.user.lastName = 'Doesn';
-                        });
+                        console.log($scope.items);
                         $scope.loading = false;
                     }, 1000);
                 })
@@ -38,10 +38,8 @@ angular.module('dashboard')
                 });
         }
 
-        // Load all contractors (paginated?)
-        if ($scope.employer) {
-            $scope.loading = true;
-            $http.get('/api/users?role=contractor')
+        function getContractors() {
+            return $http.get('/api/users?role=contractor')
                 .then(function(res) {
                     $scope.items = res.data;
                     $scope.loading = false;

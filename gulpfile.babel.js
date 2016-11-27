@@ -223,7 +223,7 @@ gulp.task('default', ['dev'], () => {
 	// Set up nodemon to watch server.js files
 	nodemon({
 		script: 'server/app.js',
-		ignore: './client/**/*.js',
+		ignore: 'client/**/*.js',
 		ext: 'js',
 		env: {
 			'NODE_ENV': 'development'

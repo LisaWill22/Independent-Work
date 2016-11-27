@@ -8,6 +8,7 @@ var app = angular.module('independent-work-app', [
 	'ui.router',
 	'ui.select',
 	'ui.bootstrap',
+	'ui.tinymce',
 	'ngStorage',
 	'angular-loading-bar',
 	'btford.socket-io',

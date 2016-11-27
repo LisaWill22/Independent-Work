@@ -1,5 +1,11 @@
 .ui-select-match {
-    .btn {
+    .btn-default {
+        background-color: @brand-secondary;
+        color: #ffffff;
         text-transform: none;
     }
+}
+
+.ui-select-bootstrap .ui-select-choices-row.active>span {
+    background-color: lighten(@brand-primary, 10%);
 }
