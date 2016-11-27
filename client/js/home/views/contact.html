@@ -9,12 +9,13 @@
                     <br/>
 					Fill out the form below and we'll get back to you ASAP!
                 </p>
-				<form autocomplete="off"
+				<form bo-form
+					  autocomplete="off"
                       novalidate
-					  bo-form
                       name="contactForm"
 					  ng-on-error="onError"
-                      ng-after-submit="afterContactFormSubmit"
+					  ng-before-submit="beforeSubmit"
+                      ng-after-submit="afterSubmit"
                       ng-action="/mail/send/smtp">
 
 					  <div class="alert alert-success ng-show-fade" ng-show="contactForm.$serverSuccess">
@@ -30,21 +31,26 @@
 					  </div>
 
 					  <div class="form-group" bo-validate show-valid-icon>
-						  <input type="text"
-						  		 class="form-control"
-								 placeholder="Your name"
+						  <input ng-model="data.name"
+								 type="name"
+								 name="name"
+								 id="name"
 								 ng-required="true"
-								 ng-model="data.name"/>
+								 class="form-control"
+								 placeholder="Your name" >
 					  </div>
 
 					  <div class="form-group" bo-validate show-valid-icon>
-						  <input type="text"
-						  		 class="form-control"
-								 placeholder="Email address"
+						  <input ng-model="data.email"
+								 type="email"
+								 name="email"
+								 id="email"
 								 ng-required="true"
-								 ng-model="data.email"/>
+								 class="form-control"
+								 placeholder="Email Address" >
 					  </div>
-					  <div class="form-group">
+
+					  <div class="form-group" bo-validate show-valid-icon>
 						  <textarea class="form-control"
 						  			rows="5"
 									placeholder="Your message"

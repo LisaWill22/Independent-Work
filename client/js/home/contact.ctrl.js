@@ -5,7 +5,6 @@ angular.module('home')
 
         console.log('ContactFormCtrl loaded >>', $scope);
 
-        $scope.data = {};
         $rootScope.hideFooter = false;
 
         $scope.onError = function() {
@@ -33,6 +32,7 @@ angular.module('home')
 
         $scope.afterSubmit = function() {
             $scope.data = {};
+            $scope.contactForm.$setPristine();
             toastr.success('Your message was submitted successfully! Someone from IW will contact you soon.');
         };
     });
