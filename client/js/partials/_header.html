@@ -14,7 +14,7 @@
 					<li ng-show="!currentUser">
 						<a class="btn btn-link btn-sm" href="#" ui-sref="app.auth.login" ui-sref-active="active" ng-hide="hideLogin">Log In</a>
 					</li>
-					<li class="dropdown dropdown-user-menu" ng-show="currentUser" ng-click="userMenuOpen = !userMenuOpen">
+					<li class="dropdown dropdown-user-menu" ng-show="currentUser && currentUser.firstName" ng-click="userMenuOpen = !userMenuOpen">
 						<a uib-popover-template=" 'partials/_user-menu.html' "
 						   popover-placement="bottom-right"
 						   popover-trigger="'outsideClick'"

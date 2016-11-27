@@ -23,10 +23,12 @@ angular.module('signup', [
             })
             .state('app.signup.contractor.one', {
                 url: '/step-one',
+                controller: 'ContractorSignupOneCtrl',
                 templateUrl: 'signup/views/signup-contractor-1.html'
             })
             .state('app.signup.contractor.two', {
                 url: '/step-two',
+                controller: 'ContractorSignupTwoCtrl',
                 templateUrl: 'signup/views/signup-contractor-2.html'
             })
             .state('app.signup.employer', {
