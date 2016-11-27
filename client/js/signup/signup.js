@@ -17,12 +17,30 @@ angular.module('signup', [
             })
             .state('app.signup.contractor', {
                 url: '/contractor',
+                abstract: true,
                 controller: 'ContractorSignupCtrl',
-                templateUrl: 'signup/views/signup-contractor.html'
+                templateUrl: 'signup/views/index.html'
+            })
+            .state('app.signup.contractor.one', {
+                url: '/step-one',
+                templateUrl: 'signup/views/signup-contractor-1.html'
+            })
+            .state('app.signup.contractor.two', {
+                url: '/step-two',
+                templateUrl: 'signup/views/signup-contractor-2.html'
             })
             .state('app.signup.employer', {
                 url: '/employer',
                 controller: 'EmployerSignupCtrl',
-                templateUrl: 'signup/views/signup-employer.html'
+                abstract:true,
+                templateUrl: 'signup/views/index.html'
+            })
+            .state('app.signup.employer.one', {
+                url: '/step-one',
+                templateUrl: 'signup/views/signup-employer-1.html'
+            })
+            .state('app.signup.employer.two', {
+                url: '/step-two',
+                templateUrl: 'signup/views/signup-employer-2.html'
             });
     });
