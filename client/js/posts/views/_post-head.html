@@ -15,6 +15,11 @@
         </div>
         <div class="col-sm-8 col-md-9 border-left">
             <div class="post-info" ng-bind-html="post.content"></div>
+            <div class="post-meta-info">
+                <p>
+                    <small>Posted on {{ post._createdDate | date: 'mediumDate' }} {{ post._createdDate | date: 'shortTime' }}</small>
+                </p>
+            </div>
         </div>
     </div>
 </div>

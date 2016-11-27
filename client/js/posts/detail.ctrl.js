@@ -50,6 +50,9 @@ angular.module('posts')
                 .catch(function(err) {
                     console.log(err);
                     toastr.warning('There was an error editing this post. Please close this window and try again.')
+                })
+                .finally(function() {
+                    $scope.data = {};
                 });
         };
 

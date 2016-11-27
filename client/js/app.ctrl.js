@@ -116,6 +116,12 @@ angular.module('independent-work-app')
 
 		$scope.data = {};
 
+		$scope.tinymceOptions = {
+			resize: false,
+			menubar:false,
+			statusbar: false
+		};
+
 		$scope.updatePost = function() {
 			$scope.data._createdDate = new Date();
 			$scope.data.user = $scope.currentUser;

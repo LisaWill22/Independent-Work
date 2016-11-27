@@ -14,8 +14,6 @@
                 <div class="row-fluid clearfix">
                     <div class="col-xs-12">
                         <p>{{ post.replies.length }} replies</p>
-                        <p>{{ post.contributors.length }} contributors</p>
-                        <p>{{ '23' }} days active</p>
                         <p ng-show="post.skills && post.skills.length">
                             <span class="label label-primary label-skill block" ng-repeat="skill in post.skills">{{ skill.name }}</span>
                         </p>
@@ -30,10 +28,16 @@
                 <div class="panel panel-default">
                     <div class="panel-heading clearfix">
                         <h3 class="pull-left">{{ post.title }}</h3>
-                        <button scroll-top="replyBox" class="pull-right btn btn-primary btn-sm panel-align-top">
-                            <i class="fa fa-fw fa-reply" aria-hidden="true"></i>
-                            Reply
-                        </button>
+                        <div class="pull-right panel-align-top">
+                            <button class="btn btn-link" ng-show="post.user._id === currentUser._id" ng-click="openEditPostModal()">
+                                <i class="fa fa-fw fa-2x fa-gear"></i>
+                            </button>
+                            <button scroll-to="replyBox" class="btn btn-primary btn-sm">
+                                <i class="fa fa-fw fa-reply" aria-hidden="true"></i>
+                                Reply
+                            </button>
+                        </div>
+
                     </div>
                     <div ng-include=" 'posts/views/_post-head.html' "></div>
                 </div>

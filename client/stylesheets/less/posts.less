@@ -1,27 +1,65 @@
-.user-info {
 
-    .user-profile-img {
-        margin-bottom: 8px;
-        img {
-            margin: 0 auto;
-            display: inline-block;
-            max-width: 80px;
-        }
-    }
-    .user-name {
-        margin-bottom: 8px;
-        a {
-            display: block;
-        }
-    }
+
+.user-info {
+	.user-profile-img {
+		margin-bottom: 8px;
+
+		img {
+			display: inline-block;
+			margin: 0 auto;
+			max-width: 80px;
+		}
+	}
+
+	.user-name {
+		margin-bottom: 8px;
+
+		a {
+			display: block;
+		}
+	}
+}
+
+.post-content {
+	min-height: 140px;
+	padding-top: 24px;
+	padding-bottom: 24px;
 }
 
 .post-info,
 .user-info {
-    padding-top: 15px;
-    padding-bottom: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
-.post-head {
-    margin-bottom: 30px;
+.post-meta-info {
+	margin-right: -15px;
+	margin-left: -15px;
+	padding-top: 10px;
+    padding-right: 15px;
+	padding-bottom: 10px;
+    padding-left: 15px;
+	border-top: 1px solid @gray-lighter;
+}
+
+.post-reply {
+	.user-info {
+		font-size: 13px;
+		.user-profile-img {
+			margin-bottom: 4px;
+			img {
+				max-width: 60px;
+			}
+		}
+		small {
+			font-size: 11px;
+		}
+	}
+	.user-name {
+		margin-bottom: 4px;
+
+		a {
+			display: block;
+		}
+	}
 }
