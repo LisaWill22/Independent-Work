@@ -1,12 +1,73 @@
-<form>
+<form bo-form
+	  autocomplete="off"
+	  novalidate
+	  name="accountSettingsForm"
+	  ng-on-error="onError"
+	  ng-before-submit="beforeSubmit"
+	  ng-after-submit="afterSubmit"
+	  ng-action="/auth/change-password">
+
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="h4">Account Information</h3>
 		</div>
 		<div class="panel-body">
+			<div class="alert alert-warning ng-show-fade" ng-show="accountSettingsForm.$serverError">
+				<p>There was an error processing your contact request. Please try again soon.</p>
+			</div>
+
+			<div class="alert alert-success ng-show-fade" ng-show="accountSettingsForm.$serverSuccess">
+				<p>Your account was updated successfully. If you changed your password, you will be prompted for your new password when you log back in.</p>
+			</div>
+
+
 			<div class="row">
-				<div class="col-md-9 col-xs-12">
-					<h1>FORM GOES HERE</h1>
+				<div class="col-sm-6">
+					<h3>Update Password</h3>
+					<div class="row">
+						<div class="col-xs-12">
+							<label for="password">Old Password</label>
+							<div class="form-group" bo-validate show-valid-icon>
+								<input type="password"
+									   name="oldpassword"
+									   id="oldpassword"
+									   ng-model="data.password"
+									   class="form-control input-lg"
+									   ng-required="true"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<label for="password">New Password</label>
+							<div class="form-group" bo-validate show-valid-icon>
+								<input type="password"
+									   name="password"
+									   id="password"
+									   bo-password-rules
+									   ng-model="data.newPassword"
+									   class="form-control input-lg"
+									   ng-required="true"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12">
+							<label for="confirm_password">Confirm Password</label>
+							<div class="form-group" bo-validate show-valid-icon>
+								<input type="password"
+									   bo-password-match="password"
+									   name="confirm_password"
+									   id="confirm_password"
+									   ng-model="data.newPasswordConfirm"
+									   class="form-control input-lg"
+									   ng-required="true"/>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>

@@ -84,13 +84,10 @@ module.exports = function(app, passport) {
 
 	router.route('/pass-forgot')
 		.post(function(req, res, next) {
-			console.log(req.body);
 			User.findOne({
 				'local.email': req.body.email
 			}, function(err, user) {
 				if (user) {
-					console.log(user);
-
 					crypto.randomBytes(20, function(err, buf) {
 						const token = buf.toString('hex');
 						user._resetPasswordToken = token;
