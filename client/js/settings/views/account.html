@@ -12,6 +12,7 @@
 			<h3 class="h4">Account Information</h3>
 		</div>
 		<div class="panel-body">
+			
 			<div class="alert alert-warning ng-show-fade" ng-show="accountSettingsForm.$serverError">
 				<p>There was an error processing your contact request. Please try again soon.</p>
 			</div>
@@ -19,7 +20,6 @@
 			<div class="alert alert-success ng-show-fade" ng-show="accountSettingsForm.$serverSuccess">
 				<p>Your account was updated successfully. If you changed your password, you will be prompted for your new password when you log back in.</p>
 			</div>
-
 
 			<div class="row">
 				<div class="col-sm-6">
@@ -31,7 +31,7 @@
 								<input type="password"
 									   name="oldpassword"
 									   id="oldpassword"
-									   ng-model="data.password"
+									   ng-model="data.oldPassword"
 									   class="form-control input-lg"
 									   ng-required="true"/>
 							</div>
@@ -73,7 +73,7 @@
 		</div>
 		<div class="panel-footer">
 			<!-- SUBMIT BUTTON -->
-			<div class="btn btn-primary btn-lg" type="submit">Save Settings</div>
+			<button class="btn btn-primary btn-lg" type="submit">Save Settings</button>
 		</div>
 	</div>
 </form>

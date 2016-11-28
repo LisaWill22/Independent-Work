@@ -49,10 +49,40 @@ module.exports = function(app, passport) {
 			req.logout();
 			res.redirect('/');
 		});
+``
+	router.route('/change-password')
+	 	.post(function(req, res, next) {
+			const oldPassword = req.body.oldPassword;
+			const newPassword = req.body.newPassword;
+			User.findOne({
+				'local.email': req.body.local.email
+			}, function(err, user) {
+				if (!user) {
+					console.log(err);
+				} else {
+					if (user.validPassword(oldPassword)) {
+						user.local.password = bcrypt.hashSync(newPassword, bcrypt.genSaltSync(8), null);
+						user.save(function(err, user) {
+							if (!user) {
+								console.log(err);
+							} else {
+								return res.status(200).send({
+									user,
+									message: 'Password updated successfully for ' + user.local.email,
+								});
+							}
+						});
+					} else {
+						res.status(401).send({
+							message: 'Wrong password'
+						});
+					}
+				}
+			});
+		});
 
 	router.route('/pass-reset')
 		.post(function(req, res, next) {
-			console.log(req.body);
 			User.findOne({
 				_resetPasswordToken: req.body.resetToken,
 				_resetPasswordExpires: {
@@ -60,7 +90,7 @@ module.exports = function(app, passport) {
 				}
 			}, function(err, user) {
 				if (!user) {
-					console.log('token expired or no user found');
+					console.log('Token expired or no user found');
 					return res.status(404).send({
 						message: 'Token expired or no user w/ that token',
 						token: req.body.resetToken,
@@ -73,7 +103,6 @@ module.exports = function(app, passport) {
 				user._resetPasswordExpires = undefined;
 
 				user.save(function(err, user) {
-					console.log(user);
 					return res.status(200).send({
 						message: 'Password updated successfully for ' + req.body.email,
 						email: req.body.email
@@ -135,7 +164,7 @@ module.exports = function(app, passport) {
 						email: req.body.email
 					});
 				}
-			})
+			});
 		});
 
 	app.use('/auth', router);
