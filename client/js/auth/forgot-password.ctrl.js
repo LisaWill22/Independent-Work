@@ -1,15 +1,24 @@
 'use strict';
 
 angular.module('auth')
-    .controller('ForgotPasswordCtrl', function($scope, $http) {
+    .controller('ForgotPasswordCtrl', function($scope, $http, toastr) {
         console.log('ForgotPasswordCtrl loaded >>', $scope);
 
-        $scope.resetPassword = function() {
-            $http.post('/auth/forgot', $scope.data)
-                .then(function(res) {
-                    console.log(res);
-                }, function(err) {
-                    console.log(err);
-                });
-        }
+        $scope.data = {};
+
+        $scope.onError = function(err) {
+            console.log(err);
+            toastr.warning('Ooops, there was an error with your request');
+            $scope.emailNotFound = err.data.email;
+        };
+
+        $scope.beforeSubmit = function() {
+            $scope.emailNotFound = null;
+        };
+
+        $scope.afterSubmit = function(res) {
+            console.log(res);
+            $scope.emailNotFound = null;
+            $scope.data = {};
+        };
     });

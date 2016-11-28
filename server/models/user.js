@@ -19,7 +19,9 @@ const userSchema = new mongoose.Schema({
     skills: Array,          // Array of id's from the Skills collection
     posts: Array,        // Array of ids from the Postings collection
     // Meta data
-    _accountCreated: Date
+    _accountCreated: Date,
+    _resetPasswordToken: String,
+    _resetPasswordExpires: Date
 }, { strict: false });
 
 // generating a hash

@@ -42,8 +42,6 @@ let transporterSG = nodemailer.createTransport(sgTransport({
 
 router.post('/send/:mailer', (req, res, next) => {
 
-    console.log(req.body);
-
     let mailerType = req.params.mailer;
     let transporter;
 

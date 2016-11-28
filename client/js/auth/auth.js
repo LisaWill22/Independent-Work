@@ -9,7 +9,7 @@ angular.module('auth', [
                 views: {
                     'container': {
                         controller: 'AuthCtrl',
-                        templateUrl: 'auth/views/index.html' 
+                        templateUrl: 'auth/views/index.html'
                     }
                 }
             })
@@ -27,5 +27,10 @@ angular.module('auth', [
                 url: '/forgot-password',
                 templateUrl: 'auth/views/forgot-password.html',
                 controller: 'ForgotPasswordCtrl'
+            })
+            .state('app.auth.reset-password', {
+                url: '/reset-password?resetToken&email',
+                templateUrl: 'auth/views/reset-password.html',
+                controller: 'ResetPasswordCtrl'
             });
     });

@@ -28,9 +28,9 @@ angular.module('independent-work-app')
 				$state.go('app.dashboard');
 			}
 		} else {
-			let stateName = $state.$current.name;
-			// Go to home if not logged in
-			$state.go(stateName);
+			// let stateName = $state.$current.name;
+			// // Go to home if not logged in
+			// $state.go(stateName);
 		}
 
 		// Listen for session refreshes and update the user
