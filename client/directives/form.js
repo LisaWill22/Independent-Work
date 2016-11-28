@@ -151,6 +151,9 @@ angular.module('boForm', [
                             .then(function (res) {
                                 formCtrl.$submitting = false;
                                 formCtrl.$serverSuccess = true;
+                                formCtrl.$setUntouched(true);
+                                formCtrl.$setPristine(true);
+                                formCtrl.$setSubmitted(true);
                                 $attrs.ngAfterSubmit && $scope[$attrs.ngAfterSubmit](res);
                             }, function (res) {
                                 console.error(res);
@@ -214,6 +217,7 @@ angular.module('boForm', [
             require: '^form',
             terminal: true,
             link: function (scope, element, attrs, fCtrl) {
+                console.log(fCtrl);
                 var attrName = fCtrl.$name + '.' + element.find('input,textarea,select,bo-select').attr('name'),
                     messages = element.find('[ng-message]').remove();
 
@@ -228,7 +232,7 @@ angular.module('boForm', [
 
                 element.removeAttr('bo-validate');
 
-                element.attr('ng-class', '{\'has-error\':' + attrName + '.$invalid && (' + attrName + '.$touched || ' + fCtrl.$name + '.$attempted)}');
+                element.attr('ng-class', '{\'has-error\':' + attrName + '.$invalid && (' + attrName + '.$touched || ' + fCtrl.$name + '.$attempted) && !' + fCtrl.$name + '.$pristine }');
 
                 element.append( '<div class="help-block ng-show-fade" ng-messages="' + attrName + '.$error">' +
                                     '<small ng-messages-include="directives/templates/default-error-messages.html"></small>' +
