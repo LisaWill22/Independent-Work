@@ -1,162 +1,187 @@
 html {
-   overflow-y: scroll;
-   overflow-x: hidden;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
+	overflow-y: scroll;
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    margin: 0;
-    color: #727272;
-    background-color: #efefef;
-    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 16px;
+	margin: 0;
+	background-color: #efefef;
+	color: #727272;
+	font-size: 16px;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 label {
-    font-weight: 400;
+	font-weight: 400;
 }
 
-h1, h2, h3, h4, h5, h6
-.h1, .h2, .h3, .h4, .h5, .h6 {
-    font-weight: 400;
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 .h1 {
+	font-weight: 400;
 }
 
 #app-container {
-    opacity: 0;
+	opacity: 0;
 }
 
 p {
-    color: #727272;
-    font-size: 16px;
-    font-weight: 400;
+	color: #727272;
+	font-weight: 400;
+	font-size: 16px;
 }
 
 .section {
-    background-color: #fff;
+	background-color: #fff;
 
-    .section-title {
-        width: 100%;
+	.section-title {
+		width: 100%;
+		text-align: center;
 
-        text-align: center;
+		h1 {
+			color: #3e3e3e;
+			letter-spacing: -2px;
+			font-size: 42px;
+		}
 
-        h1 {
-            letter-spacing: -2px;
+		h2 {
+			color: #727272;
+			letter-spacing: -0.86px;
+			font-size: 18px;
+		}
+	}
 
-            color: #3e3e3e;
-
-            font-size: 42px;
-        }
-
-        h2 {
-            letter-spacing: -0.86px;
-
-            color: #727272;
-
-            font-size: 18px;
-        }
-    }
-
-    .section-content {
-        margin-top: 60px;
-    }
+	.section-content {
+		margin-top: 60px;
+	}
 }
 
 .section:after {
-    display: block;
-    clear: both;
-
-    content: '';
+	display: block;
+	clear: both;
+	content: '';
 }
 
 [ui-view].ng-enter {
-    transition: .5s;
-
-    opacity: 0;
+	opacity: 0;
+	transition: 0.5s;
 }
 
 [ui-view].ng-enter-active {
-  opacity: 1;
+	opacity: 1;
 }
 
 [ui-view].ng-leave {
-    transition: .5s;
-
-    opacity: 1;
+	opacity: 1;
+	transition: 0.5s;
 }
 
 [ui-view].ng-leave-active {
-  opacity: 0;
+	opacity: 0;
 }
 
 .text-white {
-    color: #fff !important;
+	color: #fff !important;
 }
 
 .height-100 {
-    height: 100%;
+	height: 100%;
 }
 
 .content-wrapper {
-    margin-top: 120px;
+	margin-top: 120px;
 }
 
 .push-top {
-    padding-top: @padding-large-vertical;
+	padding-top: @padding-large-vertical;
 }
 
 .row.collapse {
-    [class^="col"] {
-        &:first-child {
-            padding-left: 0;
-        }
-        &:last-child {
-            padding-right: 0;
-        }
-    }
+	[class^="col"] {
+		&:first-child {
+			padding-left: 0;
+		}
+
+		&:last-child {
+			padding-right: 0;
+		}
+	}
 }
 
 .badge-primary {
-    background-color: @brand-primary;
+	background-color: @brand-primary;
 }
 
-
 .send-message-popover {
-    textarea {
-        max-width: 100%;
-        resize: none;
-    }
+	textarea {
+		max-width: 100%;
+		resize: none;
+	}
 }
 
 .label-primary {
-    margin-right: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 300;
-    font-size: 11px;
-    font-family: 'Montserrat', sans-serif;
+	margin-right: 4px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 300;
+	font-size: 11px;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .overlay {
-    z-index: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: @gray;
-    opacity: .7;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	background-color: @gray;
+	opacity: 0.7;
 }
 
 .label-secondary {
-    color: #ffffff;
-    background-color: @brand-secondary;
+	background-color: @brand-secondary;
+	color: #ffffff;
 }
 
 a {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .label.block {
-    margin-bottom: 4px;
+	margin-bottom: 4px;
+}
+
+.cropArea {
+	overflow: hidden;
+	width: 500px;
+	height: 350px;
+	background: #E4E4E4;
+}
+
+form .progress {
+	line-height: 15px;
+}
+
+.progress {
+	display: inline-block;
+	width: 100px;
+	border: 3px groove #CCC;
+}
+
+.progress div {
+	width: 0;
+	background: orange;
+	font-size: smaller;
 }

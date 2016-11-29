@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('settings')
-    .controller('ProfileCtrl', function($scope, $http, $q, toastr) {
+    .controller('ProfileCtrl', function($scope, $http, $q, $timeout, toastr, Upload) {
 
         console.log('ProfileCtrl loaded >>', $scope);
 
@@ -14,6 +14,24 @@ angular.module('settings')
         // Saves a skill to the api - called in profile save to save new skills
         function saveSkill (skill) {
             return $http.post('/api/skills', skill);
+        }
+
+        $scope.upload = function (dataUrl, name) {
+            Upload.upload({
+                url: '/api/user/profile-image',
+                data: {
+                    file: Upload.dataUrltoBlob(dataUrl, name)
+                },
+            }).then(function (response) {
+                $timeout(function () {
+                    $scope.result = response.data;
+                });
+            }, function (response) {
+                if (response.status > 0) $scope.errorMsg = response.status
+                    + ': ' + response.data;
+            }, function (evt) {
+                $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+            });
         }
 
         $scope.saveProfile = function() {

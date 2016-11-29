@@ -6,14 +6,15 @@ html
         // TODO: Should be imported as fonts via less compilation
         link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans:300,400|RaleWay:300,400,700')
         // TODO: Move these two in to the import.less
-        link(rel='stylesheet', href='bower_components/angular-ui-select/dist/select.css')
-        link(rel='stylesheet', href='angular-ui-bootstrap/dist/ui-bootstrap-csp.css')
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
-        script(src='bower_components/ng-img-crop/compile/unminified/ng-img-crop.js')
+        link(rel='stylesheet', href='bower_components/ng-img-crop/compile/unminified/ng-img-crop.css')
+        
         // Our custom styles, in one sheet
         link(rel='stylesheet', href='stylesheets/style.css')
+        
         //- base(href="/")
     body(ng-app='independent-work-app' autoscroll="true")
+        
         // Preloader
         div.preloader#home-loading
             div.loader-container

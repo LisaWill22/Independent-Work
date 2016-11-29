@@ -1,5 +1,57 @@
 <div class="form-profile">
 
+    <!-- Img upload -->
+    <div class="row">
+        <div class="col-xs-12">
+
+            <h5>Crop Image and Upload</h5>
+
+            <!-- Image file upload -->
+            <button ngf-select
+                    class="btn btn-default"
+                    ng-model="picFile"
+                    accept="image/*">
+            	       Select Picture
+            </button>
+
+            <!-- Can also drop image file here -->
+            <div ngf-drop
+                 ng-model="picFile"
+                 ngf-pattern="image/*"
+                 class="cropArea">
+            	<img-crop image="picFile  | ngfDataUrl" result-image="croppedDataUrl" ng-init="croppedDataUrl=''"></img-crop>
+            </div>
+
+            <!-- Cropped image thumbnail -->
+            <div class="cropped-photo">
+            	<img ng-src="{{croppedDataUrl}}"/>
+            </div>
+
+            <!-- Submit picure for upload -->
+            <button class="btn btn-default"
+                    ng-click="upload(croppedDataUrl, picFile.name)">
+                    Submit
+            </button>
+
+            <!-- Upload progress bar -->
+            <div class="progress-bar progress-bar-success" ng-show="progress >= 0" style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+
+            <!-- Error/Success messages -->
+            <div class="alert alert-success" ng-show="result">
+                <p>
+                    Upload Successful
+                </p>
+            </div>
+
+            <div class="alert alert-danger" ng-show="errorMsg">
+                <p>
+                    {{ errorMsg }}
+                </p>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Name -->
     <div class="form-group">
     	<div class="row">

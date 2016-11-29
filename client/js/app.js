@@ -11,6 +11,8 @@ var app = angular.module('independent-work-app', [
 	'ui.bootstrap',
 	'ui.tinymce',
 	'ngStorage',
+	'ngFileUpload',
+	'ngImgCrop',
 	'angular-loading-bar',
 	'btford.socket-io',
 	// IW modules
@@ -93,6 +95,9 @@ app.run(function($timeout, $rootScope) {
 		scrollContainer: null // optional scroll container selector, otherwise use window
 	});
 	wow.init();
+
+	// Set up window var for some plugins
+	window.angular = angular;
 
 });
 
