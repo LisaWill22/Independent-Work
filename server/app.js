@@ -20,11 +20,10 @@ require('dotenv').config();
 // Bring in the passport configs (for auth)
 require('./config/passport')(passport);
 
-// DB bring in db connection
-const db = require('./db');
-
 // Create the app
 const app = express();
+// DB bring in db connection
+require('./db')(app);
 
 // Get the port and set it
 const port = process.env.PORT || 3000;

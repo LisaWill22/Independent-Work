@@ -2,12 +2,12 @@
 
 const express = require('express');
 const router = express.Router();
-const db = require('../db');
 const mongoose = require('mongoose');
 const User = require('../models/user').User;
 const Post = require('../models/post').Post;
 const fs = require('fs');
-const grid = require('gridfs');
+const Grid = require('gridfs-stream');
+const GridFS = Grid(mongoose.connection.db, mongoose.mongo);
 const formidable = require('formidable');
 
 router.route('/users/:id')
@@ -62,26 +62,26 @@ router.route('/posts/:id')
 
 router.route('/user/profile-image')
 	.post(function(req, res, next) {
-		var form = new formidable.IncomingForm();
-		    form.uploadDir = __dirname + "/uploads";
-		    form.keepExtensions = true;
+		let form = new formidable.IncomingForm();
 
-			form.parse(req, function (err, fields, files) {
-		        if (!err) {
-		            console.log('Files Uploaded: ' + files.file)
-					console.log(files.file);
-		            grid.mongo = mongoose.mongo;
-		            var gfs = grid(db.db);
-		            var writestream = gfs.createWriteStream({
-		                filename: files.file.name
-		            });
-		            fs.createReadStream(files.file.path).pipe(writestream);
-		        }
-		    });
+		form.uploadDir = __dirname + '/uploads';
+		form.keepExtensions = true;
 
-		    form.on('end', function () {
-		        res.send('Completed ... go check fs.files & fs.chunks in mongodb');
-		    });
+		form.parse(req, function(err, fields, files) {
+			if (!err) {
+				console.log('File Uploaded: ' + files.file.path)
+
+				let writestream = GridFS.createWriteStream({
+					filename: files.file.name
+				});
+
+				fs.createReadStream(files.file.path).pipe(writestream);
+			}
+		});
+
+		form.on('end', function() {
+			res.send('Completed ... go check fs.files & fs.chunks in mongodb');
+		});
 	})
 
 router.route('/users/:id/posts')

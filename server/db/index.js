@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
+const Grid = require('gridfs-stream');
 
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
+module.exports = function(app) {
+    mongoose.Promise = global.Promise;
+    mongoose.connect(process.env.MONGODB_URI);
 
-const db = mongoose.connection;
+    const connection = mongoose.connection;
 
-db.on('error', console.error.bind(console, chalk.red('connection error:')));
+    connection.on('error', console.error.bind(console, chalk.red('connection error:')));
 
-db.once('open', function (callback) {
-  console.log(chalk.magenta('db connected to', process.env.MONGODB_URI));
-})
+    connection.once('open', function(callback) {
+    	console.log(chalk.magenta('db connected to', process.env.MONGODB_URI));
+    	Grid.mongo = mongoose.mongo;
+    	const gfs = Grid(connection.db);
+    	app.set('gridfs', gfs);
+    });
 
-exports.db = db;
+};
