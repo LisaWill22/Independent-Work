@@ -1,25 +1,32 @@
 <div class="form-profile">
 
     <!-- Img upload -->
-    <div class="row">
-        <div class="col-xs-12">
+    <div class="row image-upload-wrapper form-group">
+        <div class="col-xs-12 text-center">
 
-            <h5>Crop Image and Upload</h5>
-
-            <!-- Image file upload -->
-            <button ngf-select
-                    class="btn btn-default"
-                    ng-model="picFile"
-                    accept="image/*">
-            	       Select Picture
-            </button>
+            <label>Crop Image and Upload</label>
 
             <!-- Can also drop image file here -->
             <div ngf-drop
                  ng-model="picFile"
                  ngf-pattern="image/*"
-                 class="cropArea">
-            	<img-crop image="picFile  | ngfDataUrl" result-image="croppedDataUrl" ng-init="croppedDataUrl=''"></img-crop>
+                 class="cropArea text-center">
+                 Drag a file here or click the button above
+            	<img-crop
+                    image="picFile  | ngfDataUrl"
+                    result-image="croppedDataUrl"
+                    ng-init="croppedDataUrl=''">
+                </img-crop>
+            </div>
+
+            <div>
+                <!-- Image file upload -->
+                <button ngf-select
+                        class="btn btn-default"
+                        ng-model="picFile"
+                        accept="image/*">
+                           {{ picFile ? 'Change Picture' : 'Select Picture' }}
+                </button>
             </div>
 
             <!-- Cropped image thumbnail -->
@@ -34,16 +41,14 @@
             </button>
 
             <!-- Upload progress bar -->
-            <div class="progress-bar progress-bar-success" ng-show="progress >= 0" style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+            <div class="progress-bar progress-bar-success ng-show-fade" ng-show="progress >= 0" style="width:{{progress}}%" ng-bind="progress + '%'"></div>
 
             <!-- Error/Success messages -->
-            <div class="alert alert-success" ng-show="result">
-                <p>
-                    Upload Successful
-                </p>
+            <div class="alert alert-success ng-show-fade" ng-show="result">
+                <p> Upload Successful></p>
             </div>
 
-            <div class="alert alert-danger" ng-show="errorMsg">
+            <div class="alert alert-danger ng-show-fade" ng-show="errorMsg">
                 <p>
                     {{ errorMsg }}
                 </p>

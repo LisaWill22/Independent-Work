@@ -60,7 +60,7 @@ router.route('/posts/:id')
 		});
 	});
 
-router.route('/user/profile-image')
+router.route('/user/:id/profile-image')
 	.post(function(req, res, next) {
 		let form = new formidable.IncomingForm();
 
@@ -76,13 +76,49 @@ router.route('/user/profile-image')
 				});
 
 				fs.createReadStream(files.file.path).pipe(writestream);
+
+				writestream.on('close', function (file) {
+					console.log(file.filename + 'Written To DB');
+					console.log(file._id);
+
+					User.findOne({ _id: req.params.id}, function(err, user) {
+						if (!err) {
+							if (!user.image) {
+								user.image = {};
+							}
+							user.image._id = file._id;
+							console.log(user);
+							user.save(function(err, user) {
+								if (user) {
+									return res.send({
+										user,
+										success: true,
+										message: 'Profile image uploaded successfully',
+										file: files.file.path
+									});
+								} else {
+									console.log(err);
+									return res.status(404).send({
+										userId: req.params.id,
+										success: false,
+										message: 'Failed to assign upload to user',
+										file: files.file.path
+									});
+								}
+							});
+						} else {
+							console.log(err);
+							return res.status(404).send({
+								success: false,
+								message: 'Failed to uploadfile',
+								file: files.file.path
+							});
+						}
+					});
+				});
 			}
 		});
-
-		form.on('end', function() {
-			res.send('Completed ... go check fs.files & fs.chunks in mongodb');
-		});
-	})
+	});
 
 router.route('/users/:id/posts')
 	.get(function(req, res, next) {

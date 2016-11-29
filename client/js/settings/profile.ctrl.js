@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('settings')
-    .controller('ProfileCtrl', function($scope, $http, $q, $timeout, toastr, Upload) {
+    .controller('ProfileCtrl', function($scope, $http, $q, $timeout, toastr, Upload, states) {
 
         console.log('ProfileCtrl loaded >>', $scope);
 
         $scope.data = angular.copy($scope.currentUser);
         $scope.data.showEmail = 'true';
+        $scope.states = states;
 
         // Placeholder for the list of all skills returned from the api
         var allSkills;
@@ -18,11 +19,13 @@ angular.module('settings')
 
         $scope.upload = function (dataUrl, name) {
             Upload.upload({
-                url: '/api/user/profile-image',
+                url: '/api/user/' + $scope.currentUser._id + '/profile-image',
                 data: {
+                    userId: $scope.currentUser._id,
                     file: Upload.dataUrltoBlob(dataUrl, name)
                 },
             }).then(function (response) {
+                console.log(response);
                 $timeout(function () {
                     $scope.result = response.data;
                 });
