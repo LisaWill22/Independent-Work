@@ -7,9 +7,6 @@ angular.module('independent-work-app')
 
 		console.log('main app ctrl loaded >> ', $scope);
 
-		// MailChimp stuffs
-		//independentwork.us13.list-manage.com/subscribe/post?u=1caaabe4f2e84eeb4df6c6745&amp;id=fb2065f650
-
 		// Set up the local storage
 		$scope.$storage = $localStorage;
 		$scope.skills = skills.data;
@@ -37,6 +34,11 @@ angular.module('independent-work-app')
 		$rootScope.$on('Session:refresh', function(e, user, session) {
 			refreshSession(user);
 			console.log('currentuser is >>', $scope.currentUser);
+		});
+
+		$rootScope.$on('ProfileImg:refresh', function() {
+			console.log('refresh');
+			getProfileImg();
 		});
 
 		// Opens the modal for user to signup to mailchimp list
@@ -74,6 +76,17 @@ angular.module('independent-work-app')
 			});
 		}
 
+		function getProfileImg() {
+			// Get profile image
+			return $http.get('/api/user/' + $scope.currentUser._id + '/profile-image')
+				.then(function(res) {
+					$scope.profileImageUrl = res.data.image;
+				})
+				.catch(function(err) {
+					console.log(err);
+				});
+		}
+
 		function refreshSession(user) {
 			// Set the app's currentUser
 			$scope.currentUser = user;
@@ -83,14 +96,8 @@ angular.module('independent-work-app')
 				// Set the socket up
 				socket.emit('join', user);
 
-				// Get profile image
-				$http.get('/api/user/' + $scope.currentUser._id + '/profile-image')
-					.then(function(res) {
-						$scope.profileImageUrl = res.data.image;
-					})
-					.catch(function(err) {
-						console.log(err);
-					});
+				// Get the user profile img for header
+				getProfileImg();
 
 				// Set the role for UI toggling
 				$scope.contractor = user.roles.find(function(role) {

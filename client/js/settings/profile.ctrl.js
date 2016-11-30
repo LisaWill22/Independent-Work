@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('settings')
-    .controller('ProfileCtrl', function($scope, $http, $q, $timeout, toastr, Upload, states) {
+    .controller('ProfileCtrl', function($scope, $rootScope, $http, $q, $timeout, toastr, Upload, states) {
 
         console.log('ProfileCtrl loaded >>', $scope);
 
@@ -17,18 +17,32 @@ angular.module('settings')
             return $http.post('/api/skills', skill);
         }
 
+        function getProfileImg() {
+            // Get profile image
+            return $http.get('/api/user/' + $scope.currentUser._id + '/profile-image')
+                .then(function(res) {
+                    $scope.profileImageUrl = res.data.image;
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+        }
+
         $scope.upload = function (dataUrl, name) {
-            console.log(name);
-            name = $scope.currentUser._id + '-profile-img'
+            $scope.uploadInProgresss = true;
+            $scope.uploadFinished = false;
             Upload.upload({
                 url: '/api/user/' + $scope.currentUser._id + '/profile-image',
                 data: {
                     file: Upload.dataUrltoBlob(dataUrl, name)
                 },
             }).then(function (response) {
-                console.log(response);
                 $timeout(function () {
+                    $scope.uploadInProgresss = false;
+                    $scope.uploadFinished = true;
                     $scope.result = response.data;
+                    $rootScope.$broadcast('ProfileImg:refresh');
+                    getProfileImg()
                 });
             }, function (response) {
                 if (response.status > 0) $scope.errorMsg = response.status
