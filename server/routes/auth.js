@@ -97,8 +97,8 @@ module.exports = function(app, passport) {
 				}
 
 				user.local.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8), null);
-				user._resetPasswordToken = undefined;
-				user._resetPasswordExpires = undefined;
+				user._resetPasswordToken = null;
+				user._resetPasswordExpires = null;
 
 				user.save(function(err, user) {
 					return res.status(200).send({

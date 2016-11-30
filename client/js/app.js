@@ -15,6 +15,7 @@ var app = angular.module('independent-work-app', [
 	'ngImgCrop',
 	'angular-loading-bar',
 	'btford.socket-io',
+	'base64',
 	// IW modules
 	'app.templates',
 	'auth',

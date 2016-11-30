@@ -83,6 +83,15 @@ angular.module('independent-work-app')
 				// Set the socket up
 				socket.emit('join', user);
 
+				// Get profile image
+				$http.get('/api/user/' + $scope.currentUser._id + '/profile-image')
+					.then(function(res) {
+						$scope.profileImageUrl = res.data.image;
+					})
+					.catch(function(err) {
+						console.log(err);
+					});
+
 				// Set the role for UI toggling
 				$scope.contractor = user.roles.find(function(role) {
 					return role === 'contractor';

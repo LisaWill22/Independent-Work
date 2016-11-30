@@ -20,7 +20,8 @@
 						   popover-trigger="'outsideClick'"
 						   popover-is-open="userMenuOpen"
 						   class="btn btn-link dropdown-toggle">
-							<i class="fa fa-lg fa-fw fa-user-circle"></i>
+						    <img class="img img-circle img-thumbnail img-avatar" ng-show="profileImageUrl" ng-src="data:image/png;base64,{{profileImageUrl}}" alt="" />
+							<i ng-show="!profileImageUrl" class="fa fa-lg fa-fw fa-user-circle"></i>
 							<strong>{{ currentUser.firstName }}</strong>
 							<i class="fa fa-fw fa-caret-down"></i>
 						</a>

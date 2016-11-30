@@ -1,13 +1,22 @@
 <div class="form-profile">
 
+
+
     <!-- Img upload -->
     <div class="row image-upload-wrapper form-group">
         <div class="col-xs-12 text-center">
 
-            <label>Crop Image and Upload</label>
+            <div class="row">
+                <div class="col-xs-12 text-center">
+                    <img class="img img-circle img-thumbnail"
+                         ng-src="data:image/png;base64,{{profileImageUrl}}"
+                         ng-show="currentUser.image._id"/>
+                </div>
+            </div>
 
             <!-- Can also drop image file here -->
-            <div ngf-drop
+            <div ng-show="picFile"
+                 ngf-drop
                  ng-model="picFile"
                  ngf-pattern="image/*"
                  class="cropArea text-center">
@@ -25,7 +34,7 @@
                         class="btn btn-default"
                         ng-model="picFile"
                         accept="image/*">
-                           {{ picFile ? 'Change Picture' : 'Select Picture' }}
+                    {{ (picFile || user.image._id) ? 'Change Picture' : 'Select Picture' }}
                 </button>
             </div>
 
@@ -36,6 +45,7 @@
 
             <!-- Submit picure for upload -->
             <button class="btn btn-default"
+                    ng-show="croppedDataUrl.length"
                     ng-click="upload(croppedDataUrl, picFile.name)">
                     Submit
             </button>
@@ -45,13 +55,10 @@
 
             <!-- Error/Success messages -->
             <div class="alert alert-success ng-show-fade" ng-show="result">
-                <p> Upload Successful></p>
+                <p>Upload Successful</p>
             </div>
-
             <div class="alert alert-danger ng-show-fade" ng-show="errorMsg">
-                <p>
-                    {{ errorMsg }}
-                </p>
+                <p>{{ errorMsg }}</p>
             </div>
 
         </div>

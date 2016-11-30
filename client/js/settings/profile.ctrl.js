@@ -18,10 +18,11 @@ angular.module('settings')
         }
 
         $scope.upload = function (dataUrl, name) {
+            console.log(name);
+            name = $scope.currentUser._id + '-profile-img'
             Upload.upload({
                 url: '/api/user/' + $scope.currentUser._id + '/profile-image',
                 data: {
-                    userId: $scope.currentUser._id,
                     file: Upload.dataUrltoBlob(dataUrl, name)
                 },
             }).then(function (response) {
@@ -35,7 +36,7 @@ angular.module('settings')
             }, function (evt) {
                 $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
             });
-        }
+        };
 
         $scope.saveProfile = function() {
 

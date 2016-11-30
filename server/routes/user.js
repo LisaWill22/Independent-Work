@@ -50,6 +50,7 @@ router.route('/posts/:id')
 			if (!err) {
 				res.send({
 					post,
+					success: true,
 					message: 'Post updated successfully',
 					_lastUpdatedDate: new Date()
 				});
@@ -61,12 +62,64 @@ router.route('/posts/:id')
 	});
 
 router.route('/user/:id/profile-image')
+	.get(function(req, res, next) {
+		const userId = req.params.id;
+		User.findOne({
+			_id: userId
+		}, function(err, user) {
+			if (user) {
+				if (user.image && user.image._id) {
+					console.log(user.image._id);
+					GridFS.files.find({
+						_id: user.image._id
+					}).toArray(function(err, files) {
+						if (files.length === 0) {
+							return res.status(400).send({
+								fileId: user.image._id,
+								message: 'File not found'
+							});
+						}
+
+						res.status(200);
+
+						var readstream = GridFS.createReadStream({
+							filename: files[0].filename
+						});
+
+						readstream.on('data', function(data) {
+							res.send({
+								image: data.toString('base64')
+							});
+						});
+
+						readstream.on('end', function() {
+							res.end();
+						});
+
+						readstream.on('error', function(err) {
+							console.log('An error occurred!', err);
+							throw err;
+						});
+					});
+				} else {
+					console.log('user does not have an image');
+					return res.json({
+						success: false,
+						message: 'User does not have profile image',
+					})
+				}
+			} else {
+				console.log(user);
+				return console.log(err);
+			}
+		})
+
+	})
 	.post(function(req, res, next) {
 		let form = new formidable.IncomingForm();
-
+		const userId = req.params.id;
 		form.uploadDir = __dirname + '/uploads';
 		form.keepExtensions = true;
-
 		form.parse(req, function(err, fields, files) {
 			if (!err) {
 				console.log('File Uploaded: ' + files.file.path)
@@ -77,40 +130,33 @@ router.route('/user/:id/profile-image')
 
 				fs.createReadStream(files.file.path).pipe(writestream);
 
-				writestream.on('close', function (file) {
-					console.log(file.filename + 'Written To DB');
+				writestream.on('close', function(file) {
+					console.log(file.filename + ' Written To DB');
 					console.log(file._id);
 
-					User.findOne({ _id: req.params.id}, function(err, user) {
+					User.findOneAndUpdate({
+						_id: userId
+					}, {
+						$set: {
+							'image._id': file._id
+						}
+					}, {
+						upsert: true,
+						new: true
+					}, function(err, user) {
 						if (!err) {
-							if (!user.image) {
-								user.image = {};
-							}
-							user.image._id = file._id;
-							console.log(user);
-							user.save(function(err, user) {
-								if (user) {
-									return res.send({
-										user,
-										success: true,
-										message: 'Profile image uploaded successfully',
-										file: files.file.path
-									});
-								} else {
-									console.log(err);
-									return res.status(404).send({
-										userId: req.params.id,
-										success: false,
-										message: 'Failed to assign upload to user',
-										file: files.file.path
-									});
-								}
+							return res.send({
+								user,
+								success: true,
+								message: 'Profile image uploaded successfully',
+								file: files.file.path
 							});
 						} else {
 							console.log(err);
 							return res.status(404).send({
+								userId,
 								success: false,
-								message: 'Failed to uploadfile',
+								message: 'Failed to assign upload to user',
 								file: files.file.path
 							});
 						}
