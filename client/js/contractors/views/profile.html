@@ -2,22 +2,34 @@
     <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
         <div class="panel panel-default">
             <div class="panel-body text-center">
-                <img class="img img-circle img-thumbnail img-avatar" src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+                <img ng-show="!contractorImageUrl"
+                     class="img img-circle img-thumbnail img-avatar ng-show-fade"
+                     src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+                <img ng-show="contractor.image._id"/
+                     class="img img-circle img-thumbnail img-avatar ng-show-fade"
+                     ng-src="data:image/png;base64,{{contractorImageUrl}}">
 
                 <h2 class="lead">{{ contractor.firstName}} {{ contractor.lastName}}</h2>
+                <h3 class="sub-header mtn">{{ contractor.location.city }} {{ contractor.location.state ? ',' + contractor.location.state : '' }}</h3>
+                <p>{{ contractor.bio }}</p>
 
                 <h3 ng-show="contractor.skills && contractor.skills.length">
                     <span class="label label-primary" ng-repeat="skill in contractor.skills">{{ skill.name }}</span>
                 </h3>
 
-                <button uib-popover-template=" 'chat/views/_send-message-popover.html' "
+                <button type="button"
+                        class="btn btn-default">
+                        Start a conversation with {{ contractor.firstName }}
+                </button>
+
+                <!-- <button uib-popover-template=" 'chat/views/_send-message-popover.html' "
                         popover-placement="right"
                         popover-trigger="'outsideClick'"
                         popover-title="{{ 'Send Message to ' + contractor.firstName}}"
                         type="button"
                         class="btn btn-default">
                         Message {{ contractor.firstName }}
-                </button>
+                </button> -->
             </div>
         </div>
     </div>

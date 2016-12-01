@@ -11,6 +11,7 @@ angular.module('contractors')
             $http.get('/api/users/' + $stateParams.id)
                 .then(function(res) {
                     $scope.contractor = res.data;
+                    getProfileImg();
                 })
         } else {
             $state.go('app.contractors');
@@ -21,5 +22,17 @@ angular.module('contractors')
             console.log($scope.data.message);
             $scope.data.message = null;
         };
+
+
+        function getProfileImg() {
+            // Get profile image
+            return $http.get('/api/user/' + $scope.contractor._id + '/profile-image')
+                .then(function(res) {
+                    $scope.contractorImageUrl = res.data.image;
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+        }
 
     });

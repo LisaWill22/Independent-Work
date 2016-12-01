@@ -42,6 +42,7 @@ angular.module('settings')
                     $scope.uploadFinished = true;
                     $scope.result = response.data;
                     $rootScope.$broadcast('ProfileImg:refresh');
+                    $scope.picFile = null;
                     getProfileImg()
                 });
             }, function (response) {

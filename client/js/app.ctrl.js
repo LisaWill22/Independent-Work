@@ -34,6 +34,9 @@ angular.module('independent-work-app')
 		$rootScope.$on('Session:refresh', function(e, user, session) {
 			refreshSession(user);
 			console.log('currentuser is >>', $scope.currentUser);
+			if (!user) {
+				$scope.profileImageUrl = null;
+			}
 		});
 
 		$rootScope.$on('ProfileImg:refresh', function() {
