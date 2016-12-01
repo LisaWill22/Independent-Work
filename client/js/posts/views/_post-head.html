@@ -2,10 +2,10 @@
     <div class="row-fluid clearfix">
         <div class="col-sm-3 col-md-3 user-info text-center">
             <div class="user-name">
-                <a href="#" ui-sref="app.contractors({ id: post.user._id })">{{ post.user.firstName }} {{ post.user.lastName }}</a>
+                <a href="#" ui-sref="app.contractors.profile({ id: post.user._id })">{{ post.user.firstName }} {{ post.user.lastName }}</a>
             </div>
             <div class="user-profile-img text-center">
-                <a href="#"  ui-sref="app.contractors({ id: post.user._id })">
+                <a href="#" ui-sref="app.contractors.profile({ id: post.user._id })">
                     <img class="media-object img img-circle img-thumbnail img-avatar" src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
                 </a>
             </div>

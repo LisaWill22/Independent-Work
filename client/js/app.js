@@ -16,6 +16,7 @@ var app = angular.module('independent-work-app', [
 	'angular-loading-bar',
 	'btford.socket-io',
 	'base64',
+	'mgcrea.bootstrap.affix',
 	// IW modules
 	'app.templates',
 	'auth',

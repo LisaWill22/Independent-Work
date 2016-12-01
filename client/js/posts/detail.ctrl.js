@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('posts')
-    .controller('PostDetailCtrl', function($scope, $http, $stateParams, toastr) {
+    .controller('PostDetailCtrl', function($scope, $http, $stateParams, $uibModal, toastr) {
 
         console.log('PostDetailCtrl loaded >>', $scope);
 
@@ -19,9 +19,26 @@ angular.module('posts')
             refreshPost();
         });
 
+        $scope.openEditPostModal = function(post) {
+            $scope.postToEdit = post;
+            $scope.postModalInstance = $uibModal.open({
+                animation: true,
+                scope: $scope,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'posts/views/create-post-modal.html',
+                controller: 'EditPostModalCtrl',
+                size: 'md',
+            });
+        };
+
+        $scope.submitReply = function() {
+            submitReply ();
+        };
+
         function refreshPost() {
             $scope.loading = true;
-            $http.get('/api/posts/' + $stateParams.id)
+            return $http.get('/api/posts/' + $stateParams.id)
                 .then(function(res) {
                     $scope.post = res.data;
                 })
@@ -34,8 +51,7 @@ angular.module('posts')
                 });
         }
 
-        $scope.submitReply = function() {
-
+        function submitReply () {
             $scope.post.replies.push({
                 user: angular.copy($scope.currentUser),
                 _createdDate: new Date(),
@@ -54,6 +70,6 @@ angular.module('posts')
                 .finally(function() {
                     $scope.data = {};
                 });
-        };
+        }
 
     });

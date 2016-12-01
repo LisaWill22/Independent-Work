@@ -3,10 +3,10 @@
         <div class="row-fluid clearfix">
             <div class="col-sm-3 col-md-2 user-info text-center">
                 <div class="user-name">
-                    <a href="#" ui-sref="app.contractors({ id: reply.user._id })">{{ reply.user.firstName }} {{ reply.user.lastName }}</a>
+                    <a href="#" ui-sref="app.contractors.profile({ id: reply.user._id })">{{ reply.user.firstName }} {{ reply.user.lastName }}</a>
                 </div>
                 <div class="user-profile-img text-center">
-                    <a href="#"  ui-sref="app.contractors({ id: reply.user._id })">
+                    <a href="#" ui-sref="app.contractors.profile({ id: reply.user._id })">
                         <img class="media-object img img-circle img-thumbnail img-avatar" src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
                     </a>
                 </div>

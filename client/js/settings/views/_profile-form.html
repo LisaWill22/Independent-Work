@@ -1,7 +1,5 @@
 <div class="form-profile">
 
-
-
     <!-- Img upload -->
     <div class="row image-upload-wrapper form-group">
         <div class="col-xs-12 text-center">
@@ -19,7 +17,7 @@
                  ngf-drop
                  ng-model="picFile"
                  ngf-pattern="image/*"
-                 class="cropArea text-center">
+                 class="cropArea text-center ng-show-fade">
                  Drag a file here or click the button above
             	<img-crop
                     image="picFile  | ngfDataUrl"
@@ -31,23 +29,31 @@
             <div>
                 <!-- Image file upload -->
                 <button ngf-select
-                        class="btn btn-default"
+                        class="btn btn-default ng-show-fade"
                         ng-model="picFile"
+                        ng-show="!picFile"
                         accept="image/*">
                     {{ (picFile || user.image._id) ? 'Change Picture' : 'Select Picture' }}
                 </button>
             </div>
 
             <!-- Cropped image thumbnail -->
-            <div class="cropped-photo">
+            <div class="cropped-photo ng-show-fade" ng-show="picFile">
             	<img ng-src="{{croppedDataUrl}}"/>
             </div>
 
             <!-- Submit picure for upload -->
-            <button class="btn btn-default"
-                    ng-show="croppedDataUrl.length"
+            <button class="btn btn-default ng-show-fade"
+                    ng-show="picFile"
                     ng-click="upload(croppedDataUrl, picFile.name)">
                     Submit
+            </button>
+
+            <button class="btn btn-link"
+                    scroll-to="app-container"
+                    ng-click="picFile = null"
+                    ng-show="picFile">
+                Cancel
             </button>
 
             <!-- Upload progress bar -->

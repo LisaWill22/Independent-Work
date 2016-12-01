@@ -1,10 +1,20 @@
 <div class="modal-header">
-	<h3 class="modal-title" id="modal-title">Create a Community Post</h3>
+	<h3 class="modal-title" id="modal-title">
+		{{ data._id ? 'Edit your post' : 'Create a post' }}
+	</h3>
 </div>
 <div class="modal-body">
 	<div ng-include=" 'posts/views/_post-form.html' "></div>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" type="button" ng-click="updatePost()">Publish Post</button>
-	<button class="btn btn-link" type="button" ng-click="cancel()">Cancel</button>
+	<button class="btn btn-primary"
+			type="button"
+			ng-click="updatePost()">
+		{{ data._id ? 'Update Post' : 'Publish Post' }} 
+	</button>
+	<button class="btn btn-link"
+			type="button"
+			ng-click="cancel()">
+		Cancel
+	</button>
 </div>
