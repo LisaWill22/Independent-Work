@@ -1,6 +1,10 @@
 <div class="row">
     <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-        <div class="panel panel-default">
+        <div ng-show="loading" class="text-center ng-show-fade">
+            <h2 class="lead">Loading...</h2>
+            <spinner></spinner>
+        </div>
+        <div class="panel panel-default ng-show-fade" ng-show="!loading">
             <div class="panel-body text-center">
                 <img ng-show="!contractorImageUrl"
                      class="img img-circle img-thumbnail img-avatar ng-show-fade"
