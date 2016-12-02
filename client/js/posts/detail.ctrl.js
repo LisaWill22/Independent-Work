@@ -52,6 +52,9 @@ angular.module('posts')
         }
 
         function submitReply () {
+            if (!$scope.post.replies) {
+                $scope.post.replies = [];
+            }
             $scope.post.replies.push({
                 user: angular.copy($scope.currentUser),
                 _createdDate: new Date(),
