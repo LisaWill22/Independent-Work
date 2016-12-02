@@ -4,4 +4,4 @@ client/bower_components
 .DS_Store
 /*.env
 tmp
-server/routes/uploads
+server/routes/uploads/*.*
