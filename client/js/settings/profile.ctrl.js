@@ -8,7 +8,7 @@ angular.module('settings')
         $scope.data = angular.copy($scope.currentUser);
         $scope.data.showEmail = 'true';
         $scope.states = states;
-
+        console.log($scope.states);
         // Placeholder for the list of all skills returned from the api
         var allSkills;
 
