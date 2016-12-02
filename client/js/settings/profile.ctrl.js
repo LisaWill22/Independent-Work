@@ -32,7 +32,6 @@ angular.module('settings')
                 });
         }
 
-
         // Placeholder for the list of all skills returned from the api
         var allSkills;
 
