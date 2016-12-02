@@ -1,4 +1,12 @@
-<form>
+<form bo-form
+      autocomplete="off"
+      novalidate
+      name="profileForm"
+      method="PUT"
+      ng-on-error="onError"
+      ng-before-submit="beforeSubmit"
+      ng-after-submit="afterSubmit"
+      ng-action="/api/users/{{ currentUser._id }}">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="h4">Public Profile</h3>

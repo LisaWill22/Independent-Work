@@ -22,14 +22,12 @@ angular.module('contractors')
         }
 
         $scope.sendMessage = function(contractor) {
-            console.log(contractor);
-            console.log($scope.data.message);
             $scope.data.message = null;
         };
 
         function getProfileImg() {
             // Get profile image
-            return $http.get('/api/user/' + $scope.contractor._id + '/profile-image')
+            return $http.get('/api/users/' + $scope.contractor._id + '/profile-image')
                 .then(function(res) {
                     $scope.contractorImageUrl = res.data.image;
                     $scope.loading = false;

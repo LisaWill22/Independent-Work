@@ -61,7 +61,7 @@ router.route('/posts/:id')
 		});
 	});
 
-router.route('/user/:id/profile-image')
+router.route('/users/:id/profile-image')
 	.get(function(req, res, next) {
 		const userId = req.params.id;
 		User.findOne({

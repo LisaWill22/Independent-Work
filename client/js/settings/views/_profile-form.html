@@ -43,18 +43,18 @@
             </div>
 
             <!-- Submit picure for upload -->
-            <button class="btn btn-default ng-show-fade"
+            <div class="btn btn-default ng-show-fade"
                     ng-show="picFile"
                     ng-click="upload(croppedDataUrl, picFile.name)">
                     Submit
-            </button>
+            </div>
 
-            <button class="btn btn-link"
+            <a class="btn btn-link"
                     scroll-to="app-container"
                     ng-click="picFile = null"
                     ng-show="picFile">
                 Cancel
-            </button>
+            </a>
 
             <!-- Upload progress bar -->
             <div class="progress-bar progress-bar-success ng-show-fade" ng-show="progress >= 0" style="width:{{progress}}%" ng-bind="progress + '%'"></div>

@@ -81,7 +81,7 @@ angular.module('independent-work-app')
 
 		function getProfileImg() {
 			// Get profile image
-			return $http.get('/api/user/' + $scope.currentUser._id + '/profile-image')
+			return $http.get('/api/users/' + $scope.currentUser._id + '/profile-image')
 				.then(function(res) {
 					$scope.profileImageUrl = res.data.image;
 				})
