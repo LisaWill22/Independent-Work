@@ -2,19 +2,17 @@
     <div class="form-group">
 
         <!-- posting Name -->
-        <div class="form-group">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="form-group" bo-validate>
-                        <label for="postingName">Title</label>
-                        <input ng-model="data.title"
-                              type="text"
-                              name="postingTitle"
-                              id="postingTitle"
-                              ng-required="true"
-                              class="form-control input-lg"
-                              placeholder="Some posting title">
-                    </div>
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group" bo-validate show-valid-icon>
+                    <label for="postingTitle">Title</label>
+                    <input ng-model="data.title"
+                          type="text"
+                          name="postingTitle"
+                          id="postingTitle"
+                          ng-required="true"
+                          class="form-control input-lg"
+                          placeholder="Some posting title">
                 </div>
             </div>
         </div>

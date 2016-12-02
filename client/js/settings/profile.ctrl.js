@@ -41,6 +41,8 @@ angular.module('settings')
             return $http.post('/api/skills', skill);
         }
 
+        // TODO: Move this to base64 encoded on the user and make a directive for proilfe images
+        // Gets the profile image
         function getProfileImg() {
             // Get profile image
             return $http.get('/api/users/' + $scope.currentUser._id + '/profile-image')
@@ -119,35 +121,4 @@ angular.module('settings')
                 $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
             });
         };
-
-        // Adds back skill to list of options on removal
-        $scope.onSkillRemove = function(item, model) {
-            if ($scope.skills.indexOf(item) === -1) {
-                $scope.skills.push(item);
-            }
-        };
-
-        // Adds a skill tag when it does not exist yet
-        $scope.addSkill = function(skillName) {
-
-            var newSkill;
-            var skillNameExists = $scope.skills.find(function(skill) {
-                return skillName.toLowerCase() === skill.name.toLowerCase();
-            });
-
-            // Prevent the skill from adding if it already exists
-            if (!skillNameExists) {
-                newSkill = {
-                    name: skillName,
-                    description: null,
-                    cateogries: [],
-                    _created: new Date()
-                };
-            } else {
-                newSkill = null;
-            }
-
-            return newSkill;
-        };
-
     });
