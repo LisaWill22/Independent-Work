@@ -58,6 +58,7 @@ angular.module('settings')
 
         $scope.beforeSubmit = function() {
             delete $scope.data.image;
+            $scope.data.messages = {};
 
             if ($scope.contractor) {
                 var skillsToSave = [];
@@ -78,12 +79,16 @@ angular.module('settings')
                 });
 
                 $q.all(promises).then(function(allResults) {
-                    console.log(allResults);
+                    if (allResults.length) {
+                        console.log('skills uploaded > ', allResults);
+                    } else {
+                        console.log('no skills to up load :()');
+                    }
                 });
             }
         };
 
-        $scope.afterSubmit = function() {
+        $scope.afterSubmit = function(res) {
             $scope.$emit('Session:refresh', res.data.user);
             toastr.success('Your profile saved successfully!');
         };
