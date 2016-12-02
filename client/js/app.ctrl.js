@@ -141,28 +141,27 @@ angular.module('independent-work-app')
 			statusbar: false
 		};
 
-		$scope.updatePost = function() {
-			$scope.data._createdDate = new Date();
+        $scope.onError = function(err) {
+            console.log(err);
+            toastr.warning('There was an error creating your project. Please try again.')
+        };
+
+        $scope.beforeSubmit = function() {
+            console.log('before sumit');
+            $scope.data._createdDate = new Date();
 			$scope.data.user = $scope.currentUser;
-			$http.post('/api/posts', $scope.data)
-				.then(function(res) {
-					if (res.status === 200) {
-						toastr.success('Project created successfully!');
-						$rootScope.$broadcast('Posts:reload');
-						$uibModalInstance.close();
-					} else {
-						console.log(res);
-						toastr.warning('There was an error creating your project. Please try again.')
-					}
-				})
-				.catch(function(err) {
-					console.log(err);
-					toastr.warning('There was an error creating your project. Please try again.')
-				})
-				.finally(function() {
-					console.log('final');
-				});
-		};
+        };
+
+        $scope.afterSubmit = function(res) {
+            if (res.status === 200) {
+                toastr.success('Project created successfully!');
+                $rootScope.$broadcast('Posts:reload');
+                $uibModalInstance.close();
+            } else {
+                console.log(res);
+                toastr.warning('There was an error creating your project. Please try again.')
+            }
+        }
 
 		$scope.cancel = function() {
 			$uibModalInstance.close();

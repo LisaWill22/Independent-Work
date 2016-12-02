@@ -5,19 +5,22 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-sm-8">
-                    <label for="postingName">Title</label>
-                    <input ng-model="data.title"
-                          type="text"
-                          name="postingTitle"
-                          id="postingTitle"
-                          class="form-control input-lg"
-                          placeholder="Some posting title">
+                    <div class="form-group" bo-validate>
+                        <label for="postingName">Title</label>
+                        <input ng-model="data.title"
+                              type="text"
+                              name="postingTitle"
+                              id="postingTitle"
+                              ng-required="true"
+                              class="form-control input-lg"
+                              placeholder="Some posting title">
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- posting description -->
-        <div class="form-group">
+        <div class="form-group" bo-validate>
             <label for="postingDescription">Content</label>
             <textarea ng-model="data.content"
                       ui-tinymce="tinymceOptions"
@@ -30,19 +33,18 @@
 
         <!-- Skill tags input -->
         <div class="form-group">
-            <label for="skills">Related Skills</label>
+            <label for="skills">Skills</label>
             <ui-select multiple="true"
-                       search-enabled="true"
-                       close-on-select="false"
+                       tagging="addSkill"
                        ng-model="data.skills"
+                       on-remove="onSkillRemove($item)"
                        theme="bootstrap">
-                <ui-select-match placeholder="What skills does this posting require?">
-                    {{ $item.name }}
-                </ui-select-match>
+                <ui-select-match>{{$item.name}}</ui-select-match>
                 <ui-select-choices
                     repeat="skill in skills track by skill.name | propsFilter: { name: $select.search }"
+                    minimum-input-length="2"
                     group-by="'category'">
-                    <small>{{ skill.name }}</small>
+                    <small>{{skill.name}}</small>
                 </ui-select-choices>
             </ui-select>
         </div>

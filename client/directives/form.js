@@ -217,7 +217,6 @@ angular.module('boForm', [
             require: '^form',
             terminal: true,
             link: function (scope, element, attrs, fCtrl) {
-                console.log(fCtrl);
                 var attrName = fCtrl.$name + '.' + element.find('input,textarea,select,bo-select').attr('name'),
                     messages = element.find('[ng-message]').remove();
 
