@@ -11,6 +11,18 @@ angular.module('home')
             toastr.warning('There was an error submitting the contact form. Please try again soon.');
         };
 
+        $scope.contactEmail = 'hello@independentwork.com';
+        $scope.contactPhone = '8778744820';
+        $scope.contactAddress = {
+            streetAddress: {
+                line1: 'PO Box 44472',
+                line2: null
+            },
+            city: 'Tacoma',
+            state: 'WA',
+            zip: 98448
+        };
+
         $scope.beforeSubmit = function () {
             // Mail options from the server generic send mail route
             // let mailOptions = {
@@ -23,7 +35,7 @@ angular.module('home')
             $scope.data = {
                 from: 'contactFormSubmit@independentwork.com',
                 to: 'brentoneill@gmail.com',
-                // to: 'lisa@independentwork.com',
+                // to: $scope.contactEmail,
                 subject: 'You have a new contact form submission from ' + $scope.data.name,
                 text: $scope.data.message,
                 html: '<p>' + $scope.data.message + '</p>'

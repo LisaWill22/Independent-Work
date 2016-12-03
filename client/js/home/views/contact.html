@@ -71,7 +71,7 @@
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading">
-                            <a href="mail:tolisa@independentwork.com">lisa@independentwork.com</a>
+                            <a href="mailto:{{ contactEmail }}">{{ contactEmail }}</a>
                         </h4>
 					</div>
 				</div>
@@ -80,9 +80,11 @@
                         <i class="fa fa-fw fa-lg fa-map-marker"></i>
                     </div>
                     <div class="media-body">
-                        <div>5130 S Ft Apache Rd.<br/>
-                            Ste. 215 #250<br/>
-                            Las Vegas, NV 89148</div>
+                        <address>
+                            {{ contactAddress.streetAddress.line1 }}<br/>
+                            {{ contactAddress.streetAddress.line2 ? contactAddress.streetAddress.line2 : '' }} <br ng-if="contactAddress.streetAddress.line2"/>
+                            {{ contactAddress.city }}, {{ contactAddress.state }} {{ contactAddress.zip }}
+                        </address>
                     </div>
                 </div>
                 <div class="media">
@@ -90,7 +92,7 @@
                         <i class="fa fa-fw fa-lg fa-phone"></i>
                     </div>
                     <div class="media-body">
-                        <a href="tel:18778744820">1-877-874-4820</a>
+                        <a href="tel:{{contactPhone}}">{{contactPhone | tel}}</a>
                     </div>
                 </div>
 			</div>
