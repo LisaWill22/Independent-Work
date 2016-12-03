@@ -12,6 +12,13 @@ angular.module('independent-work-app')
 		$scope.skills = skills.data;
 		$scope.userMenuOpen = false;
 
+        // Set up some defaults for the WYSIWYG editor
+		$scope.tinymceOptions = {
+			resize: false,
+			menubar:false,
+			statusbar: false
+		};
+
 		if (session && session.data) {
 			let stateName = $state.$current.name;
 			refreshSession(session.data);
@@ -143,12 +150,6 @@ angular.module('independent-work-app')
                 console.log(err);
                 $scope.skills = [];
             });
-
-		$scope.tinymceOptions = {
-			resize: false,
-			menubar:false,
-			statusbar: false
-		};
 
         $scope.onError = function(err) {
             console.log(err);

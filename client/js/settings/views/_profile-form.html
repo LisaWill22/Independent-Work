@@ -6,9 +6,11 @@
 
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <img class="img img-circle img-thumbnail img-avatar"
+                    <img class="img img-circle img-thumbnail img-avatar img-lg"
                          ng-src="data:image/png;base64,{{profileImageUrl}}"
                          ng-show="currentUser.image._id"/>
+                    <img class="img img-circle img-thumbnail img-avatar img-lg img-default"
+                         ng-show="!currentUser.image._id"/>
                 </div>
             </div>
 
@@ -134,7 +136,13 @@
     <!-- Bio -->
     <div class="form-group">
     	<label for="bio">Bio</label>
-    	<textarea ng-model="data.bio" class="form-control" name="bio" id="bio" rows="8" cols="40" placeholder="Tell a little about yourself"></textarea>
+        <textarea ng-model="data.bio"
+                  ui-tinymce="tinymceOptions"
+                  class="form-control"
+                  name="postingDescription"
+                  id="postingDescription"
+                  rows="8" cols="40"
+                  placeholder="Tell a little about yourself"></textarea>
     </div>
 
 </div>

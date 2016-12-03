@@ -14,18 +14,26 @@
                      class="img img-circle img-thumbnail img-avatar ng-show-fade"
                      ng-src="data:image/png;base64,{{contractorImageUrl}}">
 
-                <h2 class="lead">{{ contractor.firstName}} {{ contractor.lastName}}</h2>
-                <h3 class="sub-header mtn">{{ contractor.location.city }} {{ contractor.location.state ? ',' + contractor.location.state : '' }}</h3>
-                <p>{{ contractor.bio }}</p>
+                <h3 class="lead">{{ contractor.firstName}} {{ contractor.lastName}}</h3>
+
+                <h4 class="sub-header mtn">{{ contractor.location.city }} {{ contractor.location.state ? ', ' + contractor.location.state : '' }}</h4>
+
+                <p ng-bind-html="contractor.bio"></p>
 
                 <h3 ng-show="contractor.skills && contractor.skills.length">
-                    <span class="label label-primary" ng-repeat="skill in contractor.skills">{{ skill.name }}</span>
+                    <span class="label label-primary label-skill" ng-repeat="skill in contractor.skills">{{ skill.name }}</span>
                 </h3>
 
-                <button type="button"
-                        class="btn btn-default">
+                <div ng-show="contractor._id !== currentUser._id">
+                    <hr/>
+                    <a href="#"
+                       ui-sref="app.chat.conversation({ friendId: contractor._id })"
+                       type="button"
+                       class="btn btn-block btn-secondary">
+                       <i class="fa fa-fw fa-comments"></i>
                         Start a conversation with {{ contractor.firstName }}
-                </button>
+                    </a>
+                </div>
 
                 <!-- <button uib-popover-template=" 'chat/views/_send-message-popover.html' "
                         popover-placement="right"

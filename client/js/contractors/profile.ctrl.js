@@ -9,10 +9,8 @@ angular.module('contractors')
         $scope.$parent.hideTitle = true;
 
         $scope.loading = true;
+        
         if ($stateParams.id) {
-            setTimeout(function() {
-                $scope.loading = true;
-            }, 300);
             $http.get('/api/users/' + $stateParams.id)
                 .then(function(res) {
                     $scope.contractor = res.data;
