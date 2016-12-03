@@ -1,13 +1,14 @@
 'use strict';
 
 angular.module('contractors')
-    .controller('ContractorProfileCtrl', function($scope, $http, $state, $stateParams) {
+    .controller('ContractorProfileCtrl', function($scope, $http, $state, $stateParams, toastr) {
 
         console.log('ContractorProfileCtrl loaded >>', $scope);
 
         $scope.data = {};
         $scope.$parent.hideTitle = true;
 
+        $scope.loading = true;
         if ($stateParams.id) {
             setTimeout(function() {
                 $scope.loading = true;
@@ -17,6 +18,10 @@ angular.module('contractors')
                     $scope.contractor = res.data;
                     getProfileImg();
                 })
+                .catch(function(err) {
+                    toastr.warning('Oops, something went wrong..');
+                    $scope.loading = false;
+                });
         } else {
             $state.go('app.contractors');
         }

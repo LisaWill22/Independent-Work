@@ -8,8 +8,13 @@
       ng-after-submit="afterSubmit"
       ng-action="/api/users/{{ currentUser._id }}">
 	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="h4">Public Profile</h3>
+		<div class="panel-heading clearfix">
+			<h3 class="pull-left">Public Profile</h3>
+            <div class="pull-right panel-align-top">
+                <a href="#" ui-sref="app.contractors.profile({ id: data._id })" class="btn btn-link btn-sm">
+                    View Profile
+                </a>
+            </div>
 		</div>
 		<div class="panel-body">
 			<div class="row">
