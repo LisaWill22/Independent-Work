@@ -6,9 +6,6 @@ require('dotenv').config();
 // setup monitoring
 require('newrelic');
 
-// setup logging
-
-
 // Bring in deps
 const express = require('express');
 const path = require('path');
@@ -118,26 +115,33 @@ io.on('connection', function(socket) {
         // remove user from currently connected users
         sub.unsubscribe('messages');
         sub.quit();
-
         // store.srem('onlineUsers')
         pub.publish('chatting', 'user disconnected: ' + socket.id)
 	});
 
 	//Sending message to Specific user
 	socket.on('new chat',function(data){
-		// Create new chat model
-		var newChat = new Chat(data.message);
-		// Save it to mongo
-		newChat.save(function(err, chat) {
+        // Create a new chat model
+        const chat = new Chat(req.body);
+		chat.save(function(err, chatCreated) {
 			if (err) {
+				res.status(404);
+				res.send({
+					success: false,
+					error: err
+				});
 				return console.log(err);
 			}
-
-			// Create new message thread if necessary
-
-			// Alert every one in that room
-			return io.in('general').emit('chat created', chat);
+            // emit the chat across the socket
+            socket.emit('new chat', chatCreated);
+            // send it back to the client as well
+			res.send({
+				chat: chatCreated,
+				success: true,
+				message: 'Chat created succssfully'
+			});
 		});
+        return io.in('general').emit('chat created', chat);
 	});
 });
 

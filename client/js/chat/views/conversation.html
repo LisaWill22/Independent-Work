@@ -10,17 +10,18 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 text-center">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4 text-center">
 
         <!-- CHAT MESSAGES -->
         <div class="chat-wrapper" id="chat-container">
-            <div class="ng-show-fade" ng-show="chats && chats.length">
-                <div class="panel animate-fade-in" ng-repeat="message in chats">
+            <div class="ng-show-fade" ng-show="chatThread && chatThread.chats.length">
+                <div class="panel animate-fade-in" ng-repeat="message in chatThread.chats">
                     <div class="panel-body panel-halfp panel-chat-message"
                          ng-class="{
                              'text-right sender': message.sender === currentUser._id,
                              'text-left receiver': message.sender !== currentUser._id }">
-                        <h5 ng-class="{
+                        <h5 class="mtn"
+                            ng-class="{
                              'text-primary': message.sender === currentUser._id,
                              'text-info': message.sender !== currentUser._id }">
                             <span ng-show="message.sender !== currentUser._id">
@@ -33,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="ng-show-fade" ng-show="!chats.length">
+            <div class="ng-show-fade" ng-show="(chatThread && !chatThread.chats.length) || !chatThread">
                 <p class="lead">No messages yet, starting chatting!</p>
             </div>
         </div>
@@ -43,6 +44,7 @@
               autocomplete="off"
               novalidate
               name="chatForm"
+              method="{{ chatThread._id ? 'PUT' : 'POST' }}"
               ng-on-error="onError"
               ng-before-submit="beforeSubmit"
               ng-after-submit="afterSubmit"
@@ -57,7 +59,9 @@
             </div>
             <button class="btn btn-primary btn-block btn-lg"
                     type="submit"
-                    name="send" >SEND</button>
+                    name="send">
+                SEND
+            </button>
         </form>
     </div>
 

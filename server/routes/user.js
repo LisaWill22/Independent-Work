@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const User = require('../models/user').User;
 const Post = require('../models/post').Post;
 const Chat = require('../models/chat').Chat;
+const ChatThread = require('../models/chatThread').ChatThread;
 const fs = require('fs');
 const Grid = require('gridfs-stream');
 const GridFS = Grid(mongoose.connection.db, mongoose.mongo);
@@ -191,8 +192,13 @@ router.route('/users/:id/profile-image')
 
 router.route('/users/:id/chat/:friendId')
 	.post(function(req, res, next) {
-		const chat = new Chat(req.body);
-		chat.save(function(err, chat) {
+		// Create a new chat thread
+		const newChatThread = new ChatThread({
+			users: req.body.users,
+			chats: [],
+			_dateUpdated: new Date()
+		});
+		newChatThread.save(function(err, savedChatThread) {
 			if (err) {
 				res.status(404);
 				res.send({
@@ -201,33 +207,120 @@ router.route('/users/:id/chat/:friendId')
 				});
 				return console.log(err);
 			}
-			res.send({
-				chat,
-				success: true,
-				message: 'Chat created succssfully'
+			console.log(savedChatThread);
+
+			addChatThreadToUser(req.params.id, newChatThread._id)
+                .then(function(user) {
+                    console.log(user.chats);
+                });
+			addChatThreadToUser(req.params.friendId, newChatThread._id)
+                .then(function(user) {
+                    console.log(user.chats);
+                });
+
+			// Create the new individual chat message
+			const newChat = new Chat(req.body.chat)
+			newChat.save(function(err, savedChat) {
+				if (err) {
+					res.status(404);
+					res.send({
+						success: false,
+						error: err
+					});
+					return console.log(err);
+				}
+
+				// Add back the saved chat to the chat thread
+                addChatToThread(savedChat, savedChatThread._id)
+                    .then(function(chatThread){
+                        console.log(chatThread);
+                        res.status(200);
+                        res.send({
+                            chatThread,
+                            success: true,
+                            message: 'New chat thread created successfully!'
+                        })
+                    })
+                    .catch(function(err) {
+                        res.status(404);
+                        res.send({
+                            message: 'Failed to add chat to thread...',
+                            success: false,
+                            error: err
+                        });
+                        return console.log(err);
+                    });
 			});
 		});
 	})
+	.put(function(req, res, next) {
+		const newChat = new Chat(req.body.chat);
+		newChat.save(function(err, chat) {
+			if (err) {
+				res.status(400);
+				return res.send({
+					error: err,
+					success: false,
+					message: 'Failed to add chat to thread'
+				});
+			} else {
+				addChatToThread(chat, req.body.chatThread._id)
+					.then(function(chatThread) {
+						console.log(chat);
+						console.log(chatThread);
+						res.status(200);
+						return res.send({
+							chat,
+							success: true,
+							message: 'Chat added to thread successfully!'
+						});
+					})
+					.catch(function(err) {
+						console.log(err);
+						res.status(400);
+						return res.send({
+							error: err,
+							success: false,
+							message: 'Failed to add chat to thread'
+						});
+					});
+			}
+		});
+	})
 	.get(function(req, res, nex) {
-		Chat.find({
+		ChatThread.findOne({
 				'users': {
 					$all: [req.params.id, req.params.friendId]
 				}
 			})
 			.populate('users')
-            .sort({ _dateSent: 'asc' })
-			.exec(function(err, chat) {
-				if (err) return console.log(err);
-				res.status(200);
-				if (!chat.length) {
+			.populate({
+				path: 'chats',
+				options: {
+					sort: {
+						'_dateSent': 'asc'
+					}
+				}
+			})
+			.exec(function(err, chatThread) {
+				if (err) {
+					console.log(err);
 					return res.send({
-						chat: null,
+						error: err,
+						success: false,
+						message: 'There was an error getting this chat chatread'
+					})
+				}
+				res.status(200);
+				if (!chatThread) {
+					return res.send({
+						chatThread,
 						success: true,
 						message: 'No chat was found!'
 					})
 				} else {
 					return res.send({
-						chat,
+						chatThread,
 						success: true,
 						message: 'Chat found successlly'
 					});
@@ -252,5 +345,32 @@ router.route('/users/:id/posts')
 			}
 		});
 	});
+
+function addChatThreadToUser(chatThreadId, userId) {
+    return User.findOneAndUpdate({
+        		_id: userId
+        	}, {
+        		$push: {
+                    'messageThreads': chatThreadId,
+        			'chats': chatThreadId
+        		}
+        	}, {
+        		upsert: true,
+        		new: true
+        	});
+}
+
+function addChatToThread(chat, chatThreadId) {
+	return ChatThread.findOneAndUpdate({
+        		_id: chatThreadId
+        	}, {
+        		$push: {
+        			'chats': chat._id
+        		}
+        	}, {
+        		upsert: true,
+        		new: true
+        	});
+}
 
 module.exports = router;

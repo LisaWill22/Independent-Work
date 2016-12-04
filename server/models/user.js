@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     chats: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Chat'
+            ref: 'ChatThread'
         }
     ],
     showEmail: Boolean,
