@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-sm-offset-3 col-sm-6 text-center">
+        <h3>Conversation with {{ otherUser.firstName }} {{ otherUser.lastName}}</h3>
+        <img ng-show="!otherUser.image.base64URL"
+             class="img img-circle img-thumbnail img-avatar img-default img-lg ng-show-fade"
+             ng-src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+        <img ng-show="otherUser.image.base64URL"/
+             class="img img-circle img-thumbnail img-avatar img-lg ng-show-fade"
+             ng-src="data:image/png;base64,{{otherUser.image.base64URL}}">
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 text-center">
+        <!-- CHAT MESSAGES -->
+        <div class="chat-wrapper" id="chat-container">
+            <div class="panel animate-fade-in" ng-repeat="message in chats">
+                <div class="panel-body panel-halfp">
+                    <h5 ng-class="{
+                         'text-primary': message.sender._id === currentUser._id,
+                         'text-info': message.sender._id !== currentUser._id }">
+                        {{ message.sender.firstName }} {{ message.sender.lastName }}
+                        <small>{{ message._dateSent | date:'short'}}</small>
+                    </h5>
+                    {{ message.message }}
+                </div>
+            </div>
+        </div>
+        <form bo-form
+              autocomplete="off"
+              novalidate
+              name="chatForm"
+              ng-on-error="onError"
+              ng-before-submit="beforeSubmit"
+              ng-after-submit="afterSubmit"
+              ng-action="/api/users/{{ currentUser._id }}/chat/{{ otherUser._id }}">
+            <!-- CHAT SENDING CONTROL-->
+            <div class="form-group" bo-validate>
+                <textarea class="form-control chat-box block"
+                          placeholder="Whatchu got to say?"
+                          rows="4"
+                          ng-required="true"
+                          ng-model="data.message">
+                </text-area>
+            </div>
+            <button class="btn btn-primary btn-block btn-lg"
+                    type="submit"
+                    name="send" >SEND</button>
+        </form>
+    </div>
+
+</div>

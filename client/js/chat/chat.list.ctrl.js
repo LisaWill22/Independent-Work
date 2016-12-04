@@ -23,7 +23,7 @@ angular.module('chat')
 
                 $scope.messages = res.data;
                 $timeout(function() {
-                    $("#chat-container").animate({ scrollTop: $('.chat-container')[0].scrollHeight}, 500);
+                    $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 500);
                 }, 250)
 
                 // // filter out chats that are to/from this user

@@ -39,6 +39,12 @@ angular.module('independent-work-app')
 			$state.go('app.home');
 		}
 
+        socket.on('disconnect', function(){
+            socket.emit('remove user', {
+                user: currentUser._id
+            });
+        });
+
 		// Listen for session refreshes and update the user
 		$rootScope.$on('Session:refresh', function(e, user, session) {
 			refreshSession(user);

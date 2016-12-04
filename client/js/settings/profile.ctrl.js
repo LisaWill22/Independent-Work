@@ -9,6 +9,9 @@ angular.module('settings')
         $scope.data.showEmail = 'true';
         $scope.states = states;
 
+        // Placeholder for the list of all skills returned from the api
+        var allSkills;
+
         if ($scope.contractor) {
             $http.get('/api/skills')
                 .then(function(res){
@@ -31,9 +34,7 @@ angular.module('settings')
 
                 });
         }
-
-        // Placeholder for the list of all skills returned from the api
-        var allSkills;
+        //
 
         // Saves a skill to the api - called in profile save to save new skills
         function saveSkill (skill) {
@@ -42,6 +43,36 @@ angular.module('settings')
 
         $scope.onError = function () {
             toastr.warning('Whoops, something went wrong...\n ' + err);
+        };
+
+        // Adds back skill to list of options on removal
+        $scope.onSkillRemove = function(item, model) {
+            if ($scope.skills.indexOf(item) === -1) {
+                $scope.skills.push(item);
+            }
+        };
+
+        // Adds a skill tag when it does not exist yet
+        $scope.addSkill = function(skillName) {
+
+            var newSkill;
+            var skillNameExists = $scope.skills.find(function(skill) {
+                return skillName.toLowerCase() === skill.name.toLowerCase();
+            });
+
+            // Prevent the skill from adding if it already exists
+            if (!skillNameExists) {
+                newSkill = {
+                    name: skillName,
+                    description: null,
+                    cateogries: [],
+                    _created: new Date()
+                };
+            } else {
+                newSkill = null;
+            }
+
+            return newSkill;
         };
 
         $scope.beforeSubmit = function() {

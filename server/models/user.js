@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
     local :{
@@ -7,7 +8,12 @@ const userSchema = new mongoose.Schema({
         password: String
     },
     image: Object,
-    messageThreads: Array,
+    chats: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Chat'
+        }
+    ],
     showEmail: Boolean,
     firstName: String,
     lastName: String,

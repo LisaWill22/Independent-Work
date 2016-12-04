@@ -5,6 +5,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user').User;
 const Post = require('../models/post').Post;
+const Chat = require('../models/chat').Chat;
 const fs = require('fs');
 const Grid = require('gridfs-stream');
 const GridFS = Grid(mongoose.connection.db, mongoose.mongo);
@@ -37,7 +38,7 @@ router.route('/users/:id')
 
 router.route('/posts/:id')
 	.put(function(req, res, next) {
-        console.log(req);
+		console.log(req);
 		delete req.body._id;
 		delete req.body.__v;
 		Post.findOneAndUpdate({
@@ -124,7 +125,7 @@ router.route('/users/:id/profile-image')
 			if (!err) {
 				console.log('File Uploaded: ' + files.file.path)
 
-                let writestream = GridFS.createWriteStream({
+				let writestream = GridFS.createWriteStream({
 					filename: files.file.name
 				});
 
@@ -132,11 +133,11 @@ router.route('/users/:id/profile-image')
 
 				writestream.on('close', function(file) {
 
-                    GridFS.files.find({
+					GridFS.files.find({
 						_id: file._id
 					}).toArray(function(err, files) {
 						if (files.length === 0) {
-                            console.log('no files');
+							console.log('no files');
 							return res.status(400).send({
 								fileId: file._id,
 								message: 'File not found'
@@ -148,34 +149,34 @@ router.route('/users/:id/profile-image')
 						});
 
 						readstream.on('data', function(data) {
-                            User.findOneAndUpdate({
-        						_id: userId
-        					}, {
-        						$set: {
-                                    'image.base64URL': data.toString('base64'),
-        							'image._id': file._id
-        						}
-        					}, {
-        						upsert: true,
-        						new: true
-        					}, function(err, user) {
-        						if (!err) {
-        							return res.send({
-        								user,
-        								success: true,
-        								message: 'Profile image uploaded successfully',
-        								file: file.fileName
-        							});
-        						} else {
-        							console.log(err);
-        							return res.status(404).send({
-        								userId,
-        								success: false,
-        								message: 'Failed to assign upload to user',
-        								file: file.fileName
-        							});
-        						}
-        					});
+							User.findOneAndUpdate({
+								_id: userId
+							}, {
+								$set: {
+									'image.base64URL': data.toString('base64'),
+									'image._id': file._id
+								}
+							}, {
+								upsert: true,
+								new: true
+							}, function(err, user) {
+								if (!err) {
+									return res.send({
+										user,
+										success: true,
+										message: 'Profile image uploaded successfully',
+										file: file.fileName
+									});
+								} else {
+									console.log(err);
+									return res.status(404).send({
+										userId,
+										success: false,
+										message: 'Failed to assign upload to user',
+										file: file.fileName
+									});
+								}
+							});
 						});
 
 						readstream.on('error', function(err) {
@@ -186,6 +187,53 @@ router.route('/users/:id/profile-image')
 				});
 			}
 		});
+	});
+
+router.route('/users/:id/chat/:friendId')
+	.post(function(req, res, next) {
+		const chat = new Chat(req.body);
+		chat.save(function(err, chat) {
+			if (err) {
+				res.status(404);
+				res.send({
+					success: false,
+					error: err
+				});
+				return console.log(err);
+			}
+			res.send({
+				chat,
+				success: true,
+				message: 'Chat created succssfully'
+			});
+		});
+	})
+	.get(function(req, res, nex) {
+		Chat.find({
+				'users': {
+					$all: [req.params.id, req.params.friendId]
+				}
+			})
+			.populate('users')
+            .sort({ _dateSent: 'asc' })
+			.exec(function(err, chat) {
+				if (err) return console.log(err);
+				res.status(200);
+				if (!chat.length) {
+					return res.send({
+						chat: null,
+						success: true,
+						message: 'No chat was found!'
+					})
+				} else {
+					return res.send({
+						chat,
+						success: true,
+						message: 'Chat found successlly'
+					});
+				}
+			});
+
 	});
 
 router.route('/users/:id/posts')

@@ -1,9 +1,19 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema
 
-var chatSchema = new mongoose.Schema({
+const chatSchema = new mongoose.Schema({
     // a user id
-    sender: Object,
-    recipient: Object,
+    users: [
+        {
+            type:Schema.Types.ObjectId,
+            ref:'User'
+        }
+    ],
+    // sender user
+    sender: {
+        type:Schema.Types.ObjectId,
+        ref:'User'
+    },
     // some message content
     message: String,
     // controls flagging if user has unread messages

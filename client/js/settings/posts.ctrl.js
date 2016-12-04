@@ -7,7 +7,7 @@ angular.module('settings')
 
         getPosts();
 
-        $scope.$on('Posts:refresh', function() {
+        $scope.$on('Posts:reload', function() {
             getPosts();
         })
 

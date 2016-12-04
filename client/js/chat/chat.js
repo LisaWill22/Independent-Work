@@ -14,7 +14,7 @@ angular.module('chat', [
                 }
             })
             .state('app.chat.conversation', {
-                url: 'conversation/:contractorSlug',
+                url: '/conversation/:friendId',
                 templateUrl: 'chat/views/conversation.html',
                 controller: 'ChatConversationCtrl'
             })

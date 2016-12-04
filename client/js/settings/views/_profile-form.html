@@ -10,7 +10,7 @@
                     <div class="cropped-photo ng-show-fade" ng-show="picFile">
                     	<img class="img img-circle img-thumbnail img-avatar img-lg" ng-src="{{croppedDataUrl}}"/>
                     </div>
-                    <img ng-show="!currentUser.image.base64URL"
+                    <img ng-show="!currentUser.image.base64URL && !picFile"
                          class="img img-circle img-thumbnail img-avatar img-default img-lg ng-show-fade"
                          src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
                     <img ng-show="currentUser.image.base64URL && !picFile"/
@@ -24,7 +24,7 @@
                 <button ngf-select
                         class="btn btn-default ng-show-fade"
                         ng-model="picFile"
-                        ng-show="!picFile"
+                        ng-show="!picFile || uploadFinished"
                         accept="image/*">
                     {{ (picFile || user.image._id) ? 'Change Picture' : 'Select Picture' }}
                 </button>
@@ -104,7 +104,7 @@
     	<div class="row">
     		<div class="col-sm-5">
     			<label for="city">City</label>
-    			<input ng-model="data.location.city" type="text" name="city" id="city" class="form-control" placeholder="ACME Corp.">
+    			<input ng-model="data.location.city" type="text" name="city" id="city" class="form-control" placeholder="Cupertino">
     		</div>
     		<div class="col-sm-3">
     			<label for="state">State</label>

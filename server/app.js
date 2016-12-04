@@ -115,10 +115,11 @@ io.on('connection', function(socket) {
 
 	// Event that fires when a user in the client disconnectsion
 	socket.on('disconnect', function(){
-  		console.log('user disconnected: ', socket.id);
         // remove user from currently connected users
         sub.unsubscribe('messages');
         sub.quit();
+
+        // store.srem('onlineUsers')
         pub.publish('chatting', 'user disconnected: ' + socket.id)
 	});
 
