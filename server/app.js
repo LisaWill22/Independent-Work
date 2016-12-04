@@ -3,6 +3,11 @@
 // Grab our configs
 require('dotenv').config();
 
+// setup monitoring
+require('newrelic');
+
+// setup logging
+
 // Bring in deps
 const express = require('express');
 const path = require('path');
@@ -20,7 +25,6 @@ const client  = redis.createClient(process.env.REDIS_URL);
 const debug = require('debug')('independent-work-front:server');
 const Chat = require('./models/chat').Chat;
 const chalk = require('chalk');
-require('newrelic');
 
 // Bring in the passport configs (for auth)
 require('./config/passport')(passport);
