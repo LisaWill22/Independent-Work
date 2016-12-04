@@ -21,7 +21,6 @@ const passport = require('passport');
 const http = require('http');
 const redis = require('redis');
 const redis2 = require('socket.io-redis');
-// const redisStore = require('connect-redis')(session);
 const client  = redis.createClient(process.env.REDIS_URL);
 const debug = require('debug')('independent-work-front:server');
 const Chat = require('./models/chat').Chat;
@@ -61,13 +60,6 @@ app.use(cookieParser());
 // Required for passport
 app.use(session({
     secret: 'ssshhhhh',
-    // create new redis store.
-    // store: new redisStore({
-    //     host: 'localhost',
-    //     port: 6379,
-    //     client: client,
-    //     ttl :  260
-    // }),
     saveUninitialized: false,
     resave: false
 }));
@@ -85,7 +77,7 @@ const server = http.createServer(app);
 
 // setup our sockets - Socket.io - http://socket.io/get-started/chat/
 const io = require('socket.io')(server);
-io.adapter(redis2(process.env.REDIS_URL));
+// io.adapter(redis2(process.env.REDIS_URL));
 
 const pub = redis.createClient();
 
