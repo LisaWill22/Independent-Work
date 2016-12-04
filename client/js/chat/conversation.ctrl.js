@@ -4,12 +4,12 @@ angular.module('chat')
     .controller('ChatConversationCtrl', function($scope, $http, $stateParams, toastr, socket) {
         console.log('ConversationCtrl ctrl loaded >>', $scope);
 
-        console.log(socket);
-
         socket.on('get private chat', function(message) {
             console.log(message);
-            $scope.chatThread.chats.push(message);
-            $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 500);
+            if (message.users.indexOf($scope.currentUser._id) !== -1) {
+                $scope.chatThread.chats.push(message);
+                $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 500);
+            }
         });
 
         // Get the user to display some info about them

@@ -80,13 +80,8 @@ io.adapter(redisSocket(process.env.REDIS_URL));
 // set in the app so we can use anywhere
 app.set('socketio', io);
 
-const pub = redis.createClient(process.env.REDIS_URL);
-const store = redis.createClient(process.env.REDIS_URL)
-
 // Event that handles when a user in the client connects,
 io.on('connection', function(socket) {
-
-    const sub = redis.createClient(process.env.REDIS_URL);
 
     socket.join('general');
 
@@ -97,42 +92,19 @@ io.on('connection', function(socket) {
         userId = id;
         // join a room with their id
         socket.join(id);
-        console.log(io.sockets.adapter.rooms);
     });
 
     // Listen for a new chat being created
     socket.on('new private chat', function(data) {
-        console.log(data);
         // Send the message out to the receiver
-        socket.broadcast.emit('get private chat', data);
+        socket.broadcast.emit('get private chat', data).in(data.receiver);
     });
 
     // Event that fires when a user in the client disconnectsion
     socket.on('disconnect', function(){
         socket.leave(userId);
         socket.leave('general');
-        // remove user from currently connected users
-        // sub.unsubscribe('messages');
-        // sub.quit();
-        // pub.publish('chatting', 'user disconnected: ' + socket.id)
     });
-
-    // add user to currently connected users
-    // sub.subscribe('chatting');
-    //
-    // sub.on('message', function(channel, message) {
-    //     console.log('message received on server from publish');
-    //     console.log(message);
-    // });
-    //
-    // socket.on('message', function(message) {
-    //     if (message.type === 'chat') {
-    //         pub.publish('chatting', message);
-    //     } else if (message.type === 'setUsername') {
-    //         pub.publish('chatting','A new user in connected: ' + message.user);
-    //         store.sadd('onlineUsers', message.user);
-    //     }
-    // });
 });
 
 
