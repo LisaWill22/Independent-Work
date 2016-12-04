@@ -24,7 +24,7 @@
                 <button ngf-select
                         class="btn btn-default ng-show-fade"
                         ng-model="picFile"
-                        ng-show="uploadFinished || !uploadInProgresss"
+                        ng-show="!picFile"
                         accept="image/*">
                     {{ (picFile || user.image._id) ? 'Change Picture' : 'Select Picture' }}
                 </button>
