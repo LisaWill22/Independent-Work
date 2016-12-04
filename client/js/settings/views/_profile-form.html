@@ -19,6 +19,31 @@
                 </div>
             </div>
 
+            <div class="upload-controls">
+                <!-- Image file upload -->
+                <button ngf-select
+                        class="btn btn-default ng-show-fade"
+                        ng-model="picFile"
+                        ng-show="uploadFinished || !uploadInProgresss"
+                        accept="image/*">
+                    {{ (picFile || user.image._id) ? 'Change Picture' : 'Select Picture' }}
+                </button>
+
+                <!-- Submit picure for upload -->
+                <div class="btn btn-default ng-show-fade"
+                        ng-show="picFile && !uploadFinished"
+                        ng-click="upload(croppedDataUrl, picFile.name)">
+                        Submit New Picture
+                </div>
+
+                <a class="btn btn-link ng-show-fade"
+                        scroll-to="app-container"
+                        ng-click="picFile = null"
+                        ng-show="picFile && !uploadFinished">
+                    Cancel Upload
+                </a>
+            </div>
+
             <!-- Can also drop image file here -->
             <div ngf-drop
                  ng-show="picFile && !uploadFinished"
@@ -33,38 +58,16 @@
                 </img-crop>
             </div>
 
-            <div>
-                <!-- Image file upload -->
-                <button ngf-select
-                        class="btn btn-default ng-show-fade"
-                        ng-model="picFile"
-                        ng-show="!picFile"
-                        accept="image/*">
-                    {{ (picFile || user.image._id) ? 'Change Picture' : 'Select Picture' }}
-                </button>
-            </div>
 
-            <!-- Submit picure for upload -->
-            <div class="btn btn-default ng-show-fade"
-                    ng-show="picFile"
-                    ng-click="upload(croppedDataUrl, picFile.name)">
-                    Submit
-            </div>
-
-            <a class="btn btn-link"
-                    scroll-to="app-container"
-                    ng-click="picFile = null"
-                    ng-show="picFile">
-                Cancel
-            </a>
 
             <!-- Upload progress bar -->
             <div class="progress-bar progress-bar-success ng-show-fade" ng-show="progress >= 0 && uploadInProgresss" style="width:{{progress}}%" ng-bind="progress + '%'"></div>
 
             <!-- Error/Success messages -->
-            <div class="alert alert-success ng-show-fade" ng-show="result">
+            <div class="alert alert-success ng-show-fade" ng-show="result && !hideSuccess">
                 <p>Upload Successful</p>
             </div>
+
             <div class="alert alert-danger ng-show-fade" ng-show="errorMsg">
                 <p>{{ errorMsg }}</p>
             </div>

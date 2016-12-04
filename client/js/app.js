@@ -107,8 +107,8 @@ app.run(function($timeout, $rootScope) {
 
 //Service to interact with the socket library
 app.factory('socket', function (socketFactory) {
-	var serverBaseUrl = 'https://launchpeer-iw.herokuapp.com';
-	// var serverBaseUrl = 'http://localhost:3000';
+	// var serverBaseUrl = 'https://launchpeer-iw.herokuapp.com';
+	var serverBaseUrl = 'http://localhost:3000';
 
     var myIoSocket = io.connect(serverBaseUrl);
 

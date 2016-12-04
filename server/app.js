@@ -20,6 +20,7 @@ const client  = redis.createClient(process.env.REDIS_URL);
 const debug = require('debug')('independent-work-front:server');
 const Chat = require('./models/chat').Chat;
 const chalk = require('chalk');
+require('newrelic');
 
 // Bring in the passport configs (for auth)
 require('./config/passport')(passport);

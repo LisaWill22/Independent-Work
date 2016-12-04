@@ -131,7 +131,6 @@ router.route('/users/:id/profile-image')
 				let readStream = fs.createReadStream(files.file.path).pipe(writestream);
 
 				writestream.on('close', function(file) {
-					console.log(file.filename + ' Written To DB');
 
                     GridFS.files.find({
 						_id: file._id
@@ -160,7 +159,6 @@ router.route('/users/:id/profile-image')
         						upsert: true,
         						new: true
         					}, function(err, user) {
-                                console.log(user);
         						if (!err) {
         							return res.send({
         								user,
@@ -178,10 +176,6 @@ router.route('/users/:id/profile-image')
         							});
         						}
         					});
-						});
-
-						readstream.on('end', function() {
-							res.end();
 						});
 
 						readstream.on('error', function(err) {

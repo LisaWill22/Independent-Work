@@ -96,8 +96,14 @@ angular.module('settings')
                     $scope.uploadInProgresss = false;
                     $scope.uploadFinished = true;
                     $scope.result = response.data;
+                    $scope.$emit('Session:refresh', response.data.user);
+                    toastr.success('Your profile image was updated successfully');
                     $scope.picFile = null;
                 });
+
+                $timeout(function() {
+                    $scope.hideSuccess = true;
+                }, 2000);
             }, function (response) {
                 if (response.status > 0) $scope.errorMsg = response.status
                     + ': ' + response.data;

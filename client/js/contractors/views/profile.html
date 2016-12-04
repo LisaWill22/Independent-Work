@@ -16,8 +16,7 @@
                      class="img img-circle img-thumbnail img-avatar img-lg ng-show-fade"
                      ng-src="data:image/png;base64,{{contractorImageUrl}}">
 
-
-                <p ng-bind-html="contractor.bio"></p>
+                <p ng-bind-html="contractor.bio" class="text-left"></p>
 
                 <h3 ng-show="contractor.skills && contractor.skills.length">
                     <span class="label label-primary label-skill" ng-repeat="skill in contractor.skills">{{ skill.name }}</span>
