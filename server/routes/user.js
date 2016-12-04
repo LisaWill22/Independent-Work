@@ -234,6 +234,7 @@ router.route('/users/:id/chat/:friendId')
                 addChatToThread(savedChat, savedChatThread._id)
                     .then(function(chatThread){
                         console.log(chatThread);
+                        chatThread.chats[0] = savedChat;
                         res.status(200);
                         res.send({
                             chatThread,
