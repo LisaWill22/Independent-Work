@@ -20,7 +20,7 @@ const session = require('express-session');
 const passport = require('passport');
 const http = require('http');
 const redis = require('redis');
-const redis2 = require('socket.io-redis');
+const redisSocket = require('socket.io-redis');
 const client  = redis.createClient(process.env.REDIS_URL);
 const debug = require('debug')('independent-work-front:server');
 const Chat = require('./models/chat').Chat;
@@ -77,15 +77,15 @@ const server = http.createServer(app);
 
 // setup our sockets - Socket.io - http://socket.io/get-started/chat/
 const io = require('socket.io')(server);
-// io.adapter(redis2(process.env.REDIS_URL));
+// io.adapter(redisSocket(process.env.REDIS_URL));
 
 const pub = redis.createClient();
 
 // Event that handles when a user in the client connects,
 io.on('connection', function(socket) {
 
-    const sub = redis.createClient();
-    const store = redis.createClient();
+    const sub = redis.createClient(process.env.REDIS_URL);
+    const store = redis.createClient(process.env.REDIS_URL);
 
     socket.join('general');
 
