@@ -1,5 +1,9 @@
 'use strict';
 
+// Grab our configs
+require('dotenv').config();
+
+// Bring in deps
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -9,13 +13,13 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
 const http = require('http');
+const redis = require('redis');
+const redis2 = require('socket.io-redis');
+const redisStore = require('connect-redis')(session);
+const client  = redis.createClient(process.env.REDIS_URL);
 const debug = require('debug')('independent-work-front:server');
-
 const Chat = require('./models/chat').Chat;
-// const redis = require('socket.io-redis');
-
-// Setups up the dot env Stuff
-require('dotenv').config();
+const chalk = require('chalk');
 
 // Bring in the passport configs (for auth)
 require('./config/passport')(passport);
@@ -49,9 +53,16 @@ app.use(cookieParser());
 
 // Required for passport
 app.use(session({
-	secret: 'keyboard cat',
-	resave: true,
-	saveUninitialized: true
+    secret: 'ssshhhhh',
+    // create new redis store.
+    store: new redisStore({
+        host: 'localhost',
+        port: 6379,
+        client: client,
+        ttl :  260
+    }),
+    saveUninitialized: false,
+    resave: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -67,15 +78,42 @@ const server = http.createServer(app);
 
 // setup our sockets - Socket.io - http://socket.io/get-started/chat/
 const io = require('socket.io')(server);
-// io.adapter(redis({ host: 'localhost', port: 6379 }));
+io.adapter(redis2(process.env.REDIS_URL));
+
+const pub = redis.createClient();
 
 // Event that handles when a user in the client connects,
 io.on('connection', function(socket) {
-	console.log('a user connected');
+
+    const sub = redis.createClient();
+    const store = redis.createClient();
+
+    socket.join('general');
+
+    // add user to currently connected users
+    sub.subscribe('chatting');
+
+    sub.on('message', function(channel, message) {
+        console.log('message received on server from publish');
+        console.log(message);
+    });
+
+    socket.on('message', function(message) {
+        if (message.type === 'chat') {
+            pub.publish('chatting', message);
+        } else if (message.type === 'setUsername') {
+            pub.publish('chatting','A new user in connected: ' + message.user);
+            store.sadd('onlineUsers', message.user);
+        }
+    });
 
 	// Event that fires when a user in the client disconnectsion
 	socket.on('disconnect', function(){
-  		console.log('user disconnected');
+  		console.log('user disconnected: ', socket.id);
+        // remove user from currently connected users
+        sub.unsubscribe('messages');
+        sub.quit();
+        pub.publish('chatting', 'user disconnected: ' + socket.id)
 	});
 
 	//Sending message to Specific user
@@ -90,16 +128,9 @@ io.on('connection', function(socket) {
 
 			// Create new message thread if necessary
 
-
 			// Alert every one in that room
 			return io.in('general').emit('chat created', chat);
 		});
-	});
-
-	// Join after a user connects
-	socket.on('join', function (user) {
-		socket.join('general'); // We are using room of socket io
-		io.in('general').emit('user joined', user);
 	});
 });
 
@@ -116,35 +147,6 @@ app.use(express.static(path.join(__dirname, '../client')));
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-// // catch 404 and forward to error handler
-// app.use((req, res, next) => {
-// 	const err = new Error('Not Found');
-// 	err.status = 404;
-// 	next(err);
-// });
-//
-// // development error handler
-// // will print stacktrace
-// if (app.get('env') === 'development') {
-// 	app.use((err, req, res, next) => {
-// 		res.status(err.status || 500);
-// 		res.render('error', {
-// 			message: err.message,
-// 			error: err
-// 		});
-// 	});
-// }
-//
-// // production error handler
-// // no stacktraces leaked to user
-// app.use((err, req, res, next) => {
-// 	res.status(err.status || 500);
-// 	res.render('error', {
-// 		message: err.message,
-// 		error: {}
-// 	});
-// });
 
 // Error handler that fires on server.error event
 function onError(error) {

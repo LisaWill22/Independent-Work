@@ -69,7 +69,6 @@ router.route('/users/:id/profile-image')
 		}, function(err, user) {
 			if (user) {
 				if (user.image && user.image._id) {
-					console.log(user.image._id);
 					GridFS.files.find({
 						_id: user.image._id
 					}).toArray(function(err, files) {

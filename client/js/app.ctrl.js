@@ -20,7 +20,10 @@ angular.module('independent-work-app')
 		};
 
 		if (session && session.data) {
+            // get the current state name
 			let stateName = $state.$current.name;
+
+            // update the currenuser and session objects
 			refreshSession(session.data);
 
 			// Redirect to the right place
@@ -32,9 +35,8 @@ angular.module('independent-work-app')
 				$state.go('app.dashboard');
 			}
 		} else {
-			// let stateName = $state.$current.name;
 			// // Go to home if not logged in
-			// $state.go(stateName);
+			$state.go('app.home');
 		}
 
 		// Listen for session refreshes and update the user
@@ -47,7 +49,6 @@ angular.module('independent-work-app')
 		});
 
 		$rootScope.$on('ProfileImg:refresh', function() {
-			console.log('refresh');
 			getProfileImg();
 		});
 
@@ -101,10 +102,12 @@ angular.module('independent-work-app')
 			// Set the app's currentUser
 			$scope.currentUser = user;
 
-
 			if (user) {
 				// Set the socket up
-				socket.emit('join', user);
+                socket.emit('message', {
+                    type: 'setUsername',
+                    user: $scope.currentUser._id
+                });
 
 				// Get the user profile img for header
 				getProfileImg();

@@ -8,6 +8,7 @@ angular.module('chat')
         $scope.messages = [];
 
         socket.on('chat created', function (data) {
+            console.log(data);
             //Push to new message to our $scope.messages
             $scope.messages.push(data);
             // TODO: move chat-box to directive
