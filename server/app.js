@@ -20,11 +20,14 @@ const session = require('express-session');
 const passport = require('passport');
 const http = require('http');
 const redis = require('redis');
+const chalk = require('chalk');
 const redisSocket = require('socket.io-redis');
+
+// Set up the deps
 const client  = redis.createClient(process.env.REDIS_URL);
 const debug = require('debug')('independent-work-front:server');
 const Chat = require('./models/chat').Chat;
-const chalk = require('chalk');
+const RedisStore = require('connect-redis')(session);
 
 // Bring in the passport configs (for auth)
 require('./config/passport')(passport);
@@ -60,6 +63,10 @@ app.use(cookieParser());
 // Required for passport
 app.use(session({
     secret: 'ssshhhhh',
+    // Connect express to redis
+    store: new RedisStore({
+        url: process.env.REDIS_URL
+    }),
     saveUninitialized: false,
     resave: false
 }));
@@ -77,15 +84,14 @@ const server = http.createServer(app);
 
 // setup our sockets - Socket.io - http://socket.io/get-started/chat/
 const io = require('socket.io')(server);
-// io.adapter(redisSocket(process.env.REDIS_URL));
+io.adapter(redisSocket(process.env.REDIS_URL));
 
-const pub = redis.createClient();
+const pub = redis.createClient(process.env.REDIS_URL);
 
 // Event that handles when a user in the client connects,
 io.on('connection', function(socket) {
 
     const sub = redis.createClient(process.env.REDIS_URL);
-    const store = redis.createClient(process.env.REDIS_URL);
 
     socket.join('general');
 
