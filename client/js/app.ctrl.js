@@ -164,32 +164,34 @@ angular.module('independent-work-app')
             var skillsToSave = [];
             var promises = [];
 
-            $scope.data.skills.forEach(function(skill) {
-                var skillExists = $scope.skills.find(function(existingSkill) {
-                    return existingSkill.name.toLowerCase() === skill.name.toLowerCase();
-                })
-                if (!skillExists) {
-                    skillsToSave.push(skill);
-                }
-            });
+            if ($scope.data.skills) {
+                $scope.data.skills.forEach(function(skill) {
+                    var skillExists = $scope.skills.find(function(existingSkill) {
+                        return existingSkill.name.toLowerCase() === skill.name.toLowerCase();
+                    })
+                    if (!skillExists) {
+                        skillsToSave.push(skill);
+                    }
+                });
 
-            skillsToSave.forEach(function(skill) {
-                var promise = saveSkill(skill);
-                promises.push(promise);
-            });
+                skillsToSave.forEach(function(skill) {
+                    var promise = saveSkill(skill);
+                    promises.push(promise);
+                });
 
-            $q.all(promises).then(function(allResults) {
-                if (allResults.length) {
-                    console.log('skills uploaded > ', allResults);
-                } else {
-                    console.log('no skills to up load :()');
-                }
-            });
+                $q.all(promises).then(function(allResults) {
+                    if (allResults.length) {
+                        console.log('skills uploaded > ', allResults);
+                    } else {
+                        console.log('no skills to up load :()');
+                    }
+                });
+            }
         };
 
         $scope.afterSubmit = function(res) {
             if (res.status === 200) {
-                toastr.success('Project created successfully!');
+                toastr.success('Post created successfully!');
                 $rootScope.$broadcast('Posts:reload');
                 $uibModalInstance.close();
             } else {
