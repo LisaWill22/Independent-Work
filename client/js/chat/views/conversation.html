@@ -2,29 +2,43 @@
     <div class="col-sm-offset-3 col-sm-6 text-center">
         <h3>Conversation with {{ otherUser.firstName }} {{ otherUser.lastName}}</h3>
         <img ng-show="!otherUser.image.base64URL"
-             class="img img-circle img-thumbnail img-avatar img-default img-lg ng-show-fade"
+             class="img img-circle img-thumbnail img-avatar img-default img-sm ng-show-fade"
              ng-src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
         <img ng-show="otherUser.image.base64URL"/
-             class="img img-circle img-thumbnail img-avatar img-lg ng-show-fade"
+             class="img img-circle img-thumbnail img-avatar img-sm ng-show-fade"
              ng-src="data:image/png;base64,{{otherUser.image.base64URL}}">
     </div>
 </div>
 <div class="row">
     <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4 text-center">
+
         <!-- CHAT MESSAGES -->
         <div class="chat-wrapper" id="chat-container">
-            <div class="panel animate-fade-in" ng-repeat="message in chats">
-                <div class="panel-body panel-halfp">
-                    <h5 ng-class="{
-                         'text-primary': message.sender._id === currentUser._id,
-                         'text-info': message.sender._id !== currentUser._id }">
-                        {{ message.sender.firstName }} {{ message.sender.lastName }}
-                        <small>{{ message._dateSent | date:'short'}}</small>
-                    </h5>
-                    {{ message.message }}
+            <div class="ng-show-fade" ng-show="chats && chats.length">
+                <div class="panel animate-fade-in" ng-repeat="message in chats">
+                    <div class="panel-body panel-halfp panel-chat-message"
+                         ng-class="{
+                             'text-right sender': message.sender === currentUser._id,
+                             'text-left receiver': message.sender !== currentUser._id }">
+                        <h5 ng-class="{
+                             'text-primary': message.sender === currentUser._id,
+                             'text-info': message.sender !== currentUser._id }">
+                            <span ng-show="message.sender !== currentUser._id">
+                                {{ otherUser.firstName }} {{ otherUser.lastName }}
+                            </span>
+                            <small>{{ message._dateSent | date:'short'}}</small>
+                        </h5>
+                        {{ message.message }}
+                    </div>
                 </div>
             </div>
+
+            <div class="ng-show-fade" ng-show="!chats.length">
+                <p class="lead">No messages yet, starting chatting!</p>
+            </div>
         </div>
+
+        <!-- CHAT SENDING CONTROL-->
         <form bo-form
               autocomplete="off"
               novalidate
@@ -33,7 +47,6 @@
               ng-before-submit="beforeSubmit"
               ng-after-submit="afterSubmit"
               ng-action="/api/users/{{ currentUser._id }}/chat/{{ otherUser._id }}">
-            <!-- CHAT SENDING CONTROL-->
             <div class="form-group" bo-validate>
                 <textarea class="form-control chat-box block"
                           placeholder="Whatchu got to say?"

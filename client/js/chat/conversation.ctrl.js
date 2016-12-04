@@ -35,7 +35,7 @@ angular.module('chat')
             $scope.data.users = [ $scope.currentUser._id, $scope.otherUser._id ]
             $scope.data.unread = true,
             $scope.data._dateSent = new Date();
-            $scope.sender = $scope.currentUser._id;
+            $scope.data.sender = $scope.currentUser._id;
         };
 
         $scope.afterSubmit = function(res) {

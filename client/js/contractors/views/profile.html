@@ -24,14 +24,21 @@
                     <span class="label label-primary label-skill" ng-repeat="skill in contractor.skills">{{ skill.name }}</span>
                 </h3>
 
-                <div ng-show="contractor._id !== currentUser._id">
+                <div>
                     <hr/>
                     <a href="#"
+                       ng-show="contractor && contractor._id !== currentUser._id"
                        ui-sref="app.chat.conversation({ friendId: contractor._id })"
-                       type="button"
                        class="btn btn-block btn-secondary">
                        <i class="fa fa-fw fa-comments"></i>
                         Start a conversation with {{ contractor.firstName }}
+                    </a>
+                    <a href="#"
+                       ng-show="contractor && contractor._id === currentUser._id"
+                       ui-sref="app.settings.profile"
+                       class="btn btn-block btn-link">
+                       <i class="fa fa-fw fa-pencil"></i>
+                        Edit your profile
                     </a>
                 </div>
 
