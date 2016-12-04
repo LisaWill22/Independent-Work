@@ -4,16 +4,13 @@ angular.module('chat')
     .controller('ChatConversationCtrl', function($scope, $http, $stateParams, toastr, socket) {
         console.log('ConversationCtrl ctrl loaded >>', $scope);
 
-        // socket.emit('subscribe', conversation_id);
-        //
-        // socket.emit('send message', {
-        //     room: conversation_id,
-        //     message: "Some message"
-        // });
-        //
-        // socket.on('conversation private post', function(data) {
-        //     //display data.message
-        // });
+        console.log(socket);
+
+        socket.on('get private chat', function(message) {
+            console.log(message);
+            $scope.chatThread.chats.push(message);
+            $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 500);
+        });
 
         // Get the user to display some info about them
         $http.get('/api/users/' + $stateParams.friendId)
@@ -55,6 +52,7 @@ angular.module('chat')
                     message: $scope.data.message,
                     unread: true,
                     sender: $scope.currentUser._id,
+                    receiver: $scope.otherUser._id,
                     _dateSent: new Date()
                 };
             } else if ($scope.chatThread && $scope.chatThread._id) {
@@ -64,14 +62,16 @@ angular.module('chat')
                 console.log('chatThread is existing');
                 $scope.data.chatThread = angular.copy($scope.chatThread);
                 $scope.data.chat = {
+                    chatThread: $scope.chatThread._id,
                     users: [ $scope.currentUser._id, $scope.otherUser._id ],
                     message: $scope.data.message,
                     unread: true,
                     sender: $scope.currentUser._id,
+                    receiver: $scope.otherUser._id,
                     _dateSent: new Date()
                 };
             }
-
+            socket.emit('new private chat', $scope.data.chat);
         };
 
         $scope.afterSubmit = function(res) {

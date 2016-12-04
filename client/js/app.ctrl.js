@@ -39,12 +39,6 @@ angular.module('independent-work-app')
 			$state.go('app.home');
 		}
 
-        socket.on('disconnect', function(){
-            socket.emit('remove user', {
-                user: currentUser._id
-            });
-        });
-
 		// Listen for session refreshes and update the user
 		$rootScope.$on('Session:refresh', function(e, user, session) {
 			refreshSession(user);
@@ -106,10 +100,7 @@ angular.module('independent-work-app')
 
 			if (user) {
 				// Set the socket up
-                socket.emit('message', {
-                    type: 'setUsername',
-                    user: $scope.currentUser._id
-                });
+                socket.emit('subscribe', $scope.currentUser._id);
 
 				// Set the role for UI toggling
 				$scope.contractor = user.roles.find(function(role) {

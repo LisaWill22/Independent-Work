@@ -42,12 +42,6 @@ app.set('port', port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// Bringi all the routes
-const routes = require('./routes');
-const userRoutes = require('./routes/user');
-const apiRoutes = require('./routes/crudApi');
-const mailRoutes = require('./routes/mail');
-
 // Set up basic express app stuffs
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -83,6 +77,9 @@ const server = http.createServer(app);
 const io = require('socket.io')(server);
 io.adapter(redisSocket(process.env.REDIS_URL));
 
+// set in the app so we can use anywhere
+app.set('socketio', io);
+
 const pub = redis.createClient(process.env.REDIS_URL);
 const store = redis.createClient(process.env.REDIS_URL)
 
@@ -93,57 +90,57 @@ io.on('connection', function(socket) {
 
     socket.join('general');
 
-    // add user to currently connected users
-    sub.subscribe('chatting');
+    let userId;
 
-    sub.on('message', function(channel, message) {
-        console.log('message received on server from publish');
-        console.log(message);
+    // Fired on connection from client
+    socket.on('subscribe', function(id) {
+        userId = id;
+        // join a room with their id
+        socket.join(id);
+        console.log(io.sockets.adapter.rooms);
     });
 
-    socket.on('message', function(message) {
-        if (message.type === 'chat') {
-            pub.publish('chatting', message);
-        } else if (message.type === 'setUsername') {
-            pub.publish('chatting','A new user in connected: ' + message.user);
-            store.sadd('onlineUsers', message.user);
-        }
+    // Listen for a new chat being created
+    socket.on('new private chat', function(data) {
+        console.log(data);
+        // Send the message out to the receiver
+        socket.broadcast.emit('get private chat', data);
     });
 
-	// Event that fires when a user in the client disconnectsion
-	socket.on('disconnect', function(){
+    // Event that fires when a user in the client disconnectsion
+    socket.on('disconnect', function(){
+        socket.leave(userId);
+        socket.leave('general');
         // remove user from currently connected users
-        sub.unsubscribe('messages');
-        sub.quit();
-        // store.srem('onlineUsers')
-        pub.publish('chatting', 'user disconnected: ' + socket.id)
-	});
+        // sub.unsubscribe('messages');
+        // sub.quit();
+        // pub.publish('chatting', 'user disconnected: ' + socket.id)
+    });
 
-	//Sending message to Specific user
-	socket.on('new chat',function(data){
-        // Create a new chat model
-        const chat = new Chat(req.body);
-		chat.save(function(err, chatCreated) {
-			if (err) {
-				res.status(404);
-				res.send({
-					success: false,
-					error: err
-				});
-				return console.log(err);
-			}
-            // emit the chat across the socket
-            socket.emit('new chat', chatCreated);
-            // send it back to the client as well
-			res.send({
-				chat: chatCreated,
-				success: true,
-				message: 'Chat created succssfully'
-			});
-		});
-        return io.in('general').emit('chat created', chat);
-	});
+    // add user to currently connected users
+    // sub.subscribe('chatting');
+    //
+    // sub.on('message', function(channel, message) {
+    //     console.log('message received on server from publish');
+    //     console.log(message);
+    // });
+    //
+    // socket.on('message', function(message) {
+    //     if (message.type === 'chat') {
+    //         pub.publish('chatting', message);
+    //     } else if (message.type === 'setUsername') {
+    //         pub.publish('chatting','A new user in connected: ' + message.user);
+    //         store.sadd('onlineUsers', message.user);
+    //     }
+    // });
 });
+
+
+// Bringi all the routes
+const routes = require('./routes');
+const userRoutes = require('./routes/user')(io);
+const apiRoutes = require('./routes/crudApi');
+const mailRoutes = require('./routes/mail');
 
 // Bring in routes
 app.use(routes);
