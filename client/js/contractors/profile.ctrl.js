@@ -8,13 +8,13 @@ angular.module('contractors')
         $scope.data = {};
         $scope.$parent.hideTitle = true;
 
-        $scope.loading = true;
-        
         if ($stateParams.id) {
-            $http.get('/api/users/' + $stateParams.id)
+            $scope.loading = true;
+            getContractor()
                 .then(function(res) {
                     $scope.contractor = res.data;
-                    getProfileImg();
+                    console.log($scope.contractor);
+                    $scope.loading = false;
                 })
                 .catch(function(err) {
                     toastr.warning('Oops, something went wrong..');
@@ -28,16 +28,8 @@ angular.module('contractors')
             $scope.data.message = null;
         };
 
-        function getProfileImg() {
-            // Get profile image
-            return $http.get('/api/users/' + $scope.contractor._id + '/profile-image')
-                .then(function(res) {
-                    $scope.contractorImageUrl = res.data.image;
-                    $scope.loading = false;
-                })
-                .catch(function(err) {
-                    console.log(err);
-                });
+        function getContractor() {
+            return $http.get('/api/users/' + $stateParams.id);
         }
 
     });
