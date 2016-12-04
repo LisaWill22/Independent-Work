@@ -87,7 +87,7 @@ const io = require('socket.io')(server);
 io.adapter(redisSocket(process.env.REDIS_URL));
 
 const pub = redis.createClient(process.env.REDIS_URL);
-const store =
+const store = redis.createClient(process.env.REDIS_URL)
 
 // Event that handles when a user in the client connects,
 io.on('connection', function(socket) {
@@ -109,7 +109,7 @@ io.on('connection', function(socket) {
             pub.publish('chatting', message);
         } else if (message.type === 'setUsername') {
             pub.publish('chatting','A new user in connected: ' + message.user);
-            // store.sadd('onlineUsers', message.user);
+            store.sadd('onlineUsers', message.user);
         }
     });
 
