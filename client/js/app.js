@@ -17,6 +17,8 @@ var app = angular.module('independent-work-app', [
 	'btford.socket-io',
 	'base64',
 	'mgcrea.bootstrap.affix',
+    // Handles .env based configs
+    'environment',
 	// IW modules
 	'app.templates',
 	'auth',
@@ -35,7 +37,7 @@ var app = angular.module('independent-work-app', [
 	'SessionService'
 ]);
 
-app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $compileProvider, $locationProvider, toastrConfig) {
+app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $compileProvider, $locationProvider, toastrConfig, envServiceProvider) {
 
 	// Send the user to the home page if they get a bad route
 	$urlRouterProvider.otherwise('/');
@@ -66,6 +68,26 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 
 	// Performance enhancement
 	$compileProvider.debugInfoEnabled(false);
+
+    // Set up environment based configs // set the domains and variables for each environment
+    envServiceProvider.config({
+        domains: {
+            development: ['localhost'],
+            production: ['launchpeer-iw.herokuapp.com']
+        },
+        vars: {
+            development: {
+                socketUrl: 'http://localhost:3000',
+            },
+            production: {
+                socketUrl: 'https://launchpeer-iw.herokuapp.com',
+            }
+        }
+    });
+
+    // run the environment check, so the comprobation is made
+    // before controllers and services are built
+    envServiceProvider.check();
 });
 
 app.run(function($timeout, $rootScope) {
@@ -106,11 +128,10 @@ app.run(function($timeout, $rootScope) {
 });
 
 //Service to interact with the socket library
-app.factory('socket', function (socketFactory) {
-	var serverBaseUrl = 'https://launchpeer-iw.herokuapp.com';
-	// var serverBaseUrl = 'http://localhost:3000';
+app.factory('socket', function (socketFactory, envService) {
+	const socketServerUrl = envService.read('socketUrl');
 
-    var myIoSocket = io.connect(serverBaseUrl);
+    var myIoSocket = io.connect(socketServerUrl);
 
     var socket = socketFactory({
         ioSocket: myIoSocket

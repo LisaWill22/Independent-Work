@@ -10,9 +10,6 @@
     "start": "node ./server/app.js"
   },
   "dependencies": {
-    "angular-socket-io": "^0.7.0",
-    "angular-toastr": "^2.1.1",
-    "angular-ui-bootstrap": "^2.2.0",
     "async": "^2.1.4",
     "babel-register": "^6.16.3",
     "bcrypt": "^0.8.7",
