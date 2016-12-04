@@ -6,7 +6,12 @@
             </div>
             <div class="user-profile-img text-center">
                 <a href="#" ui-sref="app.contractors.profile({ id: post.user._id })">
-                    <img class="media-object img img-circle img-thumbnail img-avatar img-sm" src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+                    <img ng-show="!post.user.image.base64URL"
+                         class="img img-circle img-thumbnail img-avatar img-default img-sm ng-show-fade"
+                         src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+                    <img ng-show="post.user.image.base64URL"/
+                         class="img img-circle img-thumbnail img-avatar img-sm ng-show-fade"
+                         ng-src="data:image/png;base64,{{post.user.image.base64URL}}">
                 </a>
             </div>
             <p>
