@@ -8,6 +8,7 @@ require('newrelic');
 
 // setup logging
 
+
 // Bring in deps
 const express = require('express');
 const path = require('path');
@@ -61,12 +62,12 @@ app.use(cookieParser());
 app.use(session({
     secret: 'ssshhhhh',
     // create new redis store.
-    store: new redisStore({
-        host: 'localhost',
-        port: 6379,
-        client: client,
-        ttl :  260
-    }),
+    // store: new redisStore({
+    //     host: 'localhost',
+    //     port: 6379,
+    //     client: client,
+    //     ttl :  260
+    // }),
     saveUninitialized: false,
     resave: false
 }));
