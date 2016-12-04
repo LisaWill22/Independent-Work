@@ -6,7 +6,6 @@ angular.module('independent-work-app')
             link: function(scope, el, attrs) {
                 if (attrs.scrollTo) {
                     if (attrs.scrollToOffset) {
-                        console.log(attrs.scrollToOffset);
                         el.on('click', function(e) {
                             $('html, body').animate({
                                 scrollTop: $('#' + attrs.scrollTo).offset().top - parseInt(attrs.scrollToOffset)

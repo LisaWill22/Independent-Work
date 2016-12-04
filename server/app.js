@@ -45,9 +45,10 @@ const mailRoutes = require('./routes/mail');
 
 // Set up basic express app stuffs
 app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({
-	extended: false
+	extended: false,
+    limit: '50mb'
 }));
 app.use(cookieParser());
 

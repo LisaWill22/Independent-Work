@@ -6,22 +6,28 @@
 
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <img class="img img-circle img-thumbnail img-avatar img-lg"
-                         ng-src="data:image/png;base64,{{profileImageUrl}}"
-                         ng-show="currentUser.image._id"/>
-                    <img class="img img-circle img-thumbnail img-avatar img-lg img-default"
-                         ng-show="!currentUser.image._id"/>
+                    <!-- Cropped image thumbnail -->
+                    <div class="cropped-photo ng-show-fade" ng-show="picFile">
+                    	<img class="img img-circle img-thumbnail img-avatar img-lg" ng-src="{{croppedDataUrl}}"/>
+                    </div>
+                    <img ng-show="!currentUser.image.base64URL"
+                         class="img img-circle img-thumbnail img-avatar img-default img-lg ng-show-fade"
+                         src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+                    <img ng-show="currentUser.image.base64URL && !picFile"/
+                         class="img img-circle img-thumbnail img-avatar img-lg ng-show-fade"
+                         ng-src="data:image/png;base64,{{currentUser.image.base64URL}}">
                 </div>
             </div>
 
             <!-- Can also drop image file here -->
-            <div ng-show="picFile"
+            <div
                  ngf-drop
+                 ng-show="picFile && !uploadFinished"
                  ng-model="picFile"
                  ngf-pattern="image/*"
                  class="cropArea text-center ng-show-fade">
-                 Drag a file here or click the button above
             	<img-crop
+                    ng-show="picFile && !uploadFinished"
                     image="picFile  | ngfDataUrl"
                     result-image="croppedDataUrl"
                     ng-init="croppedDataUrl=''">
@@ -39,11 +45,6 @@
                 </button>
             </div>
 
-            <!-- Cropped image thumbnail -->
-            <div class="cropped-photo ng-show-fade" ng-show="picFile">
-            	<img ng-src="{{croppedDataUrl}}"/>
-            </div>
-
             <!-- Submit picure for upload -->
             <div class="btn btn-default ng-show-fade"
                     ng-show="picFile"
@@ -59,7 +60,7 @@
             </a>
 
             <!-- Upload progress bar -->
-            <div class="progress-bar progress-bar-success ng-show-fade" ng-show="progress >= 0" style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+            <div class="progress-bar progress-bar-success ng-show-fade" ng-show="progress >= 0 && uploadInProgresss" style="width:{{progress}}%" ng-bind="progress + '%'"></div>
 
             <!-- Error/Success messages -->
             <div class="alert alert-success ng-show-fade" ng-show="result">

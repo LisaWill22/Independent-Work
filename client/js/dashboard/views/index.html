@@ -4,19 +4,18 @@
 		<h2 class="lead">Loading dashboard...</h2>
 		<spinner></spinner>
 	</div>
-	<!-- List of dashboard items -->
-	<div class="row ng-show-fade" ng-show="!loading">
+
+    <!-- Search bar -->
+	<!-- <div class="row ng-show-fade" ng-show="!loading">
 		<div class="col-md-10 col-md-offset-1 col-xs-12">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<!-- Employer left menu -->
 					<div ng-show="employer">
 						<h2 class="h4">Search Contractors</h2>
 						<div class="form-group">
 
 						</div>
 					</div>
-					<!-- Contractor left menu -->
 					<div ng-show="contractor">
 						<h2>Topics</h2>
 						<div class="form-group">
@@ -26,7 +25,9 @@
 				</div>
 			</div>
 		</div>
-    </div>
+    </div> -->
+
+    <!-- CTA button -->
     <div class="row spacer" ng-show="!loading">
         <div class="col-md-10 col-md-offset-1">
             <button class="btn-block btn btn-primary btn-lg" ng-click="openCreatePostModal()" ng-show="contractor">
@@ -34,6 +35,8 @@
             </button>
         </div>
     </div>
+
+    <!-- List of dashboard items -->
     <div class="row">
         <div class="col-md-10 col-md-offset-1 col-xs-12">
 			<ui-view>

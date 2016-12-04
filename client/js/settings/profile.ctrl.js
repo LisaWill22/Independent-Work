@@ -40,19 +40,6 @@ angular.module('settings')
             return $http.post('/api/skills', skill);
         }
 
-        // TODO: Move this to base64 encoded on the user and make a directive for proilfe images
-        // Gets the profile image
-        function getProfileImg() {
-            // Get profile image
-            return $http.get('/api/users/' + $scope.currentUser._id + '/profile-image')
-                .then(function(res) {
-                    $scope.profileImageUrl = res.data.image;
-                })
-                .catch(function(err) {
-                    console.log(err);
-                });
-        }
-
         $scope.onError = function () {
             toastr.warning('Whoops, something went wrong...\n ' + err);
         };
@@ -109,15 +96,18 @@ angular.module('settings')
                     $scope.uploadInProgresss = false;
                     $scope.uploadFinished = true;
                     $scope.result = response.data;
-                    $rootScope.$broadcast('ProfileImg:refresh');
                     $scope.picFile = null;
-                    getProfileImg()
                 });
             }, function (response) {
                 if (response.status > 0) $scope.errorMsg = response.status
                     + ': ' + response.data;
             }, function (evt) {
                 $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
-            });
+            })
+            .finally(function() {
+                $scope.uploadInProgresss = false;
+                $scope.uploadFinished = true;
+                $scope.picFile = null;
+            })
         };
     });

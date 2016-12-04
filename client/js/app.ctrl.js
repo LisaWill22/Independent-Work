@@ -48,10 +48,6 @@ angular.module('independent-work-app')
 			}
 		});
 
-		$rootScope.$on('ProfileImg:refresh', function() {
-			getProfileImg();
-		});
-
 		// Opens the modal for user to signup to mailchimp list
 		$scope.openMailChimpModal = function() {
 			openMailChimpModal();
@@ -108,9 +104,6 @@ angular.module('independent-work-app')
                     type: 'setUsername',
                     user: $scope.currentUser._id
                 });
-
-				// Get the user profile img for header
-				getProfileImg();
 
 				// Set the role for UI toggling
 				$scope.contractor = user.roles.find(function(role) {

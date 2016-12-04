@@ -31,8 +31,12 @@
 						   popover-trigger="'outsideClick'"
 						   popover-is-open="userMenuOpen"
 						   class="btn btn-link dropdown-toggle">
-						    <img class="img img-circle img-thumbnail img-avatar" ng-show="profileImageUrl" ng-src="data:image/png;base64,{{profileImageUrl}}" alt="" />
-							<i ng-show="!profileImageUrl" class="fa fa-lg fa-fw fa-user-circle"></i>
+                           <img ng-show="!currentUser.image.base64URL"
+                                class="img img-circle img-thumbnail img-avatar img-default ng-show-fade"
+                                src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+                           <img ng-show="currentUser.image.base64URL"/
+                                class="img img-circle img-thumbnail img-avatar ng-show-fade"
+                                ng-src="data:image/png;base64,{{currentUser.image.base64URL}}">
 							<strong>{{ currentUser.firstName }}</strong>
 							<i class="fa fa-fw fa-caret-down"></i>
 						</a>

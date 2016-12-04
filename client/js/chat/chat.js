@@ -13,6 +13,11 @@ angular.module('chat', [
                     }
                 }
             })
+            .state('app.chat.conversation', {
+                url: 'conversation/:contractorSlug',
+                templateUrl: 'chat/views/conversation.html',
+                controller: 'ChatConversationCtrl'
+            })
             .state('app.chat.list', {
                 url: '/messages',
                 templateUrl: 'chat/views/chat-list.html',

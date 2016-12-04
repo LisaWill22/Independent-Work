@@ -37,6 +37,7 @@ router.route('/users/:id')
 
 router.route('/posts/:id')
 	.put(function(req, res, next) {
+        console.log(req);
 		delete req.body._id;
 		delete req.body.__v;
 		Post.findOneAndUpdate({
@@ -123,42 +124,70 @@ router.route('/users/:id/profile-image')
 			if (!err) {
 				console.log('File Uploaded: ' + files.file.path)
 
-				let writestream = GridFS.createWriteStream({
+                let writestream = GridFS.createWriteStream({
 					filename: files.file.name
 				});
 
-				fs.createReadStream(files.file.path).pipe(writestream);
+				let readStream = fs.createReadStream(files.file.path).pipe(writestream);
 
 				writestream.on('close', function(file) {
 					console.log(file.filename + ' Written To DB');
-					console.log(file._id);
 
-					User.findOneAndUpdate({
-						_id: userId
-					}, {
-						$set: {
-							'image._id': file._id
-						}
-					}, {
-						upsert: true,
-						new: true
-					}, function(err, user) {
-						if (!err) {
-							return res.send({
-								user,
-								success: true,
-								message: 'Profile image uploaded successfully',
-								file: files.file.path
-							});
-						} else {
-							console.log(err);
-							return res.status(404).send({
-								userId,
-								success: false,
-								message: 'Failed to assign upload to user',
-								file: files.file.path
+                    GridFS.files.find({
+						_id: file._id
+					}).toArray(function(err, files) {
+						if (files.length === 0) {
+                            console.log('no files');
+							return res.status(400).send({
+								fileId: file._id,
+								message: 'File not found'
 							});
 						}
+
+						var readstream = GridFS.createReadStream({
+							filename: files[0].filename
+						});
+
+						readstream.on('data', function(data) {
+                            User.findOneAndUpdate({
+        						_id: userId
+        					}, {
+        						$set: {
+                                    'image.base64URL': data.toString('base64'),
+        							'image._id': file._id
+        						}
+        					}, {
+        						upsert: true,
+        						new: true
+        					}, function(err, user) {
+                                console.log(user);
+        						if (!err) {
+        							return res.send({
+        								user,
+        								success: true,
+        								message: 'Profile image uploaded successfully',
+        								file: file.fileName
+        							});
+        						} else {
+        							console.log(err);
+        							return res.status(404).send({
+        								userId,
+        								success: false,
+        								message: 'Failed to assign upload to user',
+        								file: file.fileName
+        							});
+        						}
+        					});
+						});
+
+						readstream.on('end', function() {
+							res.end();
+						});
+
+						readstream.on('error', function(err) {
+							console.log('An error occurred!', err);
+							throw err;
+						});
 					});
 				});
 			}

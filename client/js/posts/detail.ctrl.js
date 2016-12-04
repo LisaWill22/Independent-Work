@@ -8,12 +8,7 @@ angular.module('posts')
         refreshPost();
 
         $scope.data = {};
-
-        $scope.tinymceOptions = {
-            resize: false,
-            menubar:false,
-            statusbar: false
-        };
+        $scope.data.reply = {};
 
         $scope.$on('Post:refresh', function() {
             refreshPost();
@@ -55,11 +50,14 @@ angular.module('posts')
             if (!$scope.post.replies) {
                 $scope.post.replies = [];
             }
+
             $scope.post.replies.push({
                 user: angular.copy($scope.currentUser),
                 _createdDate: new Date(),
                 content: $scope.data.reply.content
             });
+
+            $scope.data.reply.content = '';
 
             return $http.put('/api/posts/' + $scope.post._id, $scope.post)
                 .then(function(res) {
@@ -69,9 +67,10 @@ angular.module('posts')
                 .catch(function(err) {
                     console.log(err);
                     toastr.warning('There was an error editing this post. Please close this window and try again.')
+                    $scope.post.replies.pop();
                 })
                 .finally(function() {
-                    $scope.data = {};
+
                 });
         }
 
