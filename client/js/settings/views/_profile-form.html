@@ -80,11 +80,21 @@
     	<div class="row">
     		<div class="col-sm-6">
     			<label for="firstName">First name</label>
-    			<input ng-model="data.firstName" type="text" name="firstName" id="firstName" class="form-control" placeholder="John">
+    			<input ng-model="data.firstName"
+                       type="text"
+                       name="firstName"
+                       id="firstName"
+                       class="form-control"
+                       placeholder="John">
     		</div>
     		<div class="col-sm-6">
     			<label for="lastName">Last name</label>
-    			<input ng-model="data.lastName" type="text" name="lastName" id="lastName" class="form-control" placeholder="Doe">
+    			<input ng-model="data.lastName"
+                       type="text"
+                       name="lastName"
+                       id="lastName"
+                       class="form-control"
+                       placeholder="Doe">
     		</div>
     	</div>
     </div>
@@ -94,7 +104,12 @@
     	<div class="row">
     		<div class="col-sm-12">
     			<label for="firstName">Company Name</label>
-    			<input ng-model="data.companyName" type="text" name="companyName" id="companyName" class="form-control" placeholder="ACME Corp.">
+    			<input ng-model="data.companyName"
+                       type="text"
+                       name="companyName"
+                       id="companyName"
+                       class="form-control"
+                       placeholder="ACME Corp.">
     		</div>
     	</div>
     </div>
@@ -104,16 +119,30 @@
     	<div class="row">
     		<div class="col-sm-5">
     			<label for="city">City</label>
-    			<input ng-model="data.location.city" type="text" name="city" id="city" class="form-control" placeholder="Cupertino">
+    			<input ng-model="data.location.city"
+                       type="text"
+                       name="city"
+                       id="city"
+                       class="form-control"
+                       placeholder="Cupertino">
     		</div>
     		<div class="col-sm-3">
     			<label for="state">State</label>
-                <select class="form-control" name="state" ng-model="data.location.state" ng-options="key for (key, value) in states">
+                <select class="form-control"
+                        name="state"
+                        ng-model="data.location.state"
+                        ng-options="key for (key, value) in states">
                 </select>
     		</div>
     		<div class="col-sm-4">
     			<label for="zip">Zipcode</label>
-    			<input class="form-control" type="number" name="zip" id="zip" ng-model="data.location.zipcode">
+    			<input class="form-control"
+                       name="zip"
+                       id="zip"
+                       ui-mask="99999"
+                       ui-mask-placeholder
+                       ui-mask-placeholder-char="_"
+                       ng-model="data.location.zipcode">
     		</div>
     	</div>
     </div>

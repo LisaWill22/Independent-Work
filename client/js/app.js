@@ -10,6 +10,7 @@ var app = angular.module('independent-work-app', [
 	'ui.select',
 	'ui.bootstrap',
 	'ui.tinymce',
+    'ui.mask',
 	'ngStorage',
 	'ngFileUpload',
 	'ngImgCrop',
