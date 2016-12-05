@@ -6,8 +6,8 @@
 	</div>
 
     <!-- Search bar -->
-	<div class="row ng-show-fade" ng-show="!loading">
-		<div class="col-md-10 col-md-offset-1 col-xs-12">
+	<div class="row ng-show-fade" ng-show="!loading && employer">
+		<div class="col-md-10 col-md-offset-1">
             <div id="custom-search-input">
                 <div class="input-group col-md-12">
                     <input type="text" ng-model="query" ng-init="''" class="form-control input-lg" placeholder="Search contractors..." />
@@ -32,7 +32,7 @@
 
     <!-- List of dashboard items -->
     <div class="row">
-        <div class="col-md-10 col-md-offset-1 col-xs-12">
+        <div class="col-md-10 col-md-offset-1">
 			<ui-view>
                 <div class="" ng-show="employer">
                     <div class="row" ng-show="items.length > 0">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                </div><!--end employer view -->
+                <!--end employer view -->
 				<div class="panel panel-default" ng-show="contractor && !loading">
 					<div class="panel-body">
 						<div class="row">
