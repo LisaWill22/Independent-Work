@@ -1,6 +1,6 @@
 <div class="post-head">
     <div class="row-fluid clearfix">
-        <div class="col-sm-3 col-md-3 user-info text-center">
+        <div class="col-sm-3 user-info text-center">
             <div class="user-name">
                 <a href="#" ui-sref="app.contractors.profile({ id: post.user._id })">{{ post.user.firstName }} {{ post.user.lastName }}</a>
             </div>
@@ -18,7 +18,7 @@
                 <small>Joined {{ post.user._accountCreated | date:'MMM yyyy' }}</small>
             </p>
         </div>
-        <div class="col-sm-8 col-md-9 border-left">
+        <div class="col-sm-9 border-left">
             <div class="post-info" ng-bind-html="post.content"></div>
             <div class="post-meta-info">
                 <p>

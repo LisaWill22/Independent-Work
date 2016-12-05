@@ -19,11 +19,15 @@ const userSchema = new mongoose.Schema({
     lastName: String,
     location: {
         city: String,
-        state: String
+        state: String,
+        zipcode: String
     },
     phone: String,
     roles: Array,           // Possible values: 'contractor', 'hirer', 'admin'
-    skills: Array,          // Array of id's from the Skills collection
+    skills: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Skill'
+    }],
     posts: Array,        // Array of ids from the Postings collection
     // Meta data
     _accountCreated: Date,

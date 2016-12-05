@@ -53,12 +53,14 @@ const returnRouter = function(io) {
     			new: true
     		}, function(err, post) {
     			if (!err) {
-    				res.send({
-    					post,
-    					success: true,
-    					message: 'Post updated successfully',
-    					_lastUpdatedDate: new Date()
-    				});
+                    post.populate('user', function(err, user) {
+                        res.send({
+        					post,
+        					success: true,
+        					message: 'Post updated successfully',
+        					_lastUpdatedDate: new Date()
+        				});
+                    });
     			} else {
     				console.log(err);
     				return next(err);
@@ -330,21 +332,71 @@ const returnRouter = function(io) {
 
     	});
 
+    router.route('/posts/dashboard/includes=skills,user')
+        .get(function(req, res, next) {
+            Post.find()
+                .populate('skills')
+                .populate('user')
+                .exec(function(err, posts) {
+                    if (!err) {
+                        res.send({
+                            posts,
+                            total: posts.length
+                        })
+                    } else {
+                        console.log(err);
+                        res.status(404);
+                        return res.send({
+                            success: true,
+                            error: err
+                        });
+                    }
+                });
+        });
+
+    router.route('/posts/:id/includes=skills,user')
+        .get(function(req, res, next) {
+            Post.findOne({ _id: req.params.id })
+                .populate('skills')
+                .populate('user')
+                .exec(function(err, post) {
+                    if (!err) {
+        				res.send({
+        					post,
+        					success: true,
+        				})
+        			} else {
+        				console.log(err);
+                        res.status(404);
+                        return res.send({
+        					success: true,
+                            error: err
+        				});
+        			}
+                });
+        });
+
     router.route('/users/:id/posts')
     	.get(function(req, res, next) {
-    		Post.find({
-    			'user._id': req.params.id
-    		}, function(err, posts) {
-    			if (!err) {
-    				res.send({
-    					posts,
-    					total: posts.length
-    				})
-    			} else {
-    				console.log(err);
-    				return next(err);
-    			}
-    		});
+            console.log(req.params);
+    		Post.find({'user': req.params.id})
+                .populate('skills')
+                .populate('user')
+                .exec(function(err, posts) {
+                    if (!err) {
+        				res.send({
+        					posts,
+        					total: posts.length
+        				})
+        			} else {
+                        console.log(err);
+                        res.status(404);
+                        return res.send({
+        					success: true,
+                            error: err
+        				});
+        			}
+                });
     	});
 
     function addChatThreadToUser(chatThreadId, userId) {

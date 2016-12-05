@@ -1,78 +1,13 @@
 'use strict';
 
-angular.module('settings')
-    .controller('PostsSettingsCtrl', function($scope, $http, $uibModal) {
+angular.module('independent-work-app')
+    .controller('CreatePostModalCtrl', function($scope, $rootScope, $uibModalInstance, $http, $q, toastr) {
 
-        console.log('PostsSettingsCtrl loaded >>', $scope);
+        console.log('CreatePostModalCtrl >>', $scope);
 
-        getPosts();
+        console.log('definitely here');
 
-        $scope.$on('Post:refresh', function() {
-            getPosts();
-        });
-
-        function getPosts() {
-            $scope.loading = true;
-            return $http.get('/api/users/' + $scope.currentUser._id + '/posts/includes=skills,user')
-                .then(function(res) {
-                    console.log(res);
-                    $scope.posts = res.data.posts;
-                })
-                .catch(function(err) {
-                    console.log(err);
-                })
-                .finally(function() {
-                    $scope.loading = false;
-                })
-        }
-
-        $scope.openEditPostModal = function(post) {
-            $scope.postToEdit = post;
-            $scope.postModalInstance = $uibModal.open({
-                animation: true,
-                scope: $scope,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'posts/views/create-post-modal.html',
-                controller: 'EditPostModalCtrl',
-                size: 'md',
-            });
-        };
-
-        $scope.openDeletePostModal = function(post) {
-            $scope.postToDelete = post;
-            $scope.postModalInstance = $uibModal.open({
-                animation: true,
-                scope: $scope,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'posts/views/delete-post-modal.html',
-                controller: 'DeletePostModalCtrl',
-                size: 'md',
-            });
-        };
-    })
-    .controller('DeletePostModalCtrl', function($scope, $uibModalInstance, $rootScope, $http, toastr) {
-
-        $scope.deletePost = function() {
-            return $http.delete('/api/posts/' + $scope.$parent.postToDelete._id)
-                .then(function(res) {
-                    $rootScope.$broadcast('Posts:refresh');
-                    $uibModalInstance.close();
-                    toastr.success('Your post was deleted successfully.');
-                })
-                .catch(function(err) {
-                    console.log(err);
-                    toastr.warning('There was an error deleting this post. Please close this window and try again.')
-                });
-        };
-
-        $scope.cancel = function() {
-            $uibModalInstance.close();
-        };
-    })
-    .controller('EditPostModalCtrl', function($scope, $uibModalInstance, $http, $rootScope, $q, toastr) {
-        $scope.data = angular.copy($scope.$parent.postToEdit);
+        $scope.data = {};
 
         $http.get('/api/skills')
             .then(function(res){
@@ -128,15 +63,14 @@ angular.module('settings')
 
         $scope.afterSubmit = function(res) {
             if (res.status === 200) {
-                console.log(res);
-                toastr.success('Post updated successfully!');
-                $rootScope.$broadcast('Post:refresh');
+                toastr.success('Post created successfully!');
+                $rootScope.$broadcast('Posts:reload');
                 $uibModalInstance.close();
             } else {
                 console.log(res);
-                toastr.warning('There was an error creating your project. Please try again.');
+                toastr.warning('There was an error creating your project. Please try again.')
             }
-        };
+        }
 
         // Adds back skill to list of options on removal
         $scope.onSkillRemove = function(item, model) {
@@ -167,11 +101,6 @@ angular.module('settings')
 
             return newSkill;
         };
-
-        $scope.cancel = function() {
-            $uibModalInstance.close();
-        };
-
 
         $scope.cancel = function() {
             $uibModalInstance.close();

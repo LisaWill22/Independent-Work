@@ -234,7 +234,7 @@ angular.module('boForm', [
                 element.attr('ng-class', '{\'has-error\':' + attrName + '.$invalid && (' + attrName + '.$touched || ' + fCtrl.$name + '.$attempted) && !' + fCtrl.$name + '.$pristine }');
 
                 element.append( '<div class="help-block ng-show-fade" ng-messages="' + attrName + '.$error">' +
-                                    '<small ng-messages-include="directives/templates/default-error-messages.html"></small>' +
+                                    '<small ng-messages-include="js/directives/templates/default-error-messages.html"></small>' +
                                 '</div>');
 
                 element.find('.help-block').append(messages);

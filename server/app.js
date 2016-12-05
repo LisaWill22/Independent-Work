@@ -20,7 +20,11 @@ const chalk = require('chalk');
 
 // Set up the deps
 const debug = require('debug')('independent-work-front:server');
+
+// Bring in mongo models
 const Chat = require('./models/chat').Chat;
+const Skill = require('./models/skill').Skill;
+const User = require('./models/skill').User;
 
 // Bring in the passport configs (for auth)
 require('./config/passport')(passport);

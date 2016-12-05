@@ -24,10 +24,11 @@ angular.module('dashboard')
         });
 
         function getPosts() {
-            return $http.get('/api/posts')
+            return $http.get('/api/posts/dashboard/includes=skills,user')
                 .then(function(res) {
                     $timeout(function() {
-                        $scope.items = res.data;
+                        console.log(res);
+                        $scope.items = res.data.posts;
                         console.log($scope.items);
                         $scope.loading = false;
                     }, 1000);

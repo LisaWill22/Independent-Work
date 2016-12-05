@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var postSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
     title: String,
     skills: Array,          // Array of id's from the Skills collection
     description: String,        // String ID from the Companies collection
@@ -8,7 +9,12 @@ var postSchema = new mongoose.Schema({
     _createdDate: Date,
     lastPost: Object,
     replies: Array,
-    topics: Array
+    topics: Array,
+    user: {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+    },
+    skills: Array
 }, { strict: false });
 
 exports.Post = mongoose.model('Post', postSchema);
