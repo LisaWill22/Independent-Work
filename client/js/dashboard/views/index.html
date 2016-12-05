@@ -43,7 +43,7 @@
                 <div class="" ng-show="employer">
                     <div class="row" ng-show="items.length > 0">
                         <div class="col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-0 col-lg-4" ng-repeat="contractor in items" >
-                            <div ng-include=" 'contractors/views/_contractor-profile-card.html' "></div>
+                            <div ng-if="contractor._id" ng-include=" 'contractors/views/_contractor-profile-card.html' "></div>
                         </div>
                     </div>
                 </div>
