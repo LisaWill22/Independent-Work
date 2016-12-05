@@ -42,10 +42,11 @@ angular.module('dashboard')
         function getContractors() {
             return $http.get('/api/users?role=contractor')
                 .then(function(res) {
+                    console.log(res);
                     $scope.items = res.data;
                     $scope.loading = false;
                     $scope.items = _.filter(res.data, function(user) {
-                        return user.roles.indexOf('contractor') !== -1;
+                        return user.roles && user.roles.indexOf('contractor') !== -1;
                     });
                     console.log($scope.items);
                 })

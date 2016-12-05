@@ -1,0 +1,39 @@
+<div class="panel panel-default ng-show-fade" ng-show="!loading">
+    <div class="panel-body text-center">
+        <h2 class="lead mbn mtn">{{ contractor.firstName}} {{ contractor.lastName}}</h3>
+        <h5 class="sub-header mtn text-muted">
+            {{ contractor.location.city }}{{ contractor.location.state ? ', ' + contractor.location.state : '' }}
+        </h5>
+
+        <img ng-show="!contractor.image.base64URL"
+             class="img img-circle img-thumbnail img-avatar img-default img-lg ng-show-fade"
+             src="https://www.fmtv.com/static/img/pages/default-user-avatar.jpg" alt="...">
+        <img ng-show="contractor.image.base64URL"/
+             class="img img-circle img-thumbnail img-avatar img-lg ng-show-fade"
+             ng-src="data:image/png;base64,{{contractor.image.base64URL}}">
+
+        <p ng-bind-html="contractor.bio" class="text-left"></p>
+
+        <h3 ng-show="contractor.skills && contractor.skills.length">
+            <span class="label label-primary label-skill" ng-repeat="skill in contractor.skills">{{ skill.name }}</span>
+        </h3>
+
+        <div>
+            <hr/>
+            <a href="#"
+               ng-show="contractor && contractor._id !== currentUser._id"
+               ui-sref="app.chat.conversation({ friendId: contractor._id })"
+               class="btn btn-block btn-secondary">
+               <i class="fa fa-fw fa-comments"></i>
+                Start a conversation with {{ contractor.firstName }}
+            </a>
+            <a href="#"
+               ng-show="contractor && contractor._id === currentUser._id"
+               ui-sref="app.settings.profile"
+               class="btn btn-block btn-link">
+               <i class="fa fa-fw fa-pencil"></i>
+                Edit your profile
+            </a>
+        </div>
+    </div>
+</div>
