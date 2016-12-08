@@ -14,6 +14,10 @@
     top: 0;
 }
 
+.right {
+    right: 0;
+}
+
 .left {
     left: 0;
 }
@@ -157,4 +161,23 @@
 
 .mtn {
     margin-top: 0 !important;
+}
+
+.relative {
+    position: relative !important;
+}
+
+.post-reply {
+    &:hover {
+        .absolute.top.right {
+            opacity: 1;
+        }
+
+    }
+    .absolute.top.right {
+        top: 15px;
+        right: 15px;
+        opacity: 0;
+        transition: all .25s ease-out;
+    }
 }

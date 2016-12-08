@@ -1,5 +1,5 @@
 <div class="post-reply">
-    <div class="panel panel-default">
+    <div class="panel panel-default relative">
         <div class="row-fluid clearfix">
             <div class="col-sm-3 col-md-2 user-info text-center">
                 <div class="user-name">
@@ -25,6 +25,18 @@
                     <p><small>Posted on {{ reply._createdDate | date: 'mediumDate' }} {{ reply._createdDate | date: 'shortTime' }}</small></p>
                 </div>
             </div>
+        </div>
+        <div class="absolute top right">
+            <button class="btn btn-link lead"
+                    ng-show="reply.user._id === currentUser._id"
+                    ng-click="openEditReplyModal(post)">
+                <i class="fa fa-fw fa-pencil"></i> Edit
+            </button>
+            <button class="btn btn-link lead"
+                    ng-show="reply.user._id === currentUser._id"
+                    ng-click="openEditReplyModal(post)">
+                <i class="fa fa-fw fa-remove"></i> Delete
+            </button>
         </div>
     </div>
 </div>

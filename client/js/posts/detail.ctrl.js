@@ -33,7 +33,7 @@ angular.module('posts')
 
         function refreshPost() {
             $scope.loading = true;
-            return $http.get('/api/posts/' + $stateParams.id + '/includes=skills,user')
+            return $http.get('/api/posts/' + $stateParams.id + '/includes=user')
                 .then(function(res) {
                     console.log(res);
                     $scope.post = res.data.post;

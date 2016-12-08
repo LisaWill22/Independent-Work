@@ -353,10 +353,9 @@ const returnRouter = function(io) {
                 });
         });
 
-    router.route('/posts/:id/includes=skills,user')
+    router.route('/posts/:id/includes=user')
         .get(function(req, res, next) {
             Post.findOne({ _id: req.params.id })
-                .populate('skills')
                 .populate('user')
                 .exec(function(err, post) {
                     if (!err) {
