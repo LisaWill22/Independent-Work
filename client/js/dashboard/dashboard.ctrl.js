@@ -28,8 +28,7 @@ angular.module('dashboard')
                 .then(function(res) {
                     $timeout(function() {
                         console.log(res);
-                        $scope.items = res.data.posts;
-                        console.log($scope.items);
+                        $scope.items = _.sortBy(res.data.posts, '_createdDate').reverse();
                         $scope.loading = false;
                     }, 1000);
                 })

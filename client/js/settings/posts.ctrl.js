@@ -13,10 +13,10 @@ angular.module('settings')
 
         function getPosts() {
             $scope.loading = true;
-            return $http.get('/api/users/' + $scope.currentUser._id + '/posts/includes=skills,user')
+            return $http.get('/api/users/' + $scope.currentUser._id + '/posts')
                 .then(function(res) {
                     console.log(res);
-                    $scope.posts = res.data.posts;
+                    $scope.posts = _.sortBy(res.data.posts, '_createdDate');
                 })
                 .catch(function(err) {
                     console.log(err);

@@ -24,10 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     phone: String,
     roles: Array,           // Possible values: 'contractor', 'hirer', 'admin'
-    skills: [{
-		type: Schema.Types.ObjectId,
-		ref: 'Skill'
-    }],
+    skills: Array,
     posts: Array,        // Array of ids from the Postings collection
     // Meta data
     _accountCreated: Date,

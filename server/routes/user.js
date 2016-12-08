@@ -335,7 +335,6 @@ const returnRouter = function(io) {
     router.route('/posts/dashboard/includes=skills,user')
         .get(function(req, res, next) {
             Post.find()
-                .populate('skills')
                 .populate('user')
                 .exec(function(err, posts) {
                     if (!err) {
@@ -380,7 +379,6 @@ const returnRouter = function(io) {
     	.get(function(req, res, next) {
             console.log(req.params);
     		Post.find({'user': req.params.id})
-                .populate('skills')
                 .populate('user')
                 .exec(function(err, posts) {
                     if (!err) {
