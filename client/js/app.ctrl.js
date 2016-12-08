@@ -19,7 +19,7 @@ angular.module('independent-work-app')
 
 		if (session && session.data) {
             // get the current state name
-			let stateName = $state.$current.name;
+			var stateName = $state.$current.name;
 
             // update the currenuser and session objects
 			refreshSession(session.data);

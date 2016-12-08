@@ -7,21 +7,21 @@
     <div class="row" ng-show="!loading">
 
         <!-- MESSAGE THREADS PANE -->
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <ul class="list-group">
                 <li class="list-group-item clearfix" ng-repeat="thread in chatThreads">
-                    <a href="#" ui-sref="app.chat.conversation({ friendId: otherUser._id })">
-                        {{ otherUser.firstName }} {{ otherUser.lastName}}
+                    <a href="#" ui-sref="app.chat.conversation({ friendId: thread.otherUser._id })">
+                        {{ thread.otherUser.firstName }} {{ thread.otherUser.lastName}}
                     </a>
                     <small class="text-muted block">
-                        {{ thread.chats[thread.chats.length - 1].message }}
+                        {{ thread.chats[thread.chats.length - 1].message }} - <small>{{ thread.chats[thread.chats.length - 1]._dateSent | date:'short' }}</small>
                     </small>
                 </li>
             </ul>
         </div>
 
         <!-- CHAT PANE -->
-        <div class="col-sm-8">
+        <div class="col-sm-7">
             <!-- CHAT MESSAGE LIST -->
             <div class="chat-container" id="chat-container">
                 <div class="panel animate-filter-fade" ng-repeat="message in messages">

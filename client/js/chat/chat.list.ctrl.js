@@ -7,15 +7,14 @@ angular.module('chat')
 
         $http.get('/api/users/' + $scope.currentUser._id + '/chats')
             .then(function(res) {
-                $scope.chatThreads = res.data.chatThreads;
-
-                if ($scope.chatThreads && $scope.chatThreads.length) {
-                    $scope.otherUser = $scope.chatThreads[0].users.filter(function(user) {
+                $scope.chatThreads = res.data.chatThreads.map(function(thread) {
+                    var otherUser = thread.users.find(function(user) {
                         return user._id !== $scope.currentUser._id;
-                    })[0];
-                    console.log($scope.chatThreads);
-                    console.log($scope.otherUser);
-                }
+                    });
+                    thread.otherUser = otherUser;
+                    
+                    return thread;
+                });
             });
         // $scope.data = {};
         // $scope.messages = [];
