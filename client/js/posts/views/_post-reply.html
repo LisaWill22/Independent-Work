@@ -3,7 +3,9 @@
         <div class="row-fluid clearfix">
             <div class="col-sm-3 col-md-2 user-info text-center">
                 <div class="user-name">
-                    <a href="#" ui-sref="app.contractors.profile({ id: reply.user._id })">{{ reply.user.firstName }} {{ reply.user.lastName }}</a>
+                    <a href="#" ui-sref="app.contractors.profile({ id: reply.user._id })">
+                        {{ reply.user.firstName }} {{ reply.user.lastName }}
+                    </a>
                 </div>
                 <div class="user-profile-img text-center">
                     <a href="#" ui-sref="app.contractors.profile({ id: reply.user._id })">
@@ -15,9 +17,7 @@
                              ng-src="data:image/png;base64,{{reply.user.image.base64URL}}">
                     </a>
                 </div>
-                <p>
-                    <small>Joined {{ reply.user._accountCreated | date:'MMM yyyy' }}</small>
-                </p>
+                <p><small>Joined {{ reply.user._accountCreated | date:'MMM yyyy' }}</small></p>
             </div>
             <div class="col-sm-9 col-md-10 border-left">
                 <div class="post-content" ng-bind-html="reply.content"></div>
@@ -34,7 +34,7 @@
             </button>
             <button class="btn btn-link lead"
                     ng-show="reply.user._id === currentUser._id"
-                    ng-click="openEditReplyModal(post)">
+                    ng-click="openDeleteReplyModal($index, reply)">
                 <i class="fa fa-fw fa-remove"></i> Delete
             </button>
         </div>

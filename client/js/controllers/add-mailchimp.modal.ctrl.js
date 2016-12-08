@@ -15,5 +15,5 @@ angular.module('independent-work-app')
                 .catch(function(err) {
                     console.log(err);
                 })
-        }
+        };
     });

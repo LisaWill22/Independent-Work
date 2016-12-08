@@ -14,6 +14,20 @@ angular.module('posts')
             refreshPost();
         });
 
+        $scope.openDeleteReplyModal = function(index, reply) {
+            $scope.replyToDeleteIndex = index;
+            $scope.replyToDelete = reply;
+            $scope.deleteReplyModalInstance = $uibModal.open({
+                animation: true,
+                scope: $scope,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'posts/views/delete-reply-modal.html',
+                controller: 'DeleteReplyModalCtrl',
+                size: 'md'
+            });
+        };
+
         $scope.openEditPostModal = function(post) {
             $scope.postToEdit = post;
             $scope.postModalInstance = $uibModal.open({
@@ -23,7 +37,7 @@ angular.module('posts')
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'posts/views/create-post-modal.html',
                 controller: 'EditPostModalCtrl',
-                size: 'md',
+                size: 'md'
             });
         };
 
@@ -73,6 +87,37 @@ angular.module('posts')
                 .finally(function() {
 
                 });
+        }
+
+    })
+    .controller('DeleteReplyModalCtrl', function($scope, $rootScope, $uibModalInstance, $http, $q, toastr) {
+
+        console.log('DeleteReplyModalCtrl >>', $scope);
+
+        $scope.close = function() {
+            $uibModalInstance.close();
+        };
+
+        $scope.deleteReply = function() {
+            deleteReply()
+                .then(function(res) {
+                    console.log(res);
+                    toastr.success('Your reply was deleted successfully.');
+                    $scope.$emit('Post:refresh');
+                    $uibModalInstance.close();
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    toastr.warning('There was an error deleting your reply. Please close this window and try again.');
+                });
+        };
+
+        function deleteReply (index) {
+            console.log($scope.replyToDeleteIndex);
+            $scope.post.replies = $scope.post.replies.filter(function(reply) {
+                return !angular.equals(reply, $scope.replyToDelete);
+            });
+            return $http.put('/api/posts/' + $scope.post._id, $scope.post);
         }
 
     });
