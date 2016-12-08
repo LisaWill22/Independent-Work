@@ -194,6 +194,50 @@ const returnRouter = function(io) {
     		});
     	});
 
+    router.route('/users/:id/chats')
+        .get(function(req, res, next) {
+            ChatThread.find({
+                    'users': {
+                        $in: [ req.params.id ]
+                    }
+                })
+                .populate('users')
+                .populate({
+                    path: 'chats',
+                    options: {
+                        sort: {
+                            '_dateSent': 'asc'
+                        }
+                    }
+                })
+                .exec(function(err, chatThreads) {
+                    if (err) {
+                        res.status(400);
+                        console.log(err);
+                        return res.send({
+                            error: err,
+                            success: false,
+                            message: 'There was an error getting this chat chatread'
+                        })
+                    }
+                    if (!chatThreads) {
+                        res.status(404);
+                        return res.send({
+                            chatThreads,
+                            success: true,
+                            message: 'No chat was found!'
+                        })
+                    } else {
+                        res.status(200);
+                        return res.send({
+                            chatThreads,
+                            success: true,
+                            message: 'Chat found successlly'
+                        });
+                    }
+                });
+        });
+
     router.route('/users/:id/chat/:friendId')
     	.post(function(req, res, next) {
     		// Create a new chat thread

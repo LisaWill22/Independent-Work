@@ -61,7 +61,11 @@
 
 
             <!-- Upload progress bar -->
-            <div class="progress-bar progress-bar-success ng-show-fade" ng-show="progress >= 0 && uploadInProgresss" style="width:{{progress}}%" ng-bind="progress + '%'"></div>
+            <div class="progress-bar progress-bar-success ng-show-fade"
+                 ng-show="progress >= 0 && uploadInProgresss"
+                 style="width:{{progress}}%"
+                 ng-bind="progress + '%'">
+             </div>
 
             <!-- Error/Success messages -->
             <div class="alert alert-success ng-show-fade" ng-show="result && !hideSuccess">
@@ -84,7 +88,7 @@
                        type="text"
                        name="firstName"
                        id="firstName"
-                       class="form-control"
+                       class="form-control input-lg"
                        placeholder="John">
     		</div>
     		<div class="col-sm-6">
@@ -93,7 +97,7 @@
                        type="text"
                        name="lastName"
                        id="lastName"
-                       class="form-control"
+                       class="form-control input-lg"
                        placeholder="Doe">
     		</div>
     	</div>
@@ -108,7 +112,7 @@
                        type="text"
                        name="companyName"
                        id="companyName"
-                       class="form-control"
+                       class="form-control input-lg"
                        placeholder="ACME Corp.">
     		</div>
     	</div>
@@ -123,12 +127,12 @@
                        type="text"
                        name="city"
                        id="city"
-                       class="form-control"
+                       class="form-control input-lg"
                        placeholder="Cupertino">
     		</div>
     		<div class="col-sm-3">
     			<label for="state">State</label>
-                <select class="form-control"
+                <select class="form-control input-lg"
                         name="state"
                         ng-model="data.location.state"
                         ng-options="key for (key, value) in states">
@@ -136,7 +140,7 @@
     		</div>
     		<div class="col-sm-4">
     			<label for="zip">Zipcode</label>
-    			<input class="form-control"
+    			<input class="form-control input-lg"
                        name="zip"
                        id="zip"
                        ui-mask="99999"

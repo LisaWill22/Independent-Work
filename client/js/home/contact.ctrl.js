@@ -33,9 +33,9 @@ angular.module('home')
             //     html: '<b>Hello world !</b>' // html body
             // };
             $scope.data = {
-                from: 'contactFormSubmit@independentwork.com',
-                to: 'brentoneill@gmail.com',
-                // to: $scope.contactEmail,
+                from: 'contact.form.submit@independentwork.com',
+                // to: 'hello@independentwork.com',
+                to: $scope.contactEmail,
                 subject: 'You have a new contact form submission from ' + $scope.data.name,
                 text: $scope.data.message,
                 html: '<p>' + $scope.data.message + '</p>'
@@ -43,8 +43,12 @@ angular.module('home')
         };
 
         $scope.afterSubmit = function() {
-            $scope.data = {};
+            console.log($scope);
             $scope.contactForm.$setPristine();
             toastr.success('Your message was submitted successfully! Someone from IW will contact you soon.');
+
+            $timeout(function() {
+                $scope.data = {};
+            }, 250);
         };
     });

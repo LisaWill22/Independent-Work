@@ -21,7 +21,7 @@
         <div>
             <hr/>
             <a href="#"
-               ng-show="contractor && contractor._id !== currentUser._id"
+               ng-show="contractor && contractor._id !== currentUser._id && employer"
                ui-sref="app.chat.conversation({ friendId: contractor._id })"
                class="btn btn-block btn-secondary">
                <i class="fa fa-fw fa-comments"></i>

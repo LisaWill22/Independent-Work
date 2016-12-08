@@ -9,8 +9,13 @@
         <!-- MESSAGE THREADS PANE -->
         <div class="col-sm-4">
             <ul class="list-group">
-                <li class="list-group-item clearfix" ng-repeat="user in users">
-                    <a href="#" ui-sref="app.chat.list.detail({ id: user._id })">{{ user.firstName }} {{ user.lastName}}</a>
+                <li class="list-group-item clearfix" ng-repeat="thread in chatThreads">
+                    <a href="#" ui-sref="app.chat.conversation({ friendId: otherUser._id })">
+                        {{ otherUser.firstName }} {{ otherUser.lastName}}
+                    </a>
+                    <small class="text-muted block">
+                        {{ thread.chats[thread.chats.length - 1].message }}
+                    </small>
                 </li>
             </ul>
         </div>
@@ -19,7 +24,7 @@
         <div class="col-sm-8">
             <!-- CHAT MESSAGE LIST -->
             <div class="chat-container" id="chat-container">
-                <div class="panel animate-fade-in" ng-repeat="message in messages">
+                <div class="panel animate-filter-fade" ng-repeat="message in messages">
                     <div class="panel-body">
                         <h5 ng-class="{ 'text-primary': message.sender._id === currentUser._id, 'text-info': message.sender._id !== currentUser._id }">
                             {{ message.sender.firstName }} {{ message.sender.lastName }}
@@ -32,7 +37,13 @@
 
             <!-- CHAT SENDING CONTROL-->
             <textarea class="form-control chat-box" placeholder="Whatchu got to say?" rows="4" ng-model="data.message"></text-area>
-            <button class="btn btn-primary btn-block btn-lg" type="button" name="send" ng-click="sendMessage()" ng-enter="sendMessage()">SEND</button>
+            <button class="btn btn-primary btn-block btn-lg"
+                    type="button"
+                    name="send"
+                    ng-click="sendMessage()"
+                    ng-enter="sendMessage()">
+                SEND
+            </button>
         </div>
     </div>
 
