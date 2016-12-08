@@ -20,16 +20,22 @@
                 <p><small>Joined {{ reply.user._accountCreated | date:'MMM yyyy' }}</small></p>
             </div>
             <div class="col-sm-9 col-md-10 border-left">
-                <div class="post-content" ng-bind-html="reply.content"></div>
+                <div class="post-content" ng-bind-html="reply.content">
+                </div>
                 <div class="post-meta-info">
-                    <p><small>Posted on {{ reply._createdDate | date: 'mediumDate' }} {{ reply._createdDate | date: 'shortTime' }}</small></p>
+                    <p>
+                        <small>Posted on {{ reply._createdDate | date: 'mediumDate' }} {{ reply._createdDate | date: 'shortTime' }}</small>
+                        <small class="pull-right text-muted">
+                            <em>Edit {{ reply._updatedDate | date: 'mediumDate' }} {{ reply._updatedDate | date: 'shortTime' }}<em>
+                        </small>
+                    </p>
                 </div>
             </div>
         </div>
         <div class="absolute top right">
             <button class="btn btn-link lead"
                     ng-show="reply.user._id === currentUser._id"
-                    ng-click="openEditReplyModal(post)">
+                    ng-click="openEditReplyModal($index, reply)">
                 <i class="fa fa-fw fa-pencil"></i> Edit
             </button>
             <button class="btn btn-link lead"

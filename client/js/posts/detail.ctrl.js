@@ -28,6 +28,20 @@ angular.module('posts')
             });
         };
 
+        $scope.openEditReplyModal = function(index, reply) {
+            $scope.replyToEditIndex = index;
+            $scope.replyToEdit = reply;
+            $scope.editReplyModalInstance = $uibModal.open({
+                animation: true,
+                scope: $scope,
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: 'posts/views/edit-reply-modal.html',
+                controller: 'EditReplyModalCtrl',
+                size: 'md'
+            });
+        };
+
         $scope.openEditPostModal = function(post) {
             $scope.postToEdit = post;
             $scope.postModalInstance = $uibModal.open({
@@ -90,11 +104,42 @@ angular.module('posts')
         }
 
     })
-    .controller('DeleteReplyModalCtrl', function($scope, $rootScope, $uibModalInstance, $http, $q, toastr) {
+    .controller('EditReplyModalCtrl', function($scope, $uibModalInstance, $http, toastr) {
+
+        console.log('EditReplyModalCtrl >>', $scope);
+
+        console.log($scope.replyToEdit);
+
+        $scope.cancel = function() {
+            $uibModalInstance.close();
+        };
+
+        $scope.editReply = function() {
+            $scope.replyToEdit._updatedDate = new Date();
+            editReply()
+                .then(function(res) {
+                    console.log(res);
+                    toastr.success('Your reply was edit successfully.');
+                    $scope.$emit('Post:refresh');
+                    $uibModalInstance.close();
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    toastr.warning('There was an error editing your reply. Please close this window and try again.');
+                });
+        };
+
+        function editReply () {
+            return $http.put('/api/posts/' + $scope.post._id, $scope.post);
+        }
+
+    })
+    .controller('DeleteReplyModalCtrl', function($scope, $uibModalInstance, $http, toastr) {
 
         console.log('DeleteReplyModalCtrl >>', $scope);
 
-        $scope.close = function() {
+        $scope.cancel = function() {
+            console.log(close);
             $uibModalInstance.close();
         };
 
@@ -112,8 +157,7 @@ angular.module('posts')
                 });
         };
 
-        function deleteReply (index) {
-            console.log($scope.replyToDeleteIndex);
+        function deleteReply () {
             $scope.post.replies = $scope.post.replies.filter(function(reply) {
                 return !angular.equals(reply, $scope.replyToDelete);
             });
