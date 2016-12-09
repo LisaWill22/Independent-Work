@@ -13,7 +13,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "latest",
+    "angular": "1.5.9",
     "angular-ui-router": "^0.3.1",
     "bootstrap": "^3.3.7",
     "angular-animate": "^1.5.8",
