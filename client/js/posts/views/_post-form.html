@@ -36,12 +36,10 @@
                        tagging="addSkill"
                        ng-model="data.skills"
                        on-remove="onSkillRemove($item)"
+                       reset-search-input="true"
                        theme="bootstrap">
-                <ui-select-match>{{$item.name}}</ui-select-match>
-                <ui-select-choices
-                    repeat="skill in skills track by skill.name | propsFilter: { name: $select.search }"
-                    minimum-input-length="2"
-                    group-by="'category'">
+                <ui-select-match>{{ $item.name }}</ui-select-match>
+                <ui-select-choices repeat="skill in skills track by skill.name | propsFilter: { name: $select.search }">
                     <small>{{skill.name}}</small>
                 </ui-select-choices>
             </ui-select>
