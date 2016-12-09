@@ -9,8 +9,13 @@ angular.module('home', [
             .state('app.home', {
                 url: '/',
                 views: {
-                    'container': { templateUrl: 'home/views/index.html' },
-                    'top@app.home': { templateUrl: 'home/views/top.html' },
+                    'container': {
+                        templateUrl: 'home/views/index.html'
+                    },
+                    'top@app.home': {
+                        templateUrl: 'home/views/top.html',
+                        controller: 'HomeCtrl'
+                    },
                     'mission@app.home': { templateUrl: 'home/views/mission.html' },
                     'independent@app.home': { templateUrl: 'home/views/independent.html' },
                     'new_way@app.home': { templateUrl: 'home/views/new_way.html' },

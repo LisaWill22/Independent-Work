@@ -134,6 +134,10 @@ angular.module('settings')
 			}
 		};
 
+        $scope.onError = function() {
+            toastr.warning('Whoops, something went wrong...\n ' + err);
+        };
+
 		$scope.afterSubmit = function(res) {
 			$scope.$emit('Session:refresh', res.data.user);
 			toastr.success('Your profile saved successfully!');
