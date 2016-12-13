@@ -28,7 +28,6 @@ angular.module('chat')
         // Should actually get a chatThread between these two users
         $http.get('/api/users/' + $scope.currentUser._id + '/chat/' + $stateParams.friendId)
             .then(function(res) {
-                console.log(res);
                 $scope.chatThread = res.data.chatThread;
                 $timeout(function() {
                     $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 300);
@@ -36,7 +35,7 @@ angular.module('chat')
             })
             .catch(function(error) {
                 console.error(error);
-                toastr.warning('Ooops something went wrong...');
+                toastr.warning('Oops something went wrong...');
             });
 
 
@@ -97,17 +96,23 @@ angular.module('chat')
                 });
         };
 
-        $scope.enableMessageEdit = function(message) {
-
+        $scope.disableMessageEdit = function(index) {
+            $scope.editEnabled[index] = false;
         };
 
-        $scope.editChatMessage = function(chatMessage) {
-            $http.put('/api/chats/' + chatMessage._id)
+        $scope.enableMessageEdit = function(index) {
+            $scope.editEnabled[index] = true;
+        };
+
+        $scope.editChatMessage = function(chatMessage, index) {
+            chatMessage._dateUpdated = new Date();
+            $http.put('/api/chats/' + chatMessage._id, chatMessage)
                 .then(function(res) {
                     console.log(res);
                     if (res.status === 200 ) {
                         toastr.success('Your message was edited successfully!');
-
+                        console.log(res);
+                        $scope.editEnabled[index] = false;
                     } else {
                         toastr.warning('There was an error editing your message. Please try again.');
                     }
@@ -121,7 +126,6 @@ angular.module('chat')
         $scope.afterSubmit = function(res) {
             // either update the chatThread or add the new chat
             if (res.data.chat) {
-                console.log(res);
                 $scope.chatThread.chats.push(res.data.chat);
             } else if (res.data.chatThread) {
                 $scope.chatThread = res.data.chatThread;

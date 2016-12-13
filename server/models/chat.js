@@ -23,7 +23,8 @@ const chatSchema = new mongoose.Schema({
 	unread: Boolean,
 	// some meta data
 	_dateSent: Date,
-	_dateRead: Date
+	_dateRead: Date,
+    _dateUpdated: Date
 })
 
 exports.Chat = mongoose.model('Chat', chatSchema);

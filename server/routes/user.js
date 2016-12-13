@@ -369,7 +369,30 @@ const returnRouter = function(io) {
 
     router.route('/chats/:id')
         .put(function(req, res, next) {
-
+            console.log(req.body);
+            Chat.findOneAndUpdate({
+                		_id: req.params.id
+                	}, {
+                		$set: req.body
+                	}, {
+                		upsert: true,
+                		new: true
+                	}, function(err, chat) {
+                        if (!err) {
+                            res.status(200);
+                            res.send({
+                                chat,
+                                message: 'Chat updated successfully',
+                            });
+                        } else {
+                            console.log(err);
+                            res.status(404);
+                            return res.send({
+                                success: true,
+                                error: err
+                            });
+                        }
+                    });
         })
         .delete(function(req, res, next) {
             Chat.remove({ _id: req.params.id }, function(err, msg) {

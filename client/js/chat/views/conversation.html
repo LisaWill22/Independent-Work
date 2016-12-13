@@ -23,9 +23,19 @@
                         <button class="btn btn-link" ng-click="deleteChatMessage(message)">
                             <i class="fa fa-fw fa-lg fa-remove"></i>
                         </button>
-                        <button class="btn btn-link" ng-click="editChatMessage(message)">
+                        <button class="btn btn-link"
+                                ng-show="!editEnabled[$index]"
+                                ng-click="enableMessageEdit($index)">
                             <i class="fa fa-fw fa-lg fa-pencil"></i>
                         </button>
+                        <button class="btn btn-link"
+                                ng-show="editEnabled[$index]"
+                                ng-click="disableMessageEdit($index)">
+                            <i class="fa fa-fw fa-lg fa-cancel"></i>
+                        </button>
+                    </div>
+                    <div class="chat-info-wrapper ng-show-fade" ng-show="!editEnabled[$index]">
+                        <i ng-show="message._dateUpdated">Updated {{ message._dateUpdated | date:'short' }}</i>
                     </div>
                     <div class="panel-body panel-halfp panel-chat-message"
                          ng-class="{
@@ -38,9 +48,23 @@
                             <span ng-show="message.sender !== currentUser._id">
                                 {{ otherUser.firstName }} {{ otherUser.lastName }}
                             </span>
-                            <small>{{ message._dateSent | date:'short'}}</small>
+                            <small>
+                                {{ message._dateSent | date:'short' }}
+                            </small>
                         </h5>
-                        {{ message.message }}
+                        <div class="chat-message-wrapper ng-show-fade" ng-show="!editEnabled[$index]">
+                            {{ message.message }}
+                        </div>
+                        <div class="chat-edit-wrapper ng-show-fade" ng-show="editEnabled[$index]">
+                            <textarea class="form-control chat-box block no-radius-b"
+                                      rows="4"
+                                      ng-model="message.message">
+                            </text-area>
+                            <button class="btn btn-secondary btn-block btn-sm no-radius-t"
+                                    ng-click="editChatMessage(message, $index)">
+                                Edit Message
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
