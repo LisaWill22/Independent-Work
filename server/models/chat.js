@@ -12,6 +12,11 @@ const chatSchema = new mongoose.Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'User'
 	},
+    // messageThread
+    chatThread: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
 	// some message content
 	message: String,
 	// controls flagging if user has unread messages

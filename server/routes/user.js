@@ -256,15 +256,6 @@ const returnRouter = function(io) {
     				return console.log(err);
     			}
 
-    			// addChatThreadToUser(req.params.id, newChatThread._id)
-                //     .then(function(user) {
-                //         console.log(user.chats);
-                //     });
-    			// addChatThreadToUser(req.params.friendId, newChatThread._id)
-                //     .then(function(user) {
-                //         console.log(user.chats);
-                //     });
-
     			// Create the new individual chat message
                 req.body.chat.chatThread = savedChatThread._id;
     			const newChat = new Chat(req.body.chat)
@@ -376,6 +367,30 @@ const returnRouter = function(io) {
 
     	});
 
+    router.route('/chats/:id')
+        .put(function(req, res, next) {
+
+        })
+        .delete(function(req, res, next) {
+            Chat.remove({ _id: req.params.id }, function(err, msg) {
+                if (!err) {
+                    removeChatFromThread(chat._id, chat.chatThread);
+                    res.status(200);
+                    res.send({
+                        msg,
+                        message: 'Chat deleted successfully',
+                    });
+                } else {
+                    console.log(err);
+                    res.status(404);
+                    return res.send({
+                        success: true,
+                        error: err
+                    });
+                }
+            });
+        });
+
     router.route('/posts/dashboard/includes=skills,user')
         .get(function(req, res, next) {
             Post.find()
@@ -420,8 +435,7 @@ const returnRouter = function(io) {
 
     router.route('/users/:id/posts')
     	.get(function(req, res, next) {
-            console.log(req.params);
-    		Post.find({'user': req.params.id})
+    		Post.find({ 'user': req.params.id })
                 .populate('user')
                 .exec(function(err, posts) {
                     if (!err) {
@@ -440,14 +454,19 @@ const returnRouter = function(io) {
                 });
     	});
 
+    function removeChatFromThread(chatId, chatThreadId) {
+        return ChatThread.findOneAndUpdate({
+                    _id: chatThreadId
+                }, {
+                    $pull: { 'chats': chatId }
+                });
+    }
+
     function addChatThreadToUser(chatThreadId, userId) {
         return User.findOneAndUpdate({
             		_id: userId
             	}, {
-            		$push: {
-                        'messageThreads': chatThreadId,
-            			'chats': chatThreadId
-            		}
+            		$push: { 'messageThreads': chatThreadId }
             	}, {
             		upsert: true,
             		new: true

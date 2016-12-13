@@ -1,14 +1,16 @@
 'use strict';
 
 angular.module('chat')
-    .controller('ChatConversationCtrl', function($scope, $http, $stateParams, toastr, socket) {
+    .controller('ChatConversationCtrl', function($scope, $http, $stateParams, $timeout, toastr, socket) {
         console.log('ConversationCtrl ctrl loaded >>', $scope);
 
+        $scope.editEnabled = {};
+
+        // Use the socket to get private chats in real time
         socket.on('get private chat', function(message) {
-            console.log(message);
             if (message.users.indexOf($scope.currentUser._id) !== -1) {
                 $scope.chatThread.chats.push(message);
-                $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 500);
+                $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 250);
             }
         });
 
@@ -28,7 +30,9 @@ angular.module('chat')
             .then(function(res) {
                 console.log(res);
                 $scope.chatThread = res.data.chatThread;
-                $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 500);
+                $timeout(function() {
+                    $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 300);
+                }, 500)
             })
             .catch(function(error) {
                 console.error(error);
@@ -74,10 +78,50 @@ angular.module('chat')
             socket.emit('new private chat', $scope.data.chat);
         };
 
+        $scope.deleteChatMessage = function(chatMessage) {
+            $http.delete('/api/chats/' + chatMessage._id)
+                .then(function(res) {
+                    console.log(res);
+                    if (res.status == 200 ) {
+                        toastr.success('Your message was deleted successfully!');
+                        $scope.chatThread.chats = $scope.chatThread.chats.filter(function(chat) {
+                            return chat._id !== chatMessage._id;
+                        });
+                    } else {
+                        toastr.warning('There was an error deleting your message. Please try again.');
+                    }
+                })
+                .catch(function(err) {
+                    console.error(err);
+                    toastr.warning('There was an error deleting your message. Please try again.');
+                });
+        };
+
+        $scope.enableMessageEdit = function(message) {
+
+        };
+
+        $scope.editChatMessage = function(chatMessage) {
+            $http.put('/api/chats/' + chatMessage._id)
+                .then(function(res) {
+                    console.log(res);
+                    if (res.status === 200 ) {
+                        toastr.success('Your message was edited successfully!');
+
+                    } else {
+                        toastr.warning('There was an error editing your message. Please try again.');
+                    }
+                })
+                .catch(function(err) {
+                    console.error(err);
+                    toastr.warning('There was an error editing your message. Please try again.');
+                });
+        };
+
         $scope.afterSubmit = function(res) {
-            console.log(res);
             // either update the chatThread or add the new chat
             if (res.data.chat) {
+                console.log(res);
                 $scope.chatThread.chats.push(res.data.chat);
             } else if (res.data.chatThread) {
                 $scope.chatThread = res.data.chatThread;
@@ -87,6 +131,6 @@ angular.module('chat')
             $scope.data = {};
 
             // Scroll to the bottom of the chat container div
-            $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 500);
+            $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 250);
         };
     });

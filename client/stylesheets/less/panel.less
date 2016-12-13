@@ -1,81 +1,123 @@
 .panel-less-pad {
-    padding: 5px;
+	padding: 5px;
 }
 
 .panel-align-top {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .panel-post {
-    &:first-child {
-        border-top: 0;
-    }
-    position: relative;
-    margin-bottom: 15px;
-    border-left: 0;
-    border-right: 0;
-    border-radius: 0;
-    border-color: lighten(@gray-lighter, 20%);
+	position: relative;
+	margin-bottom: 15px;
+	border-color: lighten(@gray-lighter, 20%);
+	border-right: 0;
+	border-left: 0;
+	border-radius: 0;
+	&:first-child {
+		border-top: 0;
+	}
 
-    .label-primary {
-        margin-right: 2px;
-    }
-    .media-body {
-        padding-left: @padding-large-horizontal;
-    }
+	.label-primary {
+		margin-right: 2px;
+	}
 
-    .reply-wrapper {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-    }
+	.media-body {
+		padding-left: @padding-large-horizontal;
+	}
+
+	.reply-wrapper {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
 }
 
 .panel-heading {
-    .label {
-        margin-right: 4px;
-        &:last-child {
-            margin-right: 0;
-        }
-    }
+	.label {
+		margin-right: 4px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
 }
 
 .panel-footer {
-    background-color: #ffffff;
+	background-color: #ffffff;
 }
 
 .panel-post-stats {
-    min-width: 220px;
-}
-
-@media screen and (min-width: @screen-md-min) {
-    .panel-post-stats {
-        min-width: 262.5px;
-    }
-    .panel-body {
-        padding: 30px;
-    }
-}
-
-@media screen and (max-width: @screen-md-min) {
-    .panel-body {
-        padding: 15px;
-    }
-    .img-lg {
-        max-width: 180px;
-        max-height: 180px;
-        width: 180px;
-        height: 180px;
-    }
+	min-width: 220px;
 }
 
 .chat-wrapper {
-    padding-left: @padding-base-horizontal;
-    padding-right: @padding-base-horizontal;
-    max-height: 400px;
-    overflow-y: scroll;
+	overflow-y: scroll;
+	padding-right: @padding-base-horizontal;
+	padding-left: @padding-base-horizontal;
+	max-height: 400px;
 }
 
 .panel-chat-message {
-    padding: 8px;
+	padding: 8px;
+}
+
+.panel-chat {
+	position: relative;
+
+	&:hover {
+		.chat-control-buttons {
+			opacity: 1;
+		}
+	}
+
+	.chat-control-buttons {
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		opacity: 0;
+		transition: all 0.25s ease-out;
+        .btn-link {
+            display: block;
+            padding: 4px;
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+		i.fa {
+			opacity: 0.5;
+			transition: all 0.25s ease-out;
+            &:hover {
+                opacity: 1;
+            }
+		}
+
+		.fa-remove {
+			color: @brand-danger;
+		}
+
+		.fa-pencil {
+			color: @brand-info;
+		}
+	}
+}
+@media screen and (min-width: @screen-md-min) {
+	.panel-post-stats {
+		min-width: 262.5px;
+	}
+
+	.panel-body {
+		padding: 30px;
+	}
+}
+@media screen and (max-width: @screen-md-min) {
+	.panel-body {
+		padding: 15px;
+	}
+
+	.img-lg {
+		max-width: 180px;
+		max-height: 180px;
+		width: 180px;
+		height: 180px;
+	}
 }

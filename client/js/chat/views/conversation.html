@@ -18,7 +18,15 @@
         <!-- CHAT MESSAGES -->
         <div class="chat-wrapper" id="chat-container">
             <div class="ng-show-fade" ng-show="chatThread && chatThread.chats.length">
-                <div class="panel animate-fade-in" ng-repeat="message in chatThread.chats">
+                <div class="panel panel-chat animate-fade-in" ng-repeat="message in chatThread.chats">
+                    <div class="chat-control-buttons" ng-show="message.sender === currentUser._id">
+                        <button class="btn btn-link" ng-click="deleteChatMessage(message)">
+                            <i class="fa fa-fw fa-lg fa-remove"></i>
+                        </button>
+                        <button class="btn btn-link" ng-click="editChatMessage(message)">
+                            <i class="fa fa-fw fa-lg fa-pencil"></i>
+                        </button>
+                    </div>
                     <div class="panel-body panel-halfp panel-chat-message"
                          ng-class="{
                              'text-right sender': message.sender === currentUser._id,
