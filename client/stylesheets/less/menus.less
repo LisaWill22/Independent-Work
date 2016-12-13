@@ -2,7 +2,19 @@
 	cursor: pointer;
 }
 
+.open > .dropdown-menu {
+	visibility: visible;
+	opacity: 1;
+}
+
 .dropdown-menu {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 500ms ease, visibility 500ms ease;
+    -moz-transition: opacity 500ms ease, visibility 500ms ease;
+    -o-transition: opacity 500ms ease, visibility 500ms ease;
+    transition: opacity 500ms ease, visibility 500ms ease;
 	li {
 		transition: all 0.2s ease-out;
 
@@ -101,19 +113,4 @@
 	.arrow {
 		right: 13px !important;
 	}
-}
-
-.open > .dropdown-menu {
-	visibility: visible;
-	opacity: 1;
-}
-
-.dropdown-menu {
-	display: block;
-	visibility: hidden;
-	opacity: 0;
-	-webkit-transition: opacity 500ms ease, visibility 500ms ease;
-	-moz-transition: opacity 500ms ease, visibility 500ms ease;
-	-o-transition: opacity 500ms ease, visibility 500ms ease;
-	transition: opacity 500ms ease, visibility 500ms ease;
 }

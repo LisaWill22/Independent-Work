@@ -369,7 +369,6 @@ const returnRouter = function(io) {
 
     router.route('/chats/:id')
         .put(function(req, res, next) {
-            console.log(req.body);
             Chat.findOneAndUpdate({
                 		_id: req.params.id
                 	}, {

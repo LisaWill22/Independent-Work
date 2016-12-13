@@ -108,10 +108,8 @@ angular.module('chat')
             chatMessage._dateUpdated = new Date();
             $http.put('/api/chats/' + chatMessage._id, chatMessage)
                 .then(function(res) {
-                    console.log(res);
                     if (res.status === 200 ) {
                         toastr.success('Your message was edited successfully!');
-                        console.log(res);
                         $scope.editEnabled[index] = false;
                     } else {
                         toastr.warning('There was an error editing your message. Please try again.');
