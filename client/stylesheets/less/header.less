@@ -23,7 +23,12 @@ header {
 			margin-right: @padding-large-horizontal;
 			color: @brand-primary;
 			transition: all 0.3s ease-in-out;
-            
+            margin-top: 15px;
+
+            &.dropdown-toggle {
+                margin-top: 0;
+            }
+
 			&.btn-link {
 				&:focus,
 				&:hover {
@@ -79,9 +84,11 @@ header {
 				}
 			}
 
-			.btn-default {
-				color: @text-color;
-			}
+            .user-menu {
+                li a.btn-default {
+                    color: @text-color;
+                }
+            }
 
 			.btn {
 				padding-top: 3px;

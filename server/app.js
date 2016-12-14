@@ -17,6 +17,7 @@ const session = require('express-session');
 const passport = require('passport');
 const http = require('http');
 const chalk = require('chalk');
+const mailer = require('./services/mailer');
 
 // Set up the deps
 const debug = require('debug')('independent-work-front:server');
@@ -89,14 +90,21 @@ io.on('connection', function(socket) {
     // Fired on connection from client
     socket.on('subscribe', function(id) {
         userId = id;
+        console.log(id);
         // join a room with their id
         socket.join(id);
+        console.log(io.sockets.adapter.rooms[id]);
     });
 
     // Listen for a new chat being created
     socket.on('new private chat', function(data) {
-        // Send the message out to the receiver
-        socket.broadcast.emit('get private chat', data).in(data.receiver);
+        if (io.sockets.adapter.rooms[data.receiver] && io.sockets.adapter.rooms[data.receiver].length >= 1) {
+            // Send the message out to the receiver if they are online
+            socket.broadcast.emit('get private chat', data).in(data.receiver);
+        } else {
+            // Send the user an email notification if they aren't online
+            mailer.sendEmailNotification(data);
+        }
     });
 
     // Event that fires when a user in the client disconnectsion
