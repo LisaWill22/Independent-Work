@@ -9,33 +9,10 @@ const Chat = require('../models/chat').Chat;
 
 // Bring in nodemailer
 const nodemailer = require('nodemailer');
-// const sgTransport = require('nodemailer-sendgrid-transport');
-// const ses = require('nodemailer-ses-transport');
-// const mandrillTransport = require('nodemailer-mandrill-transport');
 
 // SMPT transporter
 let smtpString = `smtps://${process.env.GMAIL_USER}%40gmail.com:${process.env.GMAIL_PASS}@smtp.gmail.com`
 let transporterSMTP = nodemailer.createTransport(smtpString);
-
-// // AWS Transporter
-// let transporterAWS = nodemailer.createTransport(ses({
-//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-// }));
-//
-// // Mandrill Transporter
-// let transporterMandrill = nodemailer.createTransport(mandrillTransport({
-//     auth: {
-//         apiKey: process.env.MANDRILL_API_KEY
-//     }
-// }));
-//
-// // SendGrid Transporter
-// let transporterSG = nodemailer.createTransport(sgTransport({
-//     auth: {
-//         api_key: process.env.SENDGRID_API_KEY
-//     }
-// }));
 
 const mailer = {
 
