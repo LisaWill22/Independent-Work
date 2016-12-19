@@ -12,6 +12,15 @@ const Grid = require('gridfs-stream');
 const GridFS = Grid(mongoose.connection.db, mongoose.mongo);
 const formidable = require('formidable');
 const io = require('socket.io-emitter');
+const _ = require('lodash');
+
+// Set up elastic search
+const elasticsearch = require('elasticsearch');
+const client = new elasticsearch.Client({
+	host: process.env.SEARCHBOX_SSL_URL,
+	log: 'trace'
+});
+
 
 const returnRouter = function(io) {
 
@@ -19,6 +28,7 @@ const returnRouter = function(io) {
     	.put(function(req, res, next) {
     		delete req.body._id;
     		delete req.body.__v;
+            req.body._lastUpdated = new Date();
     		User.findOneAndUpdate({
     			_id: req.params.id
     		}, {

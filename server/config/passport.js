@@ -100,9 +100,14 @@ module.exports = function(passport) {
 						newUser.save(function(err, user) {
 							if (err)
 								throw err;
-                            if (req.body.contractor) {
-                                esHelper.createIndex(user);
-                            }
+							if (req.body.contractor) {
+								/* Document indexation on going */
+								doc.on('es-indexed', function(err, res) {
+									if (err) throw err;
+									/* Document is indexed */
+									console.log(res);
+								});
+							}
 							return done(null, user, {
 								message: 'User successfully created with email: ' + email
 							});
@@ -138,40 +143,19 @@ module.exports = function(passport) {
 
 				// if the user is found but the password is wrong
 				if (!user.validPassword(password)) {
-                    console.log('found user, bad pass');
-                    return done(null, false, {
-    					message: 'Oops wrong password'
-    				});
-                }
+					console.log('found user, bad pass');
+					return done(null, false, {
+						message: 'Oops wrong password'
+					});
+				}
 
-                // if no user is found, return the message
-                if (!user) {
-                    console.log(chalk.yellow('No user found for ', email));
-                    return done(null, false, {
-                        message: 'No user found'
-                    });
-                }
-
-                if (user && user.roles && user.roles.length && user.roles.indexOf('contractor') >= 0) {
-                    // Creates a user to index
-                    const newUser = user;
-                    newUser.toJSON();
-                    console.log(newUser);
-                    // client.index({
-                    //     index: 'users',
-                    //     type: 'user',
-                    //     id: user._id.toString(),
-                    //     body: newUser
-                    // }, function(error, response) {
-                    //     if (error) {
-                    //         console.log(error);
-                    //     } else {
-                    //         console.log('success');
-                    //         console.log(response);
-                    //     }
-                    //
-                    // });
-                }
+				// if no user is found, return the message
+				if (!user) {
+					console.log(chalk.yellow('No user found for ', email));
+					return done(null, false, {
+						message: 'No user found'
+					});
+				}
 
 				// all is well, return successful user
 				return done(null, user);

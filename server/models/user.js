@@ -3,10 +3,24 @@ const bcrypt = require('bcrypt');
 const mongoosastic = require('mongoosastic');
 const Schema = mongoose.Schema;
 
+// Set up elastic search
+const elasticsearch = require('elasticsearch');
+const client = new elasticsearch.Client({
+	host: process.env.SEARCHBOX_SSL_URL,
+	log: 'trace'
+});
+
 const userSchema = new mongoose.Schema({
     local :{
-        email: String,
+        email: {
+            type:String,
+            es_indexed: true
+        },
         password: String
+    },
+    bio: {
+        type:String,
+        es_indexed: true
     },
     image: Object,
     chats: [
@@ -16,18 +30,40 @@ const userSchema = new mongoose.Schema({
         }
     ],
     showEmail: Boolean,
-    firstName: String,
-    lastName: String,
-    location: {
-        city: String,
-        state: String,
-        zipcode: String
+    firstName: {
+        type:String,
+        es_indexed: true
     },
-    phone: String,
+    lastName: {
+        type:String,
+        es_indexed: true
+    },
+    location: {
+        city: {
+            type:String,
+            es_indexed: true
+        },
+        state: {
+            type:String,
+            es_indexed: true
+        },
+        zipcode: {
+            type:String,
+            es_indexed: true
+        },
+    },
+    phone: {
+        type:String,
+        es_indexed: true
+    },
     roles: Array,           // Possible values: 'contractor', 'hirer', 'admin'
-    skills: Array,
+    skills: {
+        type:Array,
+        es_indexed: true
+    },
     posts: Array,        // Array of ids from the Postings collection
     // Meta data
+    _lastUpdated: Date,
     _accountCreated: Date,
     _resetPasswordToken: String,
     _resetPasswordExpires: Date
@@ -43,9 +79,9 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
-const User = mongoose.model('User', userSchema);
-
 // Set up the auto indexing
-userSchema.plugin(mongoosastic)
+userSchema.plugin(mongoosastic, {
+    esClient: client
+});
 
-exports.User = User;
+exports.User = mongoose.model('User', userSchema);

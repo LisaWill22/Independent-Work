@@ -6,7 +6,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user').User;
 
-
 // Set up elastic search
 const elasticsearch = require('elasticsearch');
 const client = new elasticsearch.Client({
