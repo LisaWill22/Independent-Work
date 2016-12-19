@@ -6,6 +6,9 @@ angular.module('dashboard')
 
         $rootScope.hideFooter = true;
 
+        $scope.filtersCollapsed = true;
+        $scope.data = {};
+
         // Load in postings
         if ($scope.contractor) {
             $scope.loading = true;
@@ -22,6 +25,19 @@ angular.module('dashboard')
             $scope.loading = true;
             getPosts();
         });
+
+        $scope.doSearch = function() {
+            console.log('trying to serach');
+            console.log($scope.data.query);
+
+            $http.get('/api/search/contractors?query=' + $scope.data.query)
+                .then(function(res) {
+                    console.log(res);
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+        };
 
         function getPosts() {
             return $http.get('/api/posts/dashboard/includes=skills,user')

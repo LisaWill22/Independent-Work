@@ -47,7 +47,7 @@ module.exports = function(app, passport) {
 			req.logout();
 			res.redirect('/');
 		});
-``
+
 	router.route('/change-password')
 	 	.post(function(req, res, next) {
 			const oldPassword = req.body.oldPassword;

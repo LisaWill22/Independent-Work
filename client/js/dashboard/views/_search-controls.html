@@ -1,0 +1,38 @@
+<div class="search-controls">
+    <!-- Search bar -->
+	<div class="row">
+		<div class="col-xs-12">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text"
+                           ng-model="data.query"
+                           ng-enter="doSearch()"
+                           class="form-control input-lg"
+                           placeholder="Search contractors..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg"
+                                ng-click="doSearch()">
+                            <i class="fa fa-fw fa-lg fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+		</div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-xs-12">
+            <button type="button"
+                    class="btn btn-default"
+                    ng-click="filtersCollapsed = !filtersCollapsed">
+                    {{ filtersCollapsed ? 'Open filters' : 'Close filters '}}
+            </button>
+        </div>
+    </div>
+    <div class="" uib-collapse="filtersCollapsed">
+        <div class="row">
+            <div class="col-xs-12">
+                <h5> filters go here </h5>
+            </div>
+        </div>
+    </div> -->
+</div>

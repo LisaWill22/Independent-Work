@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const mongoosastic = require('mongoosastic');
 const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
@@ -42,4 +43,9 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 
-exports.User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+// Set up the auto indexing
+userSchema.plugin(mongoosastic)
+
+exports.User = User;

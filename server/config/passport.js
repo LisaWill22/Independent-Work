@@ -8,6 +8,18 @@ var chalk = require('chalk');
 // load up the user model
 var User = require('../models/user').User;
 
+const _ = require('lodash');
+
+// Set up elastic search
+const elasticsearch = require('elasticsearch');
+const client = new elasticsearch.Client({
+	host: process.env.SEARCHBOX_SSL_URL,
+	log: 'trace'
+});
+
+// bring in the elastic search index helper
+var esHelper = require('../helpers/elasticsearch')(client);
+
 // export this function to our app using module.exports
 module.exports = function(passport) {
 
@@ -85,10 +97,13 @@ module.exports = function(passport) {
 						newUser.showEmail = true;
 
 						// save the user
-						newUser.save(function(err) {
+						newUser.save(function(err, user) {
 							if (err)
 								throw err;
-							return done(null, newUser, {
+                            if (req.body.contractor) {
+                                esHelper.createIndex(user);
+                            }
+							return done(null, user, {
 								message: 'User successfully created with email: ' + email
 							});
 						});
@@ -121,21 +136,41 @@ module.exports = function(passport) {
 					return done(err);
 				}
 
-				// if no user is found, return the message
-				if (!user) {
-					console.log(chalk.yellow('No user found for ', email));
-					return done(null, false, {
-						message: 'No user found'
-					});
-
-				}
-
 				// if the user is found but the password is wrong
 				if (!user.validPassword(password)) {
                     console.log('found user, bad pass');
                     return done(null, false, {
     					message: 'Oops wrong password'
     				});
+                }
+
+                // if no user is found, return the message
+                if (!user) {
+                    console.log(chalk.yellow('No user found for ', email));
+                    return done(null, false, {
+                        message: 'No user found'
+                    });
+                }
+
+                if (user && user.roles && user.roles.length && user.roles.indexOf('contractor') >= 0) {
+                    // Creates a user to index
+                    const newUser = user;
+                    newUser.toJSON();
+                    console.log(newUser);
+                    // client.index({
+                    //     index: 'users',
+                    //     type: 'user',
+                    //     id: user._id.toString(),
+                    //     body: newUser
+                    // }, function(error, response) {
+                    //     if (error) {
+                    //         console.log(error);
+                    //     } else {
+                    //         console.log('success');
+                    //         console.log(response);
+                    //     }
+                    //
+                    // });
                 }
 
 				// all is well, return successful user

@@ -4,7 +4,7 @@
 require('dotenv').config();
 
 // setup monitoring
-require('newrelic');
+// require('newrelic');
 
 // Bring in deps
 const express = require('express');
@@ -17,6 +17,8 @@ const session = require('express-session');
 const passport = require('passport');
 const http = require('http');
 const chalk = require('chalk');
+
+// Bring in the mail to send an email notifcation
 const mailer = require('./services/mailer');
 
 // Set up the deps
@@ -26,6 +28,7 @@ const debug = require('debug')('independent-work-front:server');
 const Chat = require('./models/chat').Chat;
 const Skill = require('./models/skill').Skill;
 const User = require('./models/skill').User;
+const esSyncConfig = require('./config/elasticsearch-sync');
 
 // Bring in the passport configs (for auth)
 require('./config/passport')(passport);
@@ -36,7 +39,7 @@ const app = express();
 require('./db')(app);
 
 // Get the port and set it
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 app.set('port', port);
 
 // view engine setup
@@ -45,22 +48,24 @@ app.set('view engine', 'jade');
 
 // Set up basic express app stuffs
 app.use(logger('dev'));
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.json({
+	limit: '50mb'
+}));
 app.use(bodyParser.urlencoded({
 	extended: false,
-    limit: '50mb'
+	limit: '50mb'
 }));
 app.use(cookieParser());
 
 // Required for passport
 app.use(session({
-    secret: 'ssshhhhh',
-    // Connect express to redis
-    // store: new RedisStore({
-    //     url: process.env.REDIS_URL
-    // }),
-    saveUninitialized: false,
-    resave: false
+	secret: 'ssshhhhh',
+	// Connect express to redis
+	// store: new RedisStore({
+	//     url: process.env.REDIS_URL
+	// }),
+	saveUninitialized: false,
+	resave: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -83,52 +88,54 @@ app.set('socketio', io);
 // Event that handles when a user in the client connects,
 io.on('connection', function(socket) {
 
-    socket.join('general');
+	socket.join('general');
 
-    let userId;
+	let userId;
 
-    // Fired on connection from client
-    socket.on('subscribe', function(id) {
-        userId = id;
-        console.log(id);
-        // join a room with their id
-        socket.join(id);
-        console.log(io.sockets.adapter.rooms[id]);
-    });
+	// Fired on connection from client
+	socket.on('subscribe', function(id) {
+		userId = id;
+		console.log(id);
+		// join a room with their id
+		socket.join(id);
+		console.log(io.sockets.adapter.rooms[id]);
+	});
 
-    // Listen for a new chat being created
-    socket.on('new private chat', function(data) {
-        if (io.sockets.adapter.rooms[data.receiver] && io.sockets.adapter.rooms[data.receiver].length >= 1) {
-            // Send the message out to the receiver if they are online
-            socket.broadcast.emit('get private chat', data).in(data.receiver);
-        } else {
-            // Send the user an email notification if they aren't online
-            mailer.sendEmailNotification(data);
-        }
-    });
+	// Listen for a new chat being created
+	socket.on('new private chat', function(data) {
+		if (io.sockets.adapter.rooms[data.receiver] && io.sockets.adapter.rooms[data.receiver].length >= 1) {
+			// Send the message out to the receiver if they are online
+			socket.broadcast.emit('get private chat', data).in(data.receiver);
+		} else {
+			// Send the user an email notification if they aren't online
+			mailer.sendEmailNotification(data);
+		}
+	});
 
-    // Event that fires when a user in the client disconnectsion
-    socket.on('disconnect', function(){
-        socket.leave(userId);
-        socket.leave('general');
-    });
+	// Event that fires when a user in the client disconnectsion
+	socket.on('disconnect', function() {
+		socket.leave(userId);
+		socket.leave('general');
+	});
 });
 
-
-// Bringi all the routes
+// Bring in all the routes
 const routes = require('./routes');
 const userRoutes = require('./routes/user')(io);
 const apiRoutes = require('./routes/crudApi');
 const mailRoutes = require('./routes/mail');
+const searchRoutes = require('./routes/search');
 
-// Bring in routes
+// Assign routes
 app.use(routes);
 app.use('/api', apiRoutes);
 app.use('/api', userRoutes);
 app.use('/mail', mailRoutes);
+app.use('/api', searchRoutes);
 
 // Set up the static directory from which we are serving files
 app.use(express.static(path.join(__dirname, '../client')));
+
 
 // Set up some basic server stuff - error handler and listener handler
 server.listen(port);
