@@ -27,15 +27,18 @@ angular.module('dashboard')
         });
 
         $scope.doSearch = function() {
-            console.log('trying to serach');
-            console.log($scope.data.query);
-
             $http.get('/sapi/search/contractors?query=' + $scope.data.query)
                 .then(function(res) {
                     console.log(res);
+                    if (res.data.users && res.data.users.length) {
+                        $scope.items = _.filter(res.data.users, function(user) {
+                            return user.roles && user.roles.indexOf('contractor') !== -1;
+                        });
+                    }
                 })
                 .catch(function(err) {
                     console.log(err);
+                    toastr.warning('Dang boss! Something went wrong...');
                 });
         };
 
