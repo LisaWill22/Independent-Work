@@ -4,7 +4,7 @@
 require('dotenv').config();
 
 // setup monitoring
-// require('newrelic');
+require('newrelic');
 
 // Bring in deps
 const express = require('express');
@@ -17,6 +17,7 @@ const session = require('express-session');
 const passport = require('passport');
 const http = require('http');
 const chalk = require('chalk');
+const pug = require('pug');
 
 // Bring in the mail to send an email notifcation
 const mailer = require('./services/mailer');
@@ -38,12 +39,12 @@ const app = express();
 require('./db')(app);
 
 // Get the port and set it
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 app.set('port', port);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 // Set up basic express app stuffs
 app.use(logger('dev'));
@@ -130,7 +131,7 @@ app.use(routes);
 app.use('/api', apiRoutes);
 app.use('/api', userRoutes);
 app.use('/mail', mailRoutes);
-app.use('/api', searchRoutes);
+app.use('/sapi', searchRoutes);
 
 // Set up the static directory from which we are serving files
 app.use(express.static(path.join(__dirname, '../client')));

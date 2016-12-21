@@ -30,7 +30,7 @@ angular.module('dashboard')
             console.log('trying to serach');
             console.log($scope.data.query);
 
-            $http.get('/api/search/contractors?query=' + $scope.data.query)
+            $http.get('/sapi/search/contractors?query=' + $scope.data.query)
                 .then(function(res) {
                     console.log(res);
                 })

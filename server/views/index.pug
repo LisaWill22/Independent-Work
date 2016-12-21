@@ -3,29 +3,29 @@ html
     head
         title= title
         meta(charset='utf-8')
-        
+
         // TODO: Should be imported as fonts via less compilation
         link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Open+Sans:300,400|RaleWay:300,400,700')
         // Our custom styles, in one sheet
         link(rel='stylesheet', href='stylesheets/style.css')
-        
+
         // For SEO purposes
         //- base(href="/")
     body(ng-app='independent-work-app' autoscroll="true")
-        
+
         // Preloader
         div.preloader#home-loading
             div.loader-container
                 div.text-logo Independent Work
                 div.signal
-    
+
         // App View
         div(ui-view class="height-100" autoscroll="true" id="app-container")
-        
+
         //
         // SCRIPTS
         //
-        
+
         // Jquery/Bootstrap deps
         script(src='bower_components/jquery/dist/jquery.js')
         script(src='bower_components/lodash/dist/lodash.js')
@@ -33,14 +33,14 @@ html
         script(src='bower_components/wow/dist/wow.js')
         script(src='bower_components/moment/moment.js')
         script(src='bower_components/ajaxchimp/jquery.ajaxchimp.js')
-        
+
         // Core angular
         script(src='bower_components/angular/angular.js')
         script(src='bower_components/tinymce/tinymce.js')
         script(src='bower_components/angular-messages/angular-messages.js')
         script(src='bower_components/angular-animate/angular-animate.js')
         script(src='bower_components/angular-sanitize/angular-sanitize.js')
-        
+
         // Third party goodies
         script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
         script(src='bower_components/angular-toastr/dist/angular-toastr.js')
@@ -70,7 +70,7 @@ html
         script(src='js/directives/filters.js')
         script(src='js/directives/values.js')
         script(src='js/directives/form.js')
-        
+
         script(src='js/controllers/create-post.modal.ctrl.js')
         script(src='js/controllers/add-mailchimp.modal.ctrl.js')
 
@@ -96,22 +96,22 @@ html
 
         script(src='js/dashboard/dashboard.js')
         script(src='js/dashboard/dashboard.ctrl.js')
-        
+
         script(src='js/posts/posts.js')
         script(src='js/posts/posts.ctrl.js')
         script(src='js/posts/detail.ctrl.js')
-        
+
         script(src='js/contractors/contractors.js')
         script(src='js/contractors/contractors.ctrl.js')
         script(src='js/contractors/profile.ctrl.js')
-        
+
         script(src='js/settings/settings.js')
         script(src='js/settings/settings.ctrl.js')
         script(src='js/settings/profile.ctrl.js')
         script(src='js/settings/account.ctrl.js')
         script(src='js/settings/messaging.ctrl.js')
         script(src='js/settings/posts.ctrl.js')
-        
+
         script(src='js/chat/chat.js')
         script(src='js/chat/chat.ctrl.js')
         script(src='js/chat/chat.list.ctrl.js')

@@ -18,12 +18,17 @@ esClient.ping({
 	}
 });
 
-const returnRouter = function() {
+router.route('/search/contractors')
+	.get(function(req, res, next) {
+		esClient.search({
+			q: req.query.query
+		}).then(function(body) {
+			res.status(200);
+			res.send(body);
+		}, function(err) {
+			res.status(404);
+			res.send(err);
+		})
+	});
 
-	router.route('/search/contractors')
-		.get(function(req, res, next) {
-			console.log(req.query);
-		});
-}
-
-module.exports = returnRouter;
+module.exports = router;
