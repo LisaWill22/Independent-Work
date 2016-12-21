@@ -14,14 +14,6 @@ const formidable = require('formidable');
 const io = require('socket.io-emitter');
 const _ = require('lodash');
 
-// Set up elastic search
-const elasticsearch = require('elasticsearch');
-const client = new elasticsearch.Client({
-	host: process.env.SEARCHBOX_SSL_URL,
-	log: 'trace'
-});
-
-
 const returnRouter = function(io) {
 
     router.route('/users/:id')

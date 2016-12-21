@@ -1,24 +1,11 @@
 // passport.js config
 
 // load up the auth strategies we want to use
-var LocalStrategy = require('passport-local').Strategy;
-
-var chalk = require('chalk');
+const LocalStrategy = require('passport-local').Strategy;
+const chalk = require('chalk');
 
 // load up the user model
-var User = require('../models/user').User;
-
-const _ = require('lodash');
-
-// Set up elastic search
-const elasticsearch = require('elasticsearch');
-const client = new elasticsearch.Client({
-	host: process.env.SEARCHBOX_SSL_URL,
-	log: 'trace'
-});
-
-// bring in the elastic search index helper
-var esHelper = require('../helpers/elasticsearch')(client);
+const User = require('../models/user').User;
 
 // export this function to our app using module.exports
 module.exports = function(passport) {
@@ -141,19 +128,19 @@ module.exports = function(passport) {
 					return done(err);
 				}
 
-				// if the user is found but the password is wrong
-				if (!user.validPassword(password)) {
-					console.log('found user, bad pass');
-					return done(null, false, {
-						message: 'Oops wrong password'
-					});
-				}
-
 				// if no user is found, return the message
 				if (!user) {
 					console.log(chalk.yellow('No user found for ', email));
 					return done(null, false, {
 						message: 'No user found'
+					});
+				}
+
+				// if the user is found but the password is wrong
+				if (!user.validPassword(password)) {
+					console.log('found user, bad pass');
+					return done(null, false, {
+						message: 'Oops wrong password'
 					});
 				}
 

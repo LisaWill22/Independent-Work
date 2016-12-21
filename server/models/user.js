@@ -1,14 +1,10 @@
+'use strict';
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const mongoosastic = require('mongoosastic');
 const Schema = mongoose.Schema;
-
-// Set up elastic search
-const elasticsearch = require('elasticsearch');
-const client = new elasticsearch.Client({
-	host: process.env.SEARCHBOX_SSL_URL,
-	log: 'trace'
-});
+const esClient = require('../config/es');
 
 const userSchema = new mongoose.Schema({
     local :{
@@ -81,7 +77,7 @@ userSchema.methods.validPassword = function(password) {
 
 // Set up the auto indexing
 userSchema.plugin(mongoosastic, {
-    esClient: client
+    esClient
 });
 
 exports.User = mongoose.model('User', userSchema);

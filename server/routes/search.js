@@ -5,16 +5,10 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const User = require('../models/user').User;
-
-// Set up elastic search
-const elasticsearch = require('elasticsearch');
-const client = new elasticsearch.Client({
-	host: process.env.SEARCHBOX_SSL_URL,
-	log: 'trace'
-});
+const esClient = require('../config/es');
 
 // ping es to see if its working
-client.ping({
+esClient.ping({
 	requestTimeout: 30000,
 }, function(error) {
 	if (error) {

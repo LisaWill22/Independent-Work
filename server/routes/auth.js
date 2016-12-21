@@ -15,6 +15,7 @@ require('dotenv').config();
 // Bring in nodemailer
 const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
+
 // SMPT transporter
 const smtpString = `smtps://${process.env.GMAIL_USER}%40gmail.com:${process.env.GMAIL_PASS}@smtp.gmail.com`;
 const transporterSMTP = nodemailer.createTransport(smtpString);

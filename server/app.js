@@ -28,7 +28,6 @@ const debug = require('debug')('independent-work-front:server');
 const Chat = require('./models/chat').Chat;
 const Skill = require('./models/skill').Skill;
 const User = require('./models/skill').User;
-const esSyncConfig = require('./config/elasticsearch-sync');
 
 // Bring in the passport configs (for auth)
 require('./config/passport')(passport);
