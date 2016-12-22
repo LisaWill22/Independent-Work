@@ -52,7 +52,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         es_indexed: true
     },
-    roles: Array,           // Possible values: 'contractor', 'hirer', 'admin'
+    roles: {
+        type: Array,           // Possible values: 'contractor', 'hirer', 'admin'
+        es_indexed: true
+    },
     skills: {
         type:Array,
         es_indexed: true

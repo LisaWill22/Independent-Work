@@ -32,6 +32,7 @@ router.route('/search/contractors')
 						} else {
 							res.status(200);
 							res.send({
+								query: req.query.query,
 								success:true,
 								total: users.length,
 								users
