@@ -26,7 +26,7 @@ angular.module('dashboard')
                 .then(function(res) {
                     if (res.data.users && res.data.users.length) {
                         $scope.items = _.filter(res.data.users, function(user) {
-                            return user.roles && user.roles.indexOf('contractor') !== -1;
+                            return user.roles && user.roles.indexOf('contractor') !== -1 && user.firstName;
                         });
                     } else {
                         $scope.items = null;
