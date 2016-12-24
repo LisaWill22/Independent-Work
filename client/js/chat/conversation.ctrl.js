@@ -5,6 +5,8 @@ angular.module('chat')
         console.log('ConversationCtrl ctrl loaded >>', $scope);
 
         $scope.editEnabled = {};
+        $scope.data = {};
+        $scope.loading = true;
 
         // Use the socket to get private chats in real time
         socket.on('get private chat', function(message) {
@@ -29,9 +31,10 @@ angular.module('chat')
         $http.get('/api/users/' + $scope.currentUser._id + '/chat/' + $stateParams.friendId)
             .then(function(res) {
                 $scope.chatThread = res.data.chatThread;
+                $scope.loading = false;
                 $timeout(function() {
                     $("#chat-container").animate({ scrollTop: $('#chat-container')[0].scrollHeight}, 300);
-                }, 500)
+                }, 500);
             })
             .catch(function(error) {
                 console.error(error);

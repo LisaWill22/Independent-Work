@@ -16,5 +16,4 @@ module.exports = function(app) {
     	const gfs = Grid(connection.db);
     	app.set('gridfs', gfs);
     });
-
 };

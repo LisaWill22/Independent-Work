@@ -15,6 +15,9 @@ require('dotenv').config();
 // Bring in nodemailer
 const nodemailer = require('nodemailer');
 const sgTransport = require('nodemailer-sendgrid-transport');
+// Bring in the mail to send an email notifcation
+const mailer = require('../services/mailer');
+
 // SMPT transporter
 const smtpString = `smtps://${process.env.GMAIL_USER}%40gmail.com:${process.env.GMAIL_PASS}@smtp.gmail.com`;
 const transporterSMTP = nodemailer.createTransport(smtpString);
@@ -33,12 +36,14 @@ module.exports = function(app, passport) {
 		.post(passport.authenticate('local-signup', {}), function(req, res, next) {
 			if (req.user) {
 				console.log(chalk.green('New user created for >> ', req.user.local.email));
+				mailer.signupNotification(req.user);
 				res.json(req.user);
 			} else {
 				console.log(chalk.red('Account already exists for >>', req.user.local.email));
+				res.status(401);
 				res.send({
 					message: 'Sorry, that email already has an account registed with this app'
-				})
+				});
 			}
 		});
 
@@ -47,7 +52,7 @@ module.exports = function(app, passport) {
 			req.logout();
 			res.redirect('/');
 		});
-``
+
 	router.route('/change-password')
 	 	.post(function(req, res, next) {
 			const oldPassword = req.body.oldPassword;

@@ -1,12 +1,11 @@
 // passport.js config
 
 // load up the auth strategies we want to use
-var LocalStrategy = require('passport-local').Strategy;
-
-var chalk = require('chalk');
+const LocalStrategy = require('passport-local').Strategy;
+const chalk = require('chalk');
 
 // load up the user model
-var User = require('../models/user').User;
+const User = require('../models/user').User;
 
 // export this function to our app using module.exports
 module.exports = function(passport) {
@@ -85,10 +84,18 @@ module.exports = function(passport) {
 						newUser.showEmail = true;
 
 						// save the user
-						newUser.save(function(err) {
+						newUser.save(function(err, user) {
 							if (err)
 								throw err;
-							return done(null, newUser, {
+							if (req.body.contractor) {
+								/* Document indexation on going */
+								doc.on('es-indexed', function(err, res) {
+									if (err) throw err;
+									/* Document is indexed */
+									console.log(res);
+								});
+							}
+							return done(null, user, {
 								message: 'User successfully created with email: ' + email
 							});
 						});
@@ -127,16 +134,15 @@ module.exports = function(passport) {
 					return done(null, false, {
 						message: 'No user found'
 					});
-
 				}
 
 				// if the user is found but the password is wrong
 				if (!user.validPassword(password)) {
-                    console.log('found user, bad pass');
-                    return done(null, false, {
-    					message: 'Oops wrong password'
-    				});
-                }
+					console.log('found user, bad pass');
+					return done(null, false, {
+						message: 'Oops wrong password'
+					});
+				}
 
 				// all is well, return successful user
 				return done(null, user);

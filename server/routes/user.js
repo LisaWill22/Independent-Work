@@ -12,6 +12,7 @@ const Grid = require('gridfs-stream');
 const GridFS = Grid(mongoose.connection.db, mongoose.mongo);
 const formidable = require('formidable');
 const io = require('socket.io-emitter');
+const _ = require('lodash');
 
 const returnRouter = function(io) {
 
@@ -19,6 +20,7 @@ const returnRouter = function(io) {
     	.put(function(req, res, next) {
     		delete req.body._id;
     		delete req.body.__v;
+            req.body._lastUpdated = new Date();
     		User.findOneAndUpdate({
     			_id: req.params.id
     		}, {

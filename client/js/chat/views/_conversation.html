@@ -1,0 +1,102 @@
+<div class="conversation">
+    <!-- Show loader while CTRL is loading items -->
+    <div ng-show="loading" class="text-center ng-show-fade">
+        <h2 class="lead">Loading conversation...</h2>
+        <spinner></spinner>
+    </div>
+    <!-- CHAT MESSAGES -->
+    <div class="chat-thread" ng-show="!loading">
+        <h5 class="mtn">
+            Your conversation with <a href="#" ui-sref="app.contractors.profile({ id: otherUser._id })">{{ otherUser.firstName + ' ' + otherUser.lastName }}</a>
+        </h5>
+        <div class="chat-wrapper ng-show-fade" id="chat-container">
+            <div class="ng-show-fade" ng-show="chatThread && chatThread.chats.length">
+                <div class="panel panel-chat animate-fade-in" ng-repeat="message in chatThread.chats">
+                    <div class="chat-control-buttons" ng-show="message.sender === currentUser._id">
+                        <button class="btn btn-link" ng-click="deleteChatMessage(message)">
+                            <i class="fa fa-fw fa-lg fa-remove"></i>
+                        </button>
+                        <button class="btn btn-link"
+                                ng-show="!editEnabled[$index]"
+                                ng-click="enableMessageEdit($index)">
+                            <i class="fa fa-fw fa-lg fa-pencil"></i>
+                        </button>
+                        <button class="btn btn-link"
+                                ng-show="editEnabled[$index]"
+                                ng-click="disableMessageEdit($index)">
+                            <i class="fa fa-fw fa-lg fa-cancel"></i>
+                        </button>
+                    </div>
+                    <div class="panel-body panel-halfp panel-chat-message"
+                         ng-class="{
+                             'text-right sender': message.sender === currentUser._id,
+                             'text-left receiver': message.sender !== currentUser._id }">
+                        <h5 class="mtn"
+                            ng-class="{
+                             'text-primary': message.sender === currentUser._id,
+                             'text-info': message.sender !== currentUser._id }">
+                            <span ng-show="message.sender !== currentUser._id">
+                                {{ otherUser.firstName }} {{ otherUser.lastName }}
+                            </span>
+                            <span ng-show="message.sender === currentUser._id">
+                                {{ currentUser.firstName }} {{ currentUser.lastName }}
+                            </span>
+                            <small>
+                                {{ message._dateSent | date:'short' }}
+                            </small>
+                        </h5>
+                        <div class="chat-message-wrapper ng-show-fade" ng-show="!editEnabled[$index]">
+                            {{ message.message }}
+                        </div>
+                        <div class="chat-edit-wrapper ng-show-fade" ng-show="editEnabled[$index] && message.sender === currentUser._id">
+                            <textarea class="form-control chat-box block no-radius-b"
+                                      rows="4"
+                                      ng-model="message.message">
+                            </text-area>
+                            <button class="btn btn-secondary btn-block btn-sm no-radius-t"
+                                    ng-click="editChatMessage(message, $index)">
+                                Edit Message
+                            </button>
+                        </div>
+                        <div class="chat-info-wrapper ng-show-fade" ng-show="!editEnabled[$index] && message.sender === currentUser._id">
+                            <i ng-show="message._dateUpdated">Updated {{ message._dateUpdated | date:'short' }}</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ng-show-fade" ng-show="(chatThread && !chatThread.chats.length) || !chatThread">
+                <p class="lead">No messages yet, starting chatting!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CHAT SENDING CONTROL-->
+    <form bo-form
+          autocomplete="off"
+          novalidate
+          name="chatForm"
+          method="{{ chatThread._id ? 'PUT' : 'POST' }}"
+          ng-on-error="onError"
+          ng-before-submit="beforeSubmit"
+          ng-after-submit="afterSubmit"
+          ng-action="/api/users/{{ currentUser._id }}/chat/{{ otherUser._id }}">
+
+        <div class="form-group" bo-validate>
+            <textarea class="form-control chat-box block"
+                      placeholder="Whatchu got to say?"
+                      rows="4"
+                      ng-required="true"
+                      ng-model="data.message">
+            </text-area>
+        </div>
+
+        <button class="btn btn-primary btn-block btn-lg"
+                type="submit"
+                name="send">
+            Send Message
+        </button>
+
+    </form>
+</div>

@@ -6,6 +6,13 @@
 	margin-top: 20px;
 }
 
+.panel-contractor {
+	transition: all .25s ease-in-out;
+	&:hover {
+		transform: translateY(-10px);
+	}
+}
+
 .panel-post {
 	position: relative;
 	margin-bottom: 15px;
@@ -52,9 +59,8 @@
 
 .chat-wrapper {
 	overflow-y: scroll;
-	padding-right: @padding-base-horizontal;
-	padding-left: @padding-base-horizontal;
 	max-height: 400px;
+	padding-right: 4px;
 }
 
 .panel-chat-message {
@@ -107,6 +113,7 @@
 		}
 	}
 }
+
 @media screen and (min-width: @screen-md-min) {
 	.panel-post-stats {
 		min-width: 262.5px;
@@ -120,6 +127,7 @@
         padding: 15px;
     }
 }
+
 @media screen and (max-width: @screen-md-min) {
 	.panel-body {
 		padding: 15px;

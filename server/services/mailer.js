@@ -15,8 +15,39 @@ let smtpString = `smtps://${process.env.GMAIL_USER}%40gmail.com:${process.env.GM
 let transporterSMTP = nodemailer.createTransport(smtpString);
 
 const mailer = {
+    signupNotification: function(user) {
+        let transporter = transporterSMTP;
+        let mailOptions = {
+            from: `welcome@indenpendentwork.com`,
+            to: `${user.local.email}`,
+            subject: `Welcome to Independent Work!`,
+            text: `
+                    Hi ${user.firstName}, thank you for signing up for Indenpendent Work!
+                    Click the following link to sign in and join the community!
+                    http://launchpeer-iw.herokuapp.com/#/login.
+                  `,
+            html: ` <p>
+                        Hi ${user.firstName}, thank you for signing up for Indenpendent Work!
+                        <br />
+                        Click the following link to sign in and join the community!
+                        <a href="http://launchpeer-iw.herokuapp.com/#/login>Log in to Independent Work</a>
+                    </p>
+                    <br />
+                    <p>
+                        <i>Your friends at Indenpendent Work</i> - <a href="//:www.independentwork.com">www.independentwork.com</a>
+                    </p>
+                  `,
+        };
 
-    sendEmailNotification: function(messageData) {
+        // Send mail with defined transport object
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log(error);
+            }
+            console.log(info);
+        });
+    },
+    messageNotification: function(messageData) {
         let transporter = transporterSMTP;
         User.find({
             _id: {

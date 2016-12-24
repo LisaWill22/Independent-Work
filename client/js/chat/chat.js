@@ -23,9 +23,9 @@ angular.module('chat', [
                 templateUrl: 'chat/views/chat-list.html',
                 controller: 'ChatListCtrl'
             })
-            .state('app.chat.list.detail`', {
-                url: '/:id',
-                templateUrl: 'chat/views/chat-detail.html',
-                controller: 'ChatDetailCtrl'
+            .state('app.chat.list.detail', {
+                url: '/conversation/:friendId',
+                templateUrl: 'chat/views/_conversation.html',
+                controller: 'ChatConversationCtrl'
             });
     });
