@@ -18,7 +18,7 @@ var app = angular.module('independent-work-app', [
 	'btford.socket-io',
 	'base64',
 	'mgcrea.bootstrap.affix',
-	'angular-vertilize',
+	'angular.vertilize',
     // Handles .env based configs
     'environment',
 	// IW modules

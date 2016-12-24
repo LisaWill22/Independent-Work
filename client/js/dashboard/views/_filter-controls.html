@@ -1,7 +1,54 @@
 <div class="filter-controls">
     <div class="row">
         <div class="col-xs-12">
-            <h4 class="lead">Filter by:</h4>
+            <button type="button" name="button" class="btn btn-sm btn-link" ng-click="filtersCollapsed = !filtersCollapsed">
+                <h4 class="lead mtn mbn">Filter by: </h4>
+            </button>
+        </div>
+    </div>
+    <div uib-collapse="filtersCollapsed">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+                    <!-- Skills -->
+                    <div class="form-group">
+                        <label for="skills">Skills</label>
+                        <ui-select multiple="true"
+                                   ng-model="data.skillsToFilterBy"
+                                   on-remove="onSkillRemove($item)"
+                                   theme="bootstrap">
+                            <ui-select-match>{{ $item.name }}</ui-select-match>
+                            <ui-select-choices repeat="skill in skills track by $index | propsFilter: { name: $select.search }">
+                                <small>{{skill.name}}</small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <div class="form-group">
+                            <label>Match:</label>
+                            <label class="radio-inline">
+                                <input ng-model="data.skillsMatch"
+                                       ng-value="'any'"
+                                       type="radio"
+                                       name="inlineRadioOptions"
+                                       id="matchAny">
+                                Any
+                            </label>
+                            <label class="radio-inline">
+                                <input ng-model="data.skillsMatch"
+                                       ng-value="'all'"
+                                       type="radio"
+                                       name="inlineRadioOptions"
+                                       id="matchAll">
+                                All
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div class="form-group">
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

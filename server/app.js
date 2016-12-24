@@ -108,7 +108,7 @@ io.on('connection', function(socket) {
 			socket.broadcast.emit('get private chat', data).in(data.receiver);
 		} else {
 			// Send the user an email notification if they aren't online
-			mailer.sendEmailNotification(data);
+			mailer.messageNotification(data);
 		}
 	});
 

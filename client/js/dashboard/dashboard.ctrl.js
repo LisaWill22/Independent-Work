@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dashboard')
-    .controller('DashboardCtrl', function($scope, $rootScope, $http, $timeout, toastr) {
+    .controller('DashboardCtrl', function(skills, $scope, $rootScope, $http, $timeout, toastr) {
         console.log('DashboardCtrl loaded >>', $scope);
 
         $rootScope.hideFooter = true;
@@ -10,6 +10,8 @@ angular.module('dashboard')
 
         $scope.data = {};
         $scope.data.query = '';
+        $scope.skills = skills.data;
+        $scope.data.skillsMatch = 'any';
 
         // Load in postings
         if ($scope.contractor) {
@@ -17,25 +19,76 @@ angular.module('dashboard')
             getPosts();
         }
 
+        // Load all contractors (paginated?)
+        if ($scope.employer) {
+            $scope.loading = true;
+            doSearch();
+        }
+
+        // throttle the search to prevent duplications
         var dbSearch = _.throttle(doSearch);
+
+        $rootScope.$on('Posts:reload', function() {
+            $scope.loading = true;
+            getPosts();
+        });
+
+        // Adds back skill to list of options on removal
+        $scope.onSkillRemove = function(item, model) {
+            if ($scope.skills.indexOf(item) === -1) {
+                $scope.skills.push(item);
+            }
+        };
+
+        $scope.doSearch = function() {
+            dbSearch();
+        };
+
+        // Filter by skills
+        // $scope.$watch('data.skillsToFilterBy', function(newVal, oldVal) {
+        //     if (!angular.equals(newVal, oldVal) && $scope.searchDone && $scope.items && $scope.items.length) {
+        //         if ($scope.data.skillsMatch === 'any') {
+        //             $scope.items = _.filter($scope.items, function(contractor) {
+        //                 $scope.data.skillsToFilterBy.forEach(function(skill) {
+        //                     if (contractor.skills.indexOf(skill) >= 0) {
+        //                         return contractor;
+        //                     }
+        //                 });
+        //             })
+        //         } else if ($scope.data.skillsMatch === 'all') {
+        //             $scope.items = _.filter($scope.items, function(contractor) {
+        //                 return angular.equals(contractor.skills, $scope.data.skillsToFilterBy);
+        //             });
+        //         }
+        //     } else if (!newVal) {
+        //
+        //     }
+        // });
+        //
+        // $scope.$watch('data.locationToFilterBy', function(newVal, oldVal) {
+        //
+        // });
 
         function doSearch () {
             $scope.loading = true;
             $scope.searchDone = false;
+            $scope.data.skillsToFilterBy = null;
             $http.get('/sapi/search/contractors?query=' + $scope.data.query)
                 .then(function(res) {
+                    console.log(res);
                     if (res.data.users && res.data.users.length) {
                         $scope.items = _.filter(res.data.users, function(user) {
                             return user.roles && user.roles.indexOf('contractor') !== -1 && user.firstName;
                         });
                     } else {
+                        console.log('no items');
                         $scope.items = null;
                     }
 
                     $scope.oldQuery = angular.copy($scope.data.query);
                     console.log($scope.oldQuery);
                     $scope.loading = false;
-                    $scope.searchDone = res.data.query && res.data.query.length;
+                    $scope.searchDone = true;
                 })
                 .catch(function(err) {
                     console.error(err);
@@ -46,21 +99,6 @@ angular.module('dashboard')
                     $scope.searchDone = true;
                 });
         }
-
-        $scope.doSearch = function() {
-            dbSearch();
-        };
-
-        // Load all contractors (paginated?)
-        if ($scope.employer) {
-            $scope.loading = true;
-            doSearch();
-        }
-
-        $rootScope.$on('Posts:reload', function() {
-            $scope.loading = true;
-            getPosts();
-        });
 
         function getPosts() {
             return $http.get('/api/posts/dashboard/includes=skills,user')
