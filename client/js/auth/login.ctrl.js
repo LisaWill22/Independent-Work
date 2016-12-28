@@ -8,10 +8,13 @@ angular.module('auth')
 
         $scope.afterSubmit = function(res) {
             toastr.success('Successfully logged in');
-            $state.go('app.dashboard');
+            if (res.data.profile.image && res.data.bio.length && (res.data.skills.length || res.data.roles.indexOf('employer') != -1)) {
+                $state.go('app.dashboard');
+            } else {
+                $state.go('app.settings.profile');
+            }
             $rootScope.$broadcast('Session:refresh', res.data);
             $scope.$storage.userId = res.data._id;
-
         };
 
         $scope.onError = function(err) {

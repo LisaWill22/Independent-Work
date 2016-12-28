@@ -39,7 +39,7 @@
                        reset-search-input="true"
                        theme="bootstrap">
                 <ui-select-match>{{ $item.name }}</ui-select-match>
-                <ui-select-choices repeat="skill in skills track by skill.name | propsFilter: { name: $select.search }">
+                <ui-select-choices repeat="skill in skills track by $index | propsFilter: { name: $select.search }">
                     <small>{{skill.name}}</small>
                 </ui-select-choices>
             </ui-select>

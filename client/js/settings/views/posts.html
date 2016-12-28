@@ -27,6 +27,7 @@
 						<tr>
 							<td>Post Title</td>
 							<td>Post Date</td>
+							<td># replies</td>
 							<td>Last Reply</td>
 							<td></td>
 						</tr>
@@ -37,6 +38,12 @@
 								<a href="#" ui-sref="app.posts.detail({ id: post._id })">{{ post.title }}</a>
 							</td>
 							<td><small>{{ post._createdDate | date:'shortDate' }}</small></td>
+							<td>
+								<span ng-show="post.replies && post.replies.length">
+									<small>{{ post.replies.length }}</small>
+								</span>
+								<span ng-show="!post.replies.length"><small>No replies</small></span>
+							</td>
 							<td>
 								<span ng-show="post.replies && post.replies.length">
 									<small>

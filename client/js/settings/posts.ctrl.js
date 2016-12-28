@@ -5,26 +5,35 @@ angular.module('settings')
 
         console.log('PostsSettingsCtrl loaded >>', $scope);
 
-        getPosts();
-
-        $scope.$on('Post:refresh', function() {
-            getPosts();
-        });
-
         function getPosts() {
             $scope.loading = true;
             return $http.get('/api/users/' + $scope.currentUser._id + '/posts')
                 .then(function(res) {
                     console.log(res);
-                    $scope.posts = _.sortBy(res.data.posts, '_createdDate');
+                    $scope.posts = _.chain(res.data.posts)
+                                    .sortBy(function(post) {
+                                        if (post.replies.length) {
+                                            return post.replies[0]._createdDate;
+                                        } else {
+                                            return post._createdDate;
+                                        }
+                                    })
+                                    .reverse()
+                                    .value();
                 })
                 .catch(function(err) {
                     console.log(err);
                 })
                 .finally(function() {
                     $scope.loading = false;
-                })
+                });
         }
+
+        getPosts();
+
+        $scope.$on('Posts:refresh', function() {
+            getPosts();
+        });
 
         $scope.openEditPostModal = function(post) {
             $scope.postToEdit = post;
@@ -94,7 +103,7 @@ angular.module('settings')
         }
 
         $scope.beforeSubmit = function() {
-            $scope.data._createdDate = new Date();
+            $scope.data._updatedDate = new Date();
             $scope.data.user = $scope.currentUser._id;
             var skillsToSave = [];
             var promises = [];
@@ -167,11 +176,6 @@ angular.module('settings')
 
             return newSkill;
         };
-
-        $scope.cancel = function() {
-            $uibModalInstance.close();
-        };
-
 
         $scope.cancel = function() {
             $uibModalInstance.close();

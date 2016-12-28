@@ -18,22 +18,38 @@
         <li>
             <ul class="list-group list-group-menu list-unstyled">
                 <li class="list-group-item" ng-show="contractor">
-                    <button class="btn btn-primary btn-block btn-no-radius" ng-click="openCreatePostModal(); userMenuOpen = !userMenuOpen">
+                    <button class="btn btn-primary btn-block btn-no-radius"
+                            ng-click="openCreatePostModal(); userMenuOpen = !userMenuOpen">
                         <i class="fa fa-fw fa-plus-circle" aria-hidden="true"></i>
                         Create post
                     </button>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" ui-sref="app.dashboard" ui-sref-active="active" ng-click="userMenuOpen = !userMenuOpen">Dashboard</a>
+                    <a href="#"
+                       ui-sref="app.dashboard"
+                       ui-sref-active="active"
+                       ng-click="userMenuOpen = !userMenuOpen">
+                       {{ contractor ? 'Community' : 'Search' }}
+                   </a>
                 </li>
                 <li class="list-group-item clearfix">
-                    <a href="#" ui-sref="app.chat.list" ui-sref-active="active" ng-click="userMenuOpen = !userMenuOpen">
+                    <a href="#"
+                       ui-sref="app.chat.list"
+                       ui-sref-active="active"
+                       ng-click="userMenuOpen = !userMenuOpen">
                         Messages
-                        <span class="badge badge-primary pull-right">{{ currentUser.messages.new.length }}</span>
+                        <span class="badge badge-primary pull-right">
+                            {{ currentUser.messages.new.length }}
+                        </span>
                     </a>
                 </li>
                 <li class="list-group-item">
-                    <a href="#" ui-sref="app.settings.profile" ui-sref-active="active" ng-click="userMenuOpen = !userMenuOpen">Settings</a>
+                    <a href="#"
+                       ui-sref="app.settings.profile"
+                       ui-sref-active="active"
+                       ng-click="userMenuOpen = !userMenuOpen">
+                       Settings
+                    </a>
                 </li>
             </ul>
         </li>
@@ -41,9 +57,12 @@
             <div class="navbar-login navbar-login-session">
                 <div class="row">
                     <div class="col-xs-12">
-                        <p>
-                            <a href="#" ui-sref="app.auth.logout" class="btn btn-sm btn-default pull-right"  ng-click="userMenuOpen = !userMenuOpen">Log Out</a>
-                        </p>
+                        <a href="#"
+                           ui-sref="app.auth.logout"
+                           class="btn btn-sm btn-default pull-right"
+                           ng-click="userMenuOpen = !userMenuOpen">
+                           Log Out
+                       </a>
                     </div>
                 </div>
             </div>

@@ -25,8 +25,8 @@
                 <div class="post-meta-info">
                     <p>
                         <small>Posted on {{ reply._createdDate | date: 'mediumDate' }} {{ reply._createdDate | date: 'shortTime' }}</small>
-                        <small class="pull-right text-muted">
-                            <em>Edit {{ reply._updatedDate | date: 'mediumDate' }} {{ reply._updatedDate | date: 'shortTime' }}<em>
+                        <small class="pull-right text-muted ng-show-fade" ng-show="reply._updatedDate">
+                            <em>Last edited {{ reply._updatedDate | date: 'mediumDate' }} {{ reply._updatedDate | date: 'shortTime' }}<em>
                         </small>
                     </p>
                 </div>
