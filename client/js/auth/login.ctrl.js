@@ -8,7 +8,7 @@ angular.module('auth')
 
         $scope.afterSubmit = function(res) {
             toastr.success('Successfully logged in');
-            if (res.data.profile.image && res.data.bio.length && (res.data.skills.length || res.data.roles.indexOf('employer') != -1)) {
+            if (res.data && res.data.image && res.data.bio.length && (res.data.skills.length || res.data.roles.indexOf('employer') != -1)) {
                 $state.go('app.dashboard');
             } else {
                 $state.go('app.settings.profile');
