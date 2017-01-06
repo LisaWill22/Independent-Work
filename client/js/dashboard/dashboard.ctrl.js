@@ -44,31 +44,6 @@ angular.module('dashboard')
             dbSearch();
         };
 
-        // Filter by skills
-        // $scope.$watch('data.skillsToFilterBy', function(newVal, oldVal) {
-        //     if (!angular.equals(newVal, oldVal) && $scope.searchDone && $scope.items && $scope.items.length) {
-        //         if ($scope.data.skillsMatch === 'any') {
-        //             $scope.items = _.filter($scope.items, function(contractor) {
-        //                 $scope.data.skillsToFilterBy.forEach(function(skill) {
-        //                     if (contractor.skills.indexOf(skill) >= 0) {
-        //                         return contractor;
-        //                     }
-        //                 });
-        //             })
-        //         } else if ($scope.data.skillsMatch === 'all') {
-        //             $scope.items = _.filter($scope.items, function(contractor) {
-        //                 return angular.equals(contractor.skills, $scope.data.skillsToFilterBy);
-        //             });
-        //         }
-        //     } else if (!newVal) {
-        //
-        //     }
-        // });
-        //
-        // $scope.$watch('data.locationToFilterBy', function(newVal, oldVal) {
-        //
-        // });
-
         function doSearch () {
             $scope.loading = true;
             $scope.searchDone = false;

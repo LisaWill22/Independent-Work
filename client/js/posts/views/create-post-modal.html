@@ -6,7 +6,7 @@
       ng-on-error="onError"
       ng-before-submit="beforeSubmit"
       ng-after-submit="afterSubmit"
-      ng-action="/api/posts/{{ data._id ? data._id : '' }}">
+      ng-action="/api/posts/{{ data._id ? data._id : 'new' }}">
 	<div class="modal-header">
 		<h3 class="modal-title" id="modal-title">
 			{{ data._id ? 'Edit your post' : 'Create a post' }}

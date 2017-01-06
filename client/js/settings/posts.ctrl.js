@@ -31,7 +31,7 @@ angular.module('settings')
 
         getPosts();
 
-        $scope.$on('Posts:refresh', function() {
+        $scope.$on('Posts:reload', function() {
             getPosts();
         });
 
@@ -66,7 +66,7 @@ angular.module('settings')
         $scope.deletePost = function() {
             return $http.delete('/api/posts/' + $scope.$parent.postToDelete._id)
                 .then(function(res) {
-                    $rootScope.$broadcast('Posts:refresh');
+                    $rootScope.$broadcast('Posts:reload');
                     $uibModalInstance.close();
                     toastr.success('Your post was deleted successfully.');
                 })
@@ -139,7 +139,7 @@ angular.module('settings')
             if (res.status === 200) {
                 console.log(res);
                 toastr.success('Post updated successfully!');
-                $rootScope.$broadcast('Post:refresh');
+                $rootScope.$broadcast('Posts:reload');
                 $uibModalInstance.close();
             } else {
                 console.log(res);

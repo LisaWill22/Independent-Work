@@ -60,7 +60,12 @@ const userSchema = new mongoose.Schema({
         type:Array,
         es_indexed: true
     },
-    posts: Array,        // Array of ids from the Postings collection
+    posts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
+        }
+    ],        // Array of ids from the Postings collection
     // Meta data
     _lastUpdated: Date,
     _accountCreated: Date,

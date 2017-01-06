@@ -457,9 +457,32 @@ const returnRouter = function(io) {
                 });
         });
 
-    router.route('/users/:id/posts')
+    router.route('/posts/new')
+        .post(function(req,res,next) {
+            const newPost = new Post(req.body);
+            newPost.save(function(err, post) {
+    			if (err) {
+    				res.status(400);
+    				return res.send({
+    					error: err,
+    					success: false,
+    					message: 'Failed to create post'
+    				});
+    			} else {
+					res.status(200);
+					return res.send({
+						post,
+						success: true,
+						message: 'Post created successfully!'
+					});
+    			}
+    		});
+        });
+
+    router.route('/users/:userId/posts')
     	.get(function(req, res, next) {
-    		Post.find({ 'user': req.params.id })
+            let userId = req.params.userId;
+    		Post.find({ user: userId })
                 .populate('user')
                 .exec(function(err, posts) {
                     if (!err) {

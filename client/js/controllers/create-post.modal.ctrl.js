@@ -31,6 +31,7 @@ angular.module('independent-work-app')
         $scope.beforeSubmit = function() {
             $scope.data._createdDate = new Date();
             $scope.data.user = $scope.currentUser._id;
+            console.log($scope.data);
             var skillsToSave = [];
             var promises = [];
 
@@ -63,6 +64,7 @@ angular.module('independent-work-app')
 
         $scope.afterSubmit = function(res) {
             if (res.status === 200) {
+                console.log(res);
                 toastr.success('Post created successfully!');
                 $rootScope.$broadcast('Posts:reload');
                 $uibModalInstance.close();
