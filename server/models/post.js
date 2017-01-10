@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
     description: String,        // String ID from the Companies collection
     replies: Array,
     lastPost: Object,
+    content: String,
     // Meta
     _createdDate: Date,
     user: {
