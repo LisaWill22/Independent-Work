@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('chat')
-    .controller('ChatListCtrl', function($scope, $http, $timeout, socket, toastr) {
+    .controller('ChatListCtrl', function($scope, $http, $timeout, $state, toastr) {
         console.log('ChatListCtrl loaded >>', $scope);
 
         $scope.loading = true;
@@ -15,6 +15,12 @@ angular.module('chat')
                     thread.otherUser = otherUser;
                     return thread;
                 });
+                if ($scope.chatThreads.length) {
+
+                    $state.go('app.chat.list.detail', {
+                        friendId: $scope.chatThreads[0].otherUser._id
+                    });
+                }
                 $scope.loading = false;
             });
 

@@ -4,7 +4,22 @@
         <spinner></spinner>
     </div>
 
-    <div class="row" ng-show="!loading">
+    <div class="row ng-show-fade" ng-show="!loading">
+        <h4 class="lead text-center" ng-if="contractor">
+            You have no messages yet. Try creating a
+            <button ng-click="openCreatePostModal()"
+                    class="btn btn-link">
+                    community post
+            </button> or
+            <a href="#" class="btn btn-link" ui-sref="app.settings.profile">completing your profile</a> to get involved!
+        </h4>
+        <h4 class="lead text-center" ng-if="employer">
+            You have no message yet. <a href="#" class="btn btn-link" ui-sref="app.settings.profile">Complete your profile</a> and head back over to the
+            <a href="#" class="btn btn-link" ui-sref="app.dashboard">Search page</a> to find folks to chat with!
+        </h4>
+    </div>
+
+    <div class="row ng-show-fade" ng-show="!loading && chatThreads && chatThreads.length">
         <!-- MESSAGE THREADS PANE -->
         <div class="col-sm-5">
             <ul class="list-group">
@@ -27,6 +42,6 @@
                 </h3>
             </ui-view>
         </div>
-        
+
     </div>
 </div>
