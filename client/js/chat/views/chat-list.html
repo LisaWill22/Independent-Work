@@ -4,7 +4,7 @@
         <spinner></spinner>
     </div>
 
-    <div class="row ng-show-fade" ng-show="!loading">
+    <div class="row ng-show-fade" ng-show="!loading && !chatThreads">
         <h4 class="lead text-center" ng-if="contractor">
             You have no messages yet. Try creating a
             <button ng-click="openCreatePostModal()"
@@ -24,12 +24,12 @@
         <div class="col-sm-5">
             <ul class="list-group">
                 <li class="list-group-item clearfix" ng-repeat="thread in chatThreads">
-                    <a href="#" ui-sref="app.chat.list.detail({ friendId: thread.otherUser._id })">
+                    <a href="#" ui-sref="app.chat.list.detail({ friendId: thread.otherUser._id })" ui-sref-active="active">
                         {{ thread.otherUser.firstName }} {{ thread.otherUser.lastName}}
+                        <small class="text-muted block">
+                            {{ thread.chats[thread.chats.length - 1].message }} - <small>{{ thread.chats[thread.chats.length - 1]._dateSent | date:'short' }}</small>
+                        </small>
                     </a>
-                    <small class="text-muted block">
-                        {{ thread.chats[thread.chats.length - 1].message }} - <small>{{ thread.chats[thread.chats.length - 1]._dateSent | date:'short' }}</small>
-                    </small>
                 </li>
             </ul>
         </div>
