@@ -140,6 +140,7 @@ angular.module('settings')
                 console.log(res);
                 toastr.success('Post updated successfully!');
                 $rootScope.$broadcast('Posts:reload');
+                $rootScope.$broadcast('Post:refresh');
                 $uibModalInstance.close();
             } else {
                 console.log(res);
