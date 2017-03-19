@@ -126,6 +126,8 @@ angular.module('boForm', [
     *
     */
     .directive('boForm', function ($http) {
+      "use strict";
+
         return {
             restrict: 'A',
             controller: function ($scope, $element, $attrs) {
@@ -212,6 +214,8 @@ angular.module('boForm', [
      *
      */
     .directive('boValidate', function ($compile) {
+      "use strict";
+
         return {
             restrict: 'A',
             require: '^form',
@@ -261,6 +265,8 @@ angular.module('boForm', [
      *
      */
     .directive('boAvailable', function ($http, $q, $timeout, $compile) {
+      "use strict";
+
         return {
             require: 'ngModel',
             restrict: 'A',
@@ -354,7 +360,9 @@ angular.module('boForm', [
     * type attribute of `url` or `email`. Requires the field to have an `ng-model`.
     *
     */
+
     .directive('input', function () {
+      "use strict";
         var URL_REGEXP = /^(?:[a-z0-9\.\-]*):\/\/(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|\[?[A-F0-9]*:[A-F0-9:]+\]?)(?::\d+)?(?:\/?|[\/?]\S+)$/i;
         var EMAIL_REGEXP = /(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-\011\013\014\016-\177])*")@((?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?$)|\[(25[0-5]|2[0-4]\d|[0-1]?\d?\d)(\.(25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}\]$/i;
         return {
@@ -393,6 +401,7 @@ angular.module('boForm', [
     * has met the above rules. Should be placed on an `<input type="password">`. Requires the `<input>` field to have an `ng-model`.
     */
      .directive('boPasswordRules', function($compile) {
+       "use strict";
         return {
             require: '?ngModel',
             restrict: 'A',
@@ -487,6 +496,7 @@ angular.module('boForm', [
      *
      */
     .directive('boPasswordMatch', function () {
+      "use strict";
         return {
             require: '^form',
             restrict: 'A',
@@ -515,6 +525,7 @@ angular.module('boForm', [
     })
     // Takes a form submit button and drops a spinner on it while the form is submitting
     .directive('boSubmitButton', function ($timeout) {
+      "use strict";
         return {
             require: '^form',
             restrict: 'AE',
