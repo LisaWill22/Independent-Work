@@ -63,7 +63,7 @@
                     </div>
 
                     <!-- Skills -->
-                    <div class="form-group" ng-show="contractor">
+                    <!-- <div class="form-group" ng-show="contractor">
                         <label for="skills">Skills</label>
                         <ui-select multiple="true"
                                    reset-search-input="true"
@@ -74,6 +74,23 @@
                                 <small>{{ skill.name }}</small>
                             </ui-select-choices>
                         </ui-select>
+                    </div> -->
+
+
+                    <div class="form-group" ng-show="contractor">
+                      <label for="skills">Skills</label>
+                      <ui-select multiple="true"
+                      reset-search-input="true"
+                             tagging="addSkill"
+                             ng-model="data.skills"
+                             on-remove="onSkillRemove($item)"
+                                   reset-search-input="true"
+                             theme="bootstrap">
+                        <ui-select-match>{{ $item.name }}</ui-select-match>
+                        <ui-select-choices repeat="skill in skills track by $index | propsFilter: { name: $select.search }">
+                          <small>{{skill.name}}</small>
+                        </ui-select-choices>
+                      </ui-select>
                     </div>
 
                     <!-- Bio -->

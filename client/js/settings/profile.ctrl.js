@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('settings')
-	.controller('ProfileCtrl', function($scope, $rootScope, $http, $q, $timeout, toastr, Upload, states) {
+	.controller('ProfileCtrl', function($scope, $rootScope, $http, $q, $timeout, toastr, Upload, states, $state) {
 
 		console.log('ProfileCtrl loaded >>', $scope);
 
 		$scope.data = angular.copy($scope.currentUser);
+		console.log("GABRIEL",$scope.currentUser);
 		$scope.data.showEmail = 'true';
 		$scope.states = states;
 
@@ -178,4 +179,18 @@ angular.module('settings')
 					$scope.picFile = null;
 				})
 		};
+
+		$scope.deleteUser = function(){
+			console.log("Profile was deleted");
+			$http.delete('/api/users/' + $scope.currentUser._id)
+			.then(function (res){
+				toastr.success('Your profile was deleted successfully. Redirecting you to the homepage.');
+				setTimeout(function(){
+					$state.go('app.auth.logout');
+				}, 2000)
+			})
+
+
+			// ($scope.currentUser)
+		}
 	});

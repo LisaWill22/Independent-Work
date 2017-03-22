@@ -7,7 +7,7 @@ angular.module('auth')
         $scope.data = {};
 
         $scope.onError = function(err) {
-            console.log(err);
+            console.log("Forgot Password Error", err);
             toastr.warning('Ooops, there was an error with your request');
             $scope.emailNotFound = err.data.email;
         };
