@@ -19,9 +19,15 @@ const sgTransport = require('nodemailer-sendgrid-transport');
 const mailer = require('../services/mailer');
 
 // SMPT transporter
-// const smtpString = `smtps://${process.env.GMAIL_USER}%40gmail.com:${process.env.GMAIL_PASS}@smtp.gmail.com`;
-const smtpString = `smtps://${process.env.SENDGRID_USERNAME}%40gmail.com:${process.env.SENDGRID_PASSWORD}@smtp.gmail.com`;
-const transporterSMTP = nodemailer.createTransport(smtpString);
+
+var options = {
+	auth: {
+		api_user: process.env.SENDGRID_USERNAME,
+		api_key: process.env.SENDGRID_PASSWORD
+	}
+}
+
+const mailit = nodemailer.createTransport(sgTransport(options));
 
 module.exports = function(app, passport) {
 
@@ -121,7 +127,6 @@ module.exports = function(app, passport) {
 
 
 
-
 	router.route('/pass-forgot')
 		.post(function(req, res, next) {
 			console.log(req.body, "+++++++++++++++++++++++++++++++++");
@@ -149,7 +154,7 @@ module.exports = function(app, passport) {
 							mailOptions = Object.assign(mailOptions, req.body);
 
 							// Send mail with defined transport object
-							transporterSMTP.sendMail(mailOptions, function(error, info) {
+							mailit.sendMail(mailOptions, function(error, info) {
 								if (error) {
 									console.log(error);
 									// Send a sad little error back to the client
