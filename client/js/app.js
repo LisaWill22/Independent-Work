@@ -75,7 +75,7 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
     envServiceProvider.config({
         domains: {
             development: ['localhost'],
-            production: ['independentwork.com']
+            production: ['independentwork.com', 'launchpeer-iw.herokuapp.com', 'www.independentwork.com']
         },
         vars: {
             development: {
