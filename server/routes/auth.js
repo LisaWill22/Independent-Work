@@ -19,11 +19,14 @@ const sgTransport = require('nodemailer-sendgrid-transport');
 const mailer = require('../services/mailer');
 
 // SMPT transporter
+// const smtpString = `smtps://${process.env.SENDGRID_USERNAME}%40gmail.com:${process.env.SENDGRID_PASSWORD}@smtp.gmail.com`;
 
 var options = {
 	auth: {
-		api_user: process.env.SENDGRID_USERNAME,
-		api_key: process.env.SENDGRID_PASSWORD
+		// api_user: process.env.SENDGRID_USERNAME,
+		// api_key: process.env.SENDGRID_PASSWORD
+		api_user: 'app57565034@heroku.com',
+		api_key: 'vzlntvxm4814'
 	}
 }
 
@@ -147,7 +150,7 @@ module.exports = function(app, passport) {
 								subject: 'Password reset instructions from Independent Work', // Subject line
 								text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 									'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-									'http://' + req.headers.host + '/#/reset-password?email=' + user.local.email + '&resetToken=' + token + '\n\n' +
+									'http://' + req.headers.host + '/#/reset-password' + '?resetToken=' + token + '&email=' + user.local.email + '\n\n' +
 									'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 							};
 
