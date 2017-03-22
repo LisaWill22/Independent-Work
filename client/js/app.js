@@ -82,7 +82,7 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
                 socketUrl: 'http://localhost:3000',
             },
             production: {
-                socketUrl: 'https://launchpeer-iw.herokuapp.com',
+                socketUrl: 'http://www.independentwork.com/',
             }
         }
     });
