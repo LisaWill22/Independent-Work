@@ -75,14 +75,14 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
     envServiceProvider.config({
         domains: {
             development: ['localhost'],
-            production: ['launchpeer-iw.herokuapp.com']
+            production: ['independentwork.com']
         },
         vars: {
             development: {
                 socketUrl: 'http://localhost:3000',
             },
             production: {
-                socketUrl: 'https://launchpeer-iw.herokuapp.com',
+                socketUrl: 'http://independentwork.com',
             }
         }
     });
