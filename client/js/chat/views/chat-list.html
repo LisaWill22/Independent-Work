@@ -4,7 +4,7 @@
         <spinner></spinner>
     </div>
 
-    <div class="row ng-show-fade" ng-show="!loading && !chatThreads">
+    <div class="row ng-show-fade" ng-show="!chatThreads.length && !loading">
         <h4 class="lead text-center" ng-if="contractor">
             You have no messages yet. Try creating a
             <button ng-click="openCreatePostModal()"

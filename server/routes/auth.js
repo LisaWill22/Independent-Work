@@ -19,7 +19,8 @@ const sgTransport = require('nodemailer-sendgrid-transport');
 const mailer = require('../services/mailer');
 
 // SMPT transporter
-const smtpString = `smtps://${process.env.GMAIL_USER}%40gmail.com:${process.env.GMAIL_PASS}@smtp.gmail.com`;
+// const smtpString = `smtps://${process.env.GMAIL_USER}%40gmail.com:${process.env.GMAIL_PASS}@smtp.gmail.com`;
+const smtpString = `smtps://${process.env.SENDGRID_USERNAME}%40gmail.com:${process.env.SENDGRID_PASSWORD}@smtp.gmail.com`;
 const transporterSMTP = nodemailer.createTransport(smtpString);
 
 module.exports = function(app, passport) {
@@ -84,6 +85,9 @@ module.exports = function(app, passport) {
 			});
 		});
 
+
+
+
 	router.route('/pass-reset')
 		.post(function(req, res, next) {
 			User.findOne({
@@ -113,6 +117,10 @@ module.exports = function(app, passport) {
 				});
 			});
 		})
+
+
+
+
 
 	router.route('/pass-forgot')
 		.post(function(req, res, next) {
