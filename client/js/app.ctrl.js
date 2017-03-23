@@ -34,7 +34,8 @@ angular.module('independent-work-app')
 			}
 		} else {
 			// // Go to home if not logged in
-			$state.go('app.home');
+			console.log('REDIRECTING');
+			// $state.go('app.home');
 		}
 
 		// Listen for session refreshes and update the user

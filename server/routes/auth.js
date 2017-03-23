@@ -99,6 +99,7 @@ module.exports = function(app, passport) {
 
 	router.route('/pass-reset')
 		.post(function(req, res, next) {
+			console.log('token', req.body.resetToken);
 			User.findOne({
 				_resetPasswordToken: req.body.resetToken,
 				_resetPasswordExpires: {
