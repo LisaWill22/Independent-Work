@@ -16,7 +16,7 @@ angular.module('auth')
         };
 
         $scope.afterSubmit = function(res) {
-            console.log(res);
+            console.log(res, "sending ya a new password");
             $scope.emailNotFound = null;
             $scope.data = {};
         };

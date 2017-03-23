@@ -8,13 +8,15 @@ angular.module('auth')
 
         console.log($stateParams);
 
-        if (!$stateParams.resetToken) {
+        if ($stateParams.resetToken) {
+          console.log("IF");
             return $state.go('app.auth.reset-password');
         } else {
+          console.log("ELSE");
             $scope.data.resetToken = $stateParams.resetToken;
             $scope.data.email = $stateParams.email;
         }
-
+        console.log("SKIPPPPE");
         $scope.onError = function(err) {
             console.log(err);
             toastr.warning('Ooops, there was an error with your request');
