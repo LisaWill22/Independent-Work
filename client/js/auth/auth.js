@@ -29,7 +29,7 @@ angular.module('auth', [
                 controller: 'ForgotPasswordCtrl'
             })
             .state('app.auth.reset-password', {
-                url: '/reset-password?resetToken&email',
+                url: '/reset-password&email?resetToken',
                 templateUrl: 'auth/views/reset-password.html',
                 controller: 'ResetPasswordCtrl'
             });
