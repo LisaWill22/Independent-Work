@@ -9,7 +9,7 @@ angular.module('auth')
         console.log($stateParams);
 
         if (!$stateParams.resetToken) {
-            return $state.go('app.auth.login');
+            return $state.go('app.auth.reset-password');
         } else {
             $scope.data.resetToken = $stateParams.resetToken;
             $scope.data.email = $stateParams.email;
