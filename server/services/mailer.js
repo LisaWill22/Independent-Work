@@ -16,6 +16,7 @@ let transporterSMTP = nodemailer.createTransport(smtpString);
 
 const mailer = {
     signupNotification: function(user) {
+      console.log("SENDING ACCOUNT CONFIRMATION EMAIL");
         let transporter = transporterSMTP;
         let mailOptions = {
             from: `welcome@indenpendentwork.com`,
@@ -43,6 +44,8 @@ const mailer = {
         transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
                 console.log(error);
+                console.log("ERROR SENDING ACCOUNT CONFIRMATION EMAIL");
+
             }
             console.log(info);
         });
