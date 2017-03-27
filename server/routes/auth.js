@@ -30,7 +30,7 @@ var options = {
 	}
 }
 
-const mailit = nodemailer.createTransport(sgTransport(options));
+const mailit = nodemailer.createTransport(options);
 
 module.exports = function(app, passport) {
 

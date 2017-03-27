@@ -56,7 +56,7 @@ angular.module('dashboard')
                             return user.roles && user.roles.indexOf('contractor') !== -1 && user.firstName;
                         });
                     } else {
-                        console.log('no items');
+                        console.log('no items', res);
                         $scope.items = null;
                     }
 
@@ -78,6 +78,7 @@ angular.module('dashboard')
         function getPosts() {
             return $http.get('/api/posts/dashboard/includes=skills,user')
                 .then(function(res) {
+                    console.log("look",res);
                     $timeout(function() {
                         $scope.items = _.sortBy(res.data.posts, '_createdDate').reverse();
                         $scope.loading = false;

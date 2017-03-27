@@ -26,6 +26,7 @@ angular.module('contractors')
 
         $scope.sendMessage = function(contractor) {
             $scope.data.message = null;
+            console.log("SENDING CHAT");
         };
 
         function getContractor() {

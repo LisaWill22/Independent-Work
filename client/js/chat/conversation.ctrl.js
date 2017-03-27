@@ -49,6 +49,7 @@ angular.module('chat')
 
         $scope.beforeSubmit = function() {
             if (!$scope.chatThread || !$scope.chatThread._id) {
+              console.log("LOOK HERE",$scope.chatThread);
                 // Runs the first time a chat is started
                 // Creates a thread to attach chats and users to
                 $scope.data.users = [ $scope.currentUser._id, $scope.otherUser._id ];
@@ -65,7 +66,14 @@ angular.module('chat')
                 // Runs every subsequent submit
                 // Now the form is PUT request that simply creates a new Chat and
                 // adds that chat to the current thread
+
+                  // $scope.chatThread.chats.forEach(function(el){
+                  //   console.log(el.unread);
+                  // })
+                  //
+
                 console.log('chatThread is existing');
+                console.log("LOOKING FOR USER STATUS", $scope.currentUser);
                 $scope.data.chatThread = angular.copy($scope.chatThread);
                 $scope.data.chat = {
                     chatThread: $scope.chatThread._id,
@@ -76,6 +84,9 @@ angular.module('chat')
                     receiver: $scope.otherUser._id,
                     _dateSent: new Date()
                 };
+                if ($scope.chatThread.unread === true){
+                  console.log("hey");
+                }
             }
             socket.emit('new private chat', $scope.data.chat);
         };

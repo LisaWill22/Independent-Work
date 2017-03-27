@@ -6,6 +6,7 @@ const router = new express.Router();
 
 router.post('/send/:mailer', (req, res, next) => {
     mailer.sendmail(req, res, next);
+    console.log("MAILER");
 });
 
 module.exports = router;
