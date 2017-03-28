@@ -49,6 +49,7 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 	   custom_launcher_selector: '#my_custom_link'
 	});
 
+
 	// Register the base app state
 	$stateProvider
 		.state('app', {
@@ -87,7 +88,7 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
                 socketUrl: 'http://localhost:3000',
             },
             production: {
-                socketUrl: 'http://independentwork.com',
+                socketUrl: 'https://independentwork.com',
             }
         }
     });
