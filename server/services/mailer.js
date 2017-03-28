@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const User = require('../models/user').User;
 const Chat = require('../models/chat').Chat;
-
+const sgTransport = require('nodemailer-sendgrid-transport');
 // Bring in nodemailer
 const nodemailer = require('nodemailer');
 

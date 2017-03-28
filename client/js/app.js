@@ -46,7 +46,6 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 
 	window.Intercom('boot', {
 	   app_id: 'opo8zis9',
-	   custom_launcher_selector: '#my_custom_link'
 	});
 
 

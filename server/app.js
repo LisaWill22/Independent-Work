@@ -105,6 +105,7 @@ io.on('connection', function(socket) {
 	socket.on('new private chat', function(data) {
 		if (io.sockets.adapter.rooms[data.receiver] && io.sockets.adapter.rooms[data.receiver].length >= 1) {
 			// Send the message out to the receiver if they are online
+			console.log("SOCKET IO");
 			socket.broadcast.emit('get private chat', data).in(data.receiver);
 		} else {
 			// Send the user an email notification if they aren't online
