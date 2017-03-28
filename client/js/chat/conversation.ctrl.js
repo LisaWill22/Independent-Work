@@ -67,11 +67,6 @@ angular.module('chat')
                 // Now the form is PUT request that simply creates a new Chat and
                 // adds that chat to the current thread
 
-                  // $scope.chatThread.chats.forEach(function(el){
-                  //   console.log(el.unread);
-                  // })
-                  //
-
                 console.log('chatThread is existing');
                 console.log("LOOKING FOR USER STATUS", $scope.currentUser);
                 $scope.data.chatThread = angular.copy($scope.chatThread);

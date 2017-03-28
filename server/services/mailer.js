@@ -13,8 +13,22 @@ const nodemailer = require('nodemailer');
 
 // SMPT transporter
 // const smtpString = `smtps://${process.env.SENDGRID_USERNAME}%40gmail.com:${process.env.SENDGRID_PASSWORD}@smtp.gmail.com`;
-let smtpString = `smtps://${process.env.GMAIL_USER}%40gmail.com:${process.env.GMAIL_PASS}@smtp.gmail.com`
+let smtpString = options
 let transporterSMTP = nodemailer.createTransport(smtpString);
+
+
+var options = {
+	auth: {
+		// api_user: process.env.SENDGRID_USERNAME,
+		// api_key: process.env.SENDGRID_PASSWORD
+		api_user: 'app57565034@heroku.com',
+		api_key: 'vzlntvxm4814'
+	}
+}
+
+
+
+
 
 const mailer = {
     signupNotification: function(user) {
