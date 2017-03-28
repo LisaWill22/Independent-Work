@@ -9,22 +9,12 @@ const Chat = require('../models/chat').Chat;
 
 // Bring in nodemailer
 const nodemailer = require('nodemailer');
-const sgTransport = require('nodemailer-sendgrid-transport');
 
 
 // SMPT transporter
 // const smtpString = `smtps://${process.env.SENDGRID_USERNAME}%40gmail.com:${process.env.SENDGRID_PASSWORD}@smtp.gmail.com`;
-let transporterSMTP = nodemailer.createTransport(options);
-
-
-var options = {
-	auth: {
-		api_user: process.env.SENDGRID_USERNAME,
-		api_key: process.env.SENDGRID_PASSWORD
-		// api_user: 'app57565034@heroku.com',
-		// api_key: 'vzlntvxm4814'
-	}
-}
+let smtpString = `smtps://${process.env.GMAIL_USER}%40gmail.com:${process.env.GMAIL_PASS}@smtp.gmail.com`
+let transporterSMTP = nodemailer.createTransport(smtpString);
 
 const mailer = {
     signupNotification: function(user) {
