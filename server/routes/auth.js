@@ -23,14 +23,14 @@ const mailer = require('../services/mailer');
 
 var options = {
 	auth: {
-		api_user: process.env.SENDGRID_USERNAME,
-		api_key: process.env.SENDGRID_PASSWORD
-		// api_user: 'app57565034@heroku.com',
-		// api_key: 'vzlntvxm4814'
+		// api_user: process.env.SENDGRID_USERNAME,
+		// api_key: process.env.SENDGRID_PASSWORD
+		api_user: 'app57565034@heroku.com',
+		api_key: 'vzlntvxm4814'
 	}
 }
 
-const mailit = nodemailer.createTransport(options);
+const mailit = nodemailer.createTransport(sgTransport(options));
 
 module.exports = function(app, passport) {
 
@@ -151,7 +151,7 @@ module.exports = function(app, passport) {
 								subject: 'Password reset instructions from Independent Work', // Subject line
 								text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 									'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-									'https://' + req.headers.host + '/#/reset-password?resetToken=' + token + '&email='+ user.local.email + '\n\n' +
+									'http://' + req.headers.host + '/#/reset-password?resetToken=' + token + '&email='+ user.local.email + '\n\n' +
 									'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 							};
 							mailOptions = Object.assign(mailOptions, req.body);

@@ -100,7 +100,6 @@ angular.module('independent-work-app')
 			if (user) {
 				// Set the socket up
                 socket.emit('subscribe', $scope.currentUser._id);
-
 				// Set the role for UI toggling
 				$scope.contractor = user.roles.find(function(role) {
 					return role === 'contractor';
