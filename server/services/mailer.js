@@ -35,19 +35,19 @@ const mailer = {
       console.log("SENDING ACCOUNT CONFIRMATION EMAIL");
         let transporter = transporterSMTP;
         let mailOptions = {
-            from: `welcome@indenpendentwork.com`,
+            from: `hello@independentwork.com`,
             to: `${user.local.email}`,
             subject: `Welcome to Independent Work!`,
             text: `
                     Hi ${user.firstName}, thank you for signing up for Indenpendent Work!
                     Click the following link to sign in and join the community!
-                    http://launchpeer-iw.herokuapp.com/#/login.
+                    http://independentwork.com/#/login.
                   `,
             html: ` <p>
                         Hi ${user.firstName}, thank you for signing up for Indenpendent Work!
                         <br />
                         Click the following link to sign in and join the community!
-                        <a href="http://launchpeer-iw.herokuapp.com/#/login>Log in to Independent Work</a>
+                        <a href="http://independentwork.com/#/login>Log in to Independent Work</a>
                     </p>
                     <br />
                     <p>
@@ -92,12 +92,12 @@ const mailer = {
                     subject: `You have a new message!`,
                     text: `
                             Hi ${receiver.firstName}, you have a new message waiting for you from ${sender.firstName} ${sender.lastName}.
-                            Click the following link to view your messages: http://launchpeer-iw.herokuapp.com/#/conversation/${sender._id}.
+                            Click the following link to view your messages: http://independentwork.com/#/conversation/${sender._id}.
                           `,
                     html: `<p>
                                 Hi ${receiver.firstName}, you have a new message waiting for you from ${sender.firstName} ${sender.lastName}.
                                 <br />
-                                Click the following link to view your messages: http://launchpeer-iw.herokuapp.com/#/conversation/${sender._id}.
+                                Click the following link to view your messages: http://independentwork.com/#/conversation/${sender._id}.
                             </p>
                             <br />
                             <p>

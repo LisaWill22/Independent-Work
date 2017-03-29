@@ -48,11 +48,13 @@ angular.module('dashboard')
             $scope.loading = true;
             $scope.searchDone = false;
             $scope.data.skillsToFilterBy = null;
-            $http.get('/sapi/search/contractors?query=' + $scope.data.query)
+            var formattedQuery = $scope.data.query;
+            console.log(formattedQuery)
+            $http.get('/sapi/search/contractors?query=' + formattedQuery)
                 .then(function(res) {
-                    console.log(res);
                     if (res.data.users && res.data.users.length) {
                         $scope.items = _.filter(res.data.users, function(user) {
+                          console.log(user);
                             return user.roles && user.roles.indexOf('contractor') !== -1 && user.firstName;
                         });
                     } else {
@@ -61,7 +63,6 @@ angular.module('dashboard')
                     }
 
                     $scope.oldQuery = angular.copy($scope.data.query);
-                    console.log($scope.oldQuery);
                     $scope.loading = false;
                     $scope.searchDone = true;
                 })
