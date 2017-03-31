@@ -294,10 +294,8 @@ const returnRouter = function(io) {
     			});
     		});
     	})
-      // mailer.messageNotification();
-      // console.log("SENDING MESSAGE TO OFFLINE USER");
     	.put(function(req, res, next) {
-        console.log("HEY HEY HYE");
+        console.log("");
     		const newChat = new Chat(req.body.chat);
     		newChat.save(function(err, chat) {
     			if (err) {

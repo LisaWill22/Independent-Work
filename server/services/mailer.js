@@ -19,10 +19,10 @@ let transporterSMTP = nodemailer.createTransport(smtpString);
 
 var options = {
 	auth: {
-		api_user: process.env.SENDGRID_USERNAME,
-		api_key: process.env.SENDGRID_PASSWORD
-		// api_user: 'app57565034@heroku.com',
-		// api_key: 'vzlntvxm4814'
+		// api_user: process.env.SENDGRID_USERNAME,
+		// api_key: process.env.SENDGRID_PASSWORD
+		api_user: 'app57565034@heroku.com',
+		api_key: 'vzlntvxm4814'
 	}
 }
 
