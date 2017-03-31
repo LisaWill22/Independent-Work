@@ -39,7 +39,7 @@ const mailer = {
             to: `${user.local.email}`,
             subject: `Welcome to Independent Work!`,
             text: `
-                    Hi, thank you for signing up for Indenpendent Work!
+                    Hi, thank you for signing up for Independent Work!
                     Click the following link to sign in and join the community!
                     http://independentwork.com/#/login.
                   `,
