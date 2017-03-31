@@ -47,6 +47,7 @@ module.exports = function(app, passport) {
 			if (req.user) {
 				console.log(chalk.green('New user created for >> ', req.user.local.email));
 				mailer.signupNotification(req.user);
+				
 				res.json(req.user);
 			} else {
 				console.log(chalk.red('Account already exists for >>', req.user.local.email));

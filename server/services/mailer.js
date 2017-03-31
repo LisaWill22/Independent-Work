@@ -19,10 +19,10 @@ let transporterSMTP = nodemailer.createTransport(smtpString);
 
 var options = {
 	auth: {
-		// api_user: process.env.SENDGRID_USERNAME,
-		// api_key: process.env.SENDGRID_PASSWORD
-		api_user: 'app57565034@heroku.com',
-		api_key: 'vzlntvxm4814'
+		api_user: process.env.SENDGRID_USERNAME,
+		api_key: process.env.SENDGRID_PASSWORD
+		// api_user: 'app57565034@heroku.com',
+		// api_key: 'vzlntvxm4814'
 	}
 }
 
@@ -44,14 +44,14 @@ const mailer = {
                     http://independentwork.com/#/login.
                   `,
             html: ` <p>
-                        Hi, thank you for signing up for Indenpendent Work!
+                        Hi, thank you for signing up for Independent Work!
                         <br />
                         Click the following link to sign in and join the community!
                         <a href="http://independentwork.com/#/login>Log in to Independent Work</a>
                     </p>
                     <br />
                     <p>
-                        <i>Your friends at Indenpendent Work</i> - <a href="//:www.independentwork.com">www.independentwork.com</a>
+                        <i>Your friends at Independent Work</i> - <a href="//:www.independentwork.com">www.independentwork.com</a>
                     </p>
                   `,
         };
@@ -87,7 +87,7 @@ const mailer = {
 
 
                 let mailOptions = {
-                    from: `notifications@indenpendentwork.com`,
+                    from: `notifications@independentwork.com`,
                     to: `${receiver.local.email}`,
                     subject: `You have a new message!`,
                     text: `
@@ -101,7 +101,7 @@ const mailer = {
                             </p>
                             <br />
                             <p>
-                                <i>Your friends at Indenpendent Work</i> - <a href="//:www.independentwork.com">www.independentwork.com</a>
+                                <i>Your friends at Independent Work</i> - <a href="//:www.independentwork.com">www.independentwork.com</a>
                             </p>
                           `,
                 };
