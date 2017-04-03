@@ -23,10 +23,10 @@ const mailer = require('../services/mailer');
 
 var options = {
 	auth: {
-		api_user: process.env.SENDGRID_USERNAME,
-		api_key: process.env.SENDGRID_PASSWORD
-		// api_user: 'app57565034@heroku.com',
-		// api_key: 'vzlntvxm4814'
+		// api_user: process.env.SENDGRID_USERNAME,
+		// api_key: process.env.SENDGRID_PASSWORD
+		api_user: 'app57565034@heroku.com',
+		api_key: 'vzlntvxm4814'
 	}
 }
 
@@ -47,7 +47,6 @@ module.exports = function(app, passport) {
 			if (req.user) {
 				console.log(chalk.green('New user created for >> ', req.user.local.email));
 				mailer.signupNotification(req.user);
-				
 				res.json(req.user);
 			} else {
 				console.log(chalk.red('Account already exists for >>', req.user.local.email));
