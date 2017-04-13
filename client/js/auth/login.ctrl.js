@@ -3,11 +3,12 @@
 angular.module('auth')
     .controller('LoginCtrl', function($scope, $http, $state, $rootScope, toastr) {
         console.log('LoginCtrl loaded >>', $scope);
+
         window.Intercom('boot', {
            app_id: 'opo8zis9',
-           custom_launcher_selector: '#my_custom_link',
-           email: "email@email.com"
+           email: "janedoe@gmail.com"
         });
+        window.Intercom('update');
 
         $scope.data = {};
 

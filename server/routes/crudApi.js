@@ -3,8 +3,8 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var mongoskin = require('mongoskin');
-var db = mongoskin.db(process.env.MONGODB_URI, {
-// var db = mongoskin.db("mongodb://heroku_5jjz4t9j:7tuc3e5kka6pak2vab2euush4n@ds053166.mlab.com:53166/heroku_5jjz4t9j", {
+// var db = mongoskin.db(process.env.MONGODB_URI, {
+var db = mongoskin.db("mongodb://heroku_5jjz4t9j:7tuc3e5kka6pak2vab2euush4n@ds053166.mlab.com:53166/heroku_5jjz4t9j", {
 	safe: true
 });
 /*

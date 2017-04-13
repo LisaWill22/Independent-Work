@@ -44,9 +44,12 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 	// Send the user to the home page if they get a bad route
 	$urlRouterProvider.otherwise('/');
 
+
 	window.Intercom('boot', {
-	   app_id: 'opo8zis9',
+		 app_id: 'opo8zis9',
+		 email: "janedoe@gmail.com"
 	});
+	window.Intercom('update');
 
 
 	// Register the base app state
