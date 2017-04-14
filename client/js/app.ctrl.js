@@ -3,7 +3,7 @@
 angular.module('independent-work-app')
 	.controller('AppCtrl', function(session, skills, $scope, $rootScope, $http, $state, $localStorage, $uibModal, socket) {
 
-		console.log('main app ctrl loaded >> ', $scope);
+		console.log('main app ctrl loaded successfully>> ', $scope);
 
 		window.Intercom('boot', {
 	   app_id: 'opo8zis9'
