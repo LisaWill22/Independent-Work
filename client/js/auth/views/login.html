@@ -1,17 +1,12 @@
+
 <div class="container">
+
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<!-- Shows when no one is logged in -->
-					<form bo-form
-	                      autocomplete="off"
-	                      novalidate
-	                      name="loginForm"
-						  ng-on-error="onError"
-	                      ng-after-submit="afterSubmit"
-	                      ng-action="/auth/login"
-						  ng-show="!currentUser">
+					<form bo-form autocomplete="off" novalidate name="loginForm" ng-on-error="onError" ng-after-submit="afterSubmit" ng-action="/auth/login" ng-show="!currentUser">
 						<h3>
 							Log In
 							<h5>
@@ -26,22 +21,10 @@
 						</div>
 						<hr class="colorgraph">
 						<div class="form-group" bo-validate show-valid-icon>
-							<input ng-model="data.email"
-								   type="email"
-								   name="email"
-								   id="email"
-								   ng-required="true"
-								   class="form-control input-lg"
-								   placeholder="Email Address" >
+							<input ng-model="data.email" type="email" name="email" id="email" ng-required="true" class="form-control input-lg" placeholder="Email Address">
 						</div>
 						<div class="form-group" bo-validate show-valid-icon>
-							<input ng-model="data.password"
-								   type="password"
-								   name="password"
-								   id="password"
-								   ng-required="true"
-								   class="form-control input-lg"
-								   placeholder="Password">
+							<input ng-model="data.password" type="password" name="password" id="password" ng-required="true" class="form-control input-lg" placeholder="Password">
 						</div>
 						<hr class="colorgraph">
 						<div class="row">
@@ -61,8 +44,7 @@
 
 					<!-- Shows if there is already someone logged in -->
 					<div class="text-center" ng-show="currentUser">
-						You are already logged in as
-						{{ currentUser.local.email }}.
+						You are already logged in as {{ currentUser.local.email }}.
 						<br/>
 						<br/>
 						<div class="text-center">

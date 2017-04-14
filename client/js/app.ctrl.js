@@ -6,10 +6,8 @@ angular.module('independent-work-app')
 		console.log('main app ctrl loaded >> ', $scope);
 
 		window.Intercom('boot', {
-			 app_id: 'opo8zis9',
-			 email: "janedoe@gmail.com"
+	   app_id: 'opo8zis9'
 		});
-		window.Intercom('update');
 
 		// Set up the local storage
 		$scope.$storage = $localStorage;

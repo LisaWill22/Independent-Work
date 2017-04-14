@@ -4,6 +4,7 @@ angular.module('home')
     .controller('ContactFormCtrl', function($scope, $rootScope, toastr) {
 
         console.log('ContactFormCtrl loaded >>', $scope);
+        console.log("Contact Form Controller", $scope.data);
 
         $rootScope.hideFooter = false;
 

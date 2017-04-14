@@ -46,10 +46,8 @@ app.config(function($stateProvider, $urlRouterProvider, $localStorageProvider, $
 
 
 	window.Intercom('boot', {
-		 app_id: 'opo8zis9',
-		 email: "janedoe@gmail.com"
-	});
-	window.Intercom('update');
+   app_id: 'opo8zis9'
+});
 
 
 	// Register the base app state

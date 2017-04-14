@@ -3,6 +3,7 @@
 angular.module('signup')
     .controller('EmployerSignupOneCtrl', function($scope, $http, $state, $timeout, toastr) {
         console.log('EmployerSignupOneCtrl loaded >>', $scope);
+        console.log("EmployerSignupOneCtrl Controller", $scope.currentUser);
 
         $scope.data = {};
         $scope.data.roles = [];

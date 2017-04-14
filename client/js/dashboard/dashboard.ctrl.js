@@ -3,15 +3,23 @@
 angular.module('dashboard')
     .controller('DashboardCtrl', function(skills, $scope, $rootScope, $http, $timeout, toastr) {
         console.log('DashboardCtrl loaded >>', $scope);
+        console.log($scope.currentUser, "GABRIELL OWES ME $1");
+
+
 
         $rootScope.hideFooter = true;
         $scope.searchDone = false;
         $scope.filtersCollapsed = true;
-
         $scope.data = {};
         $scope.data.query = '';
         $scope.skills = skills.data;
         $scope.data.skillsMatch = 'any';
+
+
+        window.Intercom('boot', {
+         app_id: 'opo8zis9',
+         email: $scope.currentUser.local.email
+        });
 
         // Load in postings
         if ($scope.contractor) {
